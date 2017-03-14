@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>九九乘法表</title>
+  <style type="text/css">
+	*{padding:0;
+	  margin:0;}
+	body{font-size:16px;
+		font-family:"微软雅黑";
+		text-align:center;
+		}
+	table td{width:100px;height:30px;color:#fff;text-align:center;}
+	input{width:200px;height:30px; margin:50px auto;}
+	.num{text-indent:0.5em;font-size:16px;}
+	.button{cursor:pointer;}
+	.button:hover{
+		background:#000033;
+		color:#fff;
+	}
+  </style>
+ </head>
+ <body>
+	<input type="text" id="num" class="num" placeholder="请输入一个大于零的整数"/>
+	<input type="button" class="button" value="生成乘法表" onclick="become();"/>
+	<input type="button" class="button" value="自动生成乘法表" onclick="startbecome();"/>
+	<input type="button" class="button" value="停止生成乘法表" onclick="stopbecome();"/>
+	<table id="table">
+		<tbody id="tbody" bgcolor="#000">
+			<!-- <tr>
+				<td></td>
+			</tr> -->
+		</tbody>
+	</table>
+	
+	<script type="text/javascript">
+			
+		
+		/*手动生成乘法表*/
+		function become(){
+			var html = "";
+			var num = document.getElementById("num").value;
+			//alert(num);
+			if(!num){
+				document.getElementById("num").focus();
+				alert("请输入一个大于零的整数吧...");
+				return;
+			}
+			if(isNaN(num)){
+				document.getElementById("num").focus();
+				alert("请输入一个大于零的整数吧...");
+				return;
+			}
+
+			for(var i=1;i<=num;i++){//外循环控制行
+				html += "<tr>";
+				for(var j=1;j<=i;j++){//内循环控制列
+					html += "<td>"+j+"*"+i+"="+(j*i)+"</td>";
+				}
+				html += "</tr>";
+			}
+			document.getElementById("tbody").innerHTML=html;
+		}
+		/*自动生成乘法表*/
+		var timer = null;
+		var num = 0;
+		function startbecome(){
+			timer = setInterval(function(){
+				num++;
+				document.getElementById("num").value = num;
+				become();
+			},1000);
+		}
+		/*停止生成乘法表*/
+		function stopbecome(){
+			clearInterval(timer);
+		}	
+
+	</script>
+ </body>
+</html>

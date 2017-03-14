@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>拖拽</title>
+  <style type="text/css">
+	*{
+		padding:0;
+	    margin:0;
+	}
+	a{
+		text-decoration:none;
+	}
+	ul li{
+		float:left;
+		list-style:none;
+	}
+	body{
+		font-size:12px;
+		font-family:"微软雅黑";	
+	}
+	#box{
+		width:100px;
+		height:100px;
+		position:absolute;
+		top:0;
+		left:0;
+		background:red;
+	}
+  </style>
+ </head>
+ <body>
+  <div id="box"></div>
+ <script type="text/javascript">
+	/*
+		拖拽三要素：
+			1、加定位：position:absolute/fixed 改变left top;
+			2、绑定事件：onmousedown onmousemove onmouseup
+			3、清空鼠标事件：
+	*/
+	//封装id
+	function $(id){
+		return document.getElementById(id);
+	};
+	
+	window.onload = function(){
+		//获取dom对象
+		var boxDom = $("box");
+		//对dom对象绑定事件
+		boxDom.onmousedown = function(e){
+			//获取当前dom对象相对浏览器的位置
+			var oleft = this.offsetLeft;
+			var otop = this.offsetTop;
+			//获取当前dom对象能移动的最大位置 使之能在可视区域显示
+			var maxWidth = window.innerWidth - boxDom.offsetWidth;
+			var maxHeight = window.innerHeight - boxDom.offsetHeight;//滚动条潜在问题？
+			//获取鼠标位置
+			var pos = getXY(e);
+			//绑定鼠标移动事件
+			document.onmousemove = function(e){
+				//获取移动后的鼠标坐标
+				var pos2 = getXY(e);
+				//获取移动后的元素坐标
+				var nleft = pos2.x - pos.x + oleft;
+				var ntop = pos2.y - pos.y + otop;
+				//边界判断
+				if(nleft <=0 ) nleft = 0;
+				if(ntop <=0 ) ntop = 0;
+				if(nleft >= maxWidth ) nleft = maxWidth;
+				if(ntop >= maxHeight ) ntop = maxHeight;
+				//对dom对象赋值
+				boxDom.style.left = nleft+ "px";
+				boxDom.style.top = ntop+ "px";
+			};
+			//绑定鼠标移出事件 --清空鼠标事件
+			document.onmouseup = function(){
+				this.onmousemove = null;
+				this.onmouseup = null;
+			};
+		};
+	};
+	
+	//封装获取鼠标位置
+	//pageX包含scrollTop scrollLeft -------clientX不包含scrollTop scrollLeft
+	function getXY(e){
+		var ev = e || window.event;
+		var x = 0 , y = 0;
+		if(ev.pageX){
+			x = ev.pageX;
+			y = ev.pageY;
+		}else{
+			var cleft = 0 , ctop = 0;
+			//ie678
+			if(document.documentElement){
+				cleft = document.documentElement.scrollLeft;
+				ctop = document.documentElement.scrollTop;
+			}else{//ie9+
+				cleft = document.body.scrollLeft;
+				ctop = document.body.scrollTop;
+			}
+			x = ev.clientX + cleft;
+			y = ev.clientY + ctop;
+		}
+		return {x:x,y:y};
+	};
+ </script>
+ </body>
+</html>

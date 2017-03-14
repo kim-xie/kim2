@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>简单完整版banner图轮播</title>
+  <style type="text/css">
+	*{
+		padding:0;
+	    margin:0;
+	}
+	a{
+		text-decoration:none;
+	}
+	ul,ol li{
+		float:left;
+		list-style:none;
+	}
+	body{
+		font-size:12px;
+		font-family:"微软雅黑";	
+	}
+	#bannerbox{
+		width:970px;
+		height:350px;
+		position:relative;
+		margin:10px auto;
+		overflow:hidden;
+	}
+	span{
+		display:block;
+		width:40px;
+		height:50px;
+		background:#000;
+		opacity:0;
+		text-align:center;
+		line-height:50px;
+		cursor:pointer;
+		transition:opacity 2s ease;
+		z-index:2;
+		position:absolute;
+		top:50%;
+		margin-top:-25px;
+	}
+	span .iconfont{
+		display:block;
+		font-size:30px;
+		color:#fff;
+	}
+	#bannerbox:hover #prev{
+		opacity:0.7;
+		transition:opacity 2s ease;
+	}
+	#bannerbox:hover #next{
+		opacity:0.7;
+		transition:opacity 2s ease;
+	}
+	#prev{
+		left:10px;
+	}
+	#next{
+		right:10px;
+	}
+	ul{
+		width:970px;
+		position:absolute;
+		top:0;
+		left:0;
+	}
+	ul li img{
+		width:970px;
+		height:350px;
+	}
+	ol{
+		z-index:2;
+		width:200px;
+		height:30px;
+		position:absolute;
+		bottom:10px;
+		left:50%;
+		margin-left:-100px;
+		background:rgba(74,76,74,0.6);
+		border-radius:30px;
+		opacity:0;
+		transition:opacity 2s ease;
+	}
+	#bannerbox:hover ol{
+		opacity:1;
+		transition:opacity 2s ease;
+	}
+	ol li{
+		color:#fff;
+		font-size:14px;
+		width:20px;
+		height:20px;
+		margin-top:5px;
+		border-radius:50%;
+		background:#ccccff;
+		text-align:center;
+		margin-left:16px;
+		cursor:pointer;
+	}
+	ol .active{
+		background:#ff9900;
+		color:#fff;
+	}
+  </style>
+  <link rel="stylesheet" type="text/css" href="iconfont/iconfont.css"/>
+ </head>
+ <body>
+ <div id="bannerbox">
+	<ul id="imgbox">
+		<li><img id="img" src="images/1.jpg"/></li>
+	</ul>
+	<span id="prev"><i class="iconfont icon-arrowl"></i></span>
+	<span id="next"><i class="iconfont icon-arrowr"></i></span>
+	<ol id="modul">
+		<li class="active">1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+	</ol>
+ </div>
+  
+ <script type="text/javascript">
+	//封装id绑定
+	function $(id){
+		return document.getElementById(id);
+	};
+	window.onload = function(){
+		var bannerbox = $("bannerbox");
+		var prev = $("prev");
+		var next = $("next");
+		var img = $("img");
+		var olLiDoms = $("modul").children;
+		var ollen = olLiDoms.length;
+		var imgindex = 1;
+		//点击下一张
+		next.onclick = function(){
+			imgindex++;
+			if(imgindex > 5)
+			imgindex = 1;
+			img.src = "images/"+imgindex+".jpg";
+			//切换索引
+			indexTab();
+		};
+		//点击上一张
+		prev.onclick = function(){
+			imgindex--;
+			if(imgindex < 1)
+			imgindex = 5;
+			img.src = "images/"+imgindex+".jpg";
+			//切换索引
+			indexTab();
+		};
+		//点击索引
+		for(var i=0;i<ollen;i++){
+			olLiDoms[i].index = i;
+			olLiDoms[i].onclick = function(){
+				//切换图片
+				imgindex = this.index+1;
+				img.src = "images/"+imgindex+".jpg";
+				//切换索引
+				indexTab();
+			};
+		}
+		//封装切换索引--达到方法共用
+		function indexTab(){
+			for(var j=0;j<ollen;j++){
+				if(imgindex-1 == j){
+					olLiDoms[j].className = "active";
+				}else{
+					olLiDoms[j].className = "";
+				}
+			}
+		};
+		//设置定时器
+		var timer = setInterval(bannerPlay,2000);
+		function bannerPlay(){
+			imgindex++;
+			if(imgindex > 5)
+			imgindex = 1;
+			img.src = "images/"+imgindex+".jpg";
+			//切换索引
+			indexTab();
+		};
+		//鼠标进入清除定时器
+		bannerbox.onmouseover = function(){
+			clearInterval(timer);
+		};
+		//鼠标移出开启定时器
+		bannerbox.onmouseout = function(){
+			clearInterval(timer);
+			timer = setInterval(bannerPlay,2000);
+		};
+	};
+ </script>
+ </body>
+</html>

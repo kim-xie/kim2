@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>图片延迟加载</title>
+  <style type="text/css">
+	*{
+		padding:0;
+	    margin:0;
+	}
+	a{
+		text-decoration:none;
+	}
+	ul li{
+		float:left;
+		list-style:none;
+	}
+	body{
+		font-size:12px;
+		font-family:"微软雅黑";	
+	}
+	#box{
+		width:930px;
+		margin:100px auto;
+    	overflow:hidden;
+		padding:0 0 10px 10px;
+	}
+	#box ul li{
+		margin:10px 10px 0 0; 
+	}
+	#box ul li img{
+		width:300px;
+		height:200px;
+		display:block;
+	}
+	
+  </style>
+ </head>
+ <body>
+ <div id="box">
+	 <ul id="imgul">
+		<li><img date-src="images/1.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/2.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/3.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/4.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/5.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/6.jpg" src="images/loading.gif"></li>
+
+		<li><img date-src="images/1.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/2.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/3.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/4.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/5.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/6.jpg" src="images/loading.gif"></li>
+
+		<li><img date-src="images/1.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/2.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/3.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/4.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/5.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/6.jpg" src="images/loading.gif"></li>
+
+		<li><img date-src="images/1.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/2.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/3.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/4.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/5.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/6.jpg" src="images/loading.gif"></li>
+
+		<li><img date-src="images/1.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/2.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/3.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/4.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/5.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/6.jpg" src="images/loading.gif"></li>
+
+		<li><img date-src="images/1.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/2.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/3.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/4.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/5.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/6.jpg" src="images/loading.gif"></li>
+
+		<li><img date-src="images/1.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/2.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/3.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/4.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/5.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/6.jpg" src="images/loading.gif"></li>
+
+		<li><img date-src="images/1.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/2.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/3.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/4.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/5.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/6.jpg" src="images/loading.gif"></li>
+
+		<li><img date-src="images/1.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/2.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/3.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/4.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/5.jpg" src="images/loading.gif"></li>
+		<li><img date-src="images/6.jpg" src="images/loading.gif"></li>
+	 </ul>
+ </div>
+ 
+ <script type="text/javascript">
+	/*
+		图片延迟加载技术--节约带宽、提升加载速度
+	*/
+	function $(id){
+		return document.getElementById(id);
+	};
+	window.onload = function(){
+		//获取ul列表及ul列表下的所有img
+		var imgulDom = $("imgul");
+		var imgDoms = imgulDom.getElementsByTagName("img");
+		//显示图片
+		function showImage(){
+			//获取滚动条距离顶部的距离(兼容性写法)
+			var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+			//可视窗口的高度
+			var cHeight = window.innerHeight || document.body.clientHeight;
+			
+			//循环遍历img
+			for (var i=0;i<imgDoms.length;i++){
+				//判断--如果图片距离顶部的距离小于可视高度加上滚动条的高度则显示图片
+				if(getTop(imgDoms[i]) < scrollTop + cHeight)
+				imgDoms[i].src = imgDoms[i].getAttribute("date-src");
+			}
+		};
+		
+		//执行显示图片函数
+		showImage();
+		//触发滚动条事件
+		window.onscroll = showImage;
+		//获取图片距离顶部的距离 兼容定位和浮动布局
+		function getTop(obj){
+			var top = 0;
+			while(obj){
+				top += obj.offsetTop;
+				obj = obj.offsetParent;
+			}
+			return top;
+		};
+		
+	};
+ 
+ </script>
+ </body>
+</html>

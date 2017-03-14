@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>天猫banner</title>
+  <style type="text/css">
+	*{padding:0;margin:0;}
+	a{text-decoration:none;}
+	ul,ol li{list-style:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	#box{width:1190px;height:300px;margin:100px auto;position:relative;}
+	#box #list{position:relative;}
+	#box #list li{position:absolute;left:0px;top:0px;opacity:0;}
+	#box #num{position:absolute;left:50%;bottom:10px;margin-left:-185px;width:370px;
+	height:40px;background:rgba(0,0,0,0.6);border-radius:20px;z-index:2;}
+	#box #num li{float:left;width:30px;height:30px;border-radius:50%;margin-left:20px;text-align:center;background:black;color:#fff;line-height:30px;margin-top:5px;cursor:pointer;}
+	#box #num li.active{background:#00cc00;}
+	#prev,#next{position:absolute;top:40%;background:rgba(0,0,0,0.6);display:block;padding:10px;font-size:40px;opacity:0;}
+	#prev{left:10px;}
+	#next{right:10px;}
+	a:hover {color:#cc0000;}
+	#box:hover #prev{opacity:1;transition:opacity 1s ease;}
+	#box:hover #next{opacity:1;transition:opacity 1s ease;}
+  </style>
+ </head>
+ <body>
+  <div id="box">
+	<ul id="list">
+		<li style="opacity:1;"><img src="imgs/1.jpg"/></li>
+		<li><img src="imgs/2.jpg"/></li>
+		<li><img src="imgs/3.jpg"/></li>
+		<li><img src="imgs/4.jpg"/></li>
+		<li><img src="imgs/5.jpg"/></li>
+		<li><img src="imgs/6.jpg"/></li>
+		<li><img src="imgs/7.jpg"/></li>
+	</ul>
+	<a href="javascript:void(0);" id="prev">&lt;</a>
+	<a href="javascript:void(0);" id="next">&gt;</a>
+	<ol id="num">
+		<li class="active">1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+	</ol>
+  </div>
+ <script type="text/javascript">
+	//封装绑定id
+	function $(id){
+		return document.getElementById(id);
+	};
+	//获取元素
+	var box = $("box");
+	var list = $("list").children;
+	var num = $("num").children;
+	var prev = $("prev");
+	var next = $("next");
+	//动画设置
+	var timer = null;
+	var aindex = 0;
+	
+	//点击索引触发的事件
+	for(var i=0;i<num.length;i++){
+		num[i].index = i;
+		num[i].onclick = function(){
+			show(this.index);
+		};
+	}
+	//动画切换方法
+	function show(index){
+		//索引切换
+		for(var i=0;i<num.length;i++){
+			num[i].className = "";
+			num[index].className = "active";
+		}
+		//图片切换淡入淡出
+		for(var j=0;j<list.length;j++){
+			list[j].style.opacity = 0;
+			list[index].style.opacity = 1;
+		}
+	};
+	//点击上一张
+	prev.onclick = function(){
+		if(aindex == 0 ){
+			aindex=(list.length-1);
+			show(aindex);
+		}else{
+			aindex--;
+			show(aindex);
+		}
+	};
+	//点击下一张
+	next.onclick = function(){
+		if(aindex >= (list.length-1)){
+			aindex=0;
+			show(aindex);
+		}else{
+			aindex++;
+			show(aindex);
+		}
+	};
+	//自动播放
+	function autoPlay(){
+		if(aindex >= (list.length-1)){
+			aindex=0;
+			show(aindex);
+		}else{
+			aindex++;
+			show(aindex);
+		}
+	};
+	timer = setInterval(autoPlay,2000);
+	
+	//鼠标进入清除动画
+	box.onmouseover = function(){
+		clearInterval(timer);
+	};
+	//鼠标移出继续动画
+	box.onmouseout = function(){
+		clearInterval(timer);
+		timer = setInterval(autoPlay,2000);
+	};
+
+ </script>
+ </body>
+</html>

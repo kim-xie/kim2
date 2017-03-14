@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.dao.music.IMusicMapper" >
+	
+	<!-- 查询所有Music -->
+	<select id="findMusics" resultType="java.util.HashMap" parameterType="Params">
+		select 
+			m.id,
+			m.title,
+			m.singer,
+			m.album,
+			m.time,
+			m.size,
+			m.playSrc,
+			m.image,
+			m.lrc,
+			m.loves,
+			m.listens,
+			m.collections,
+			m.comments,
+			m.descriptions,
+			m.is_delete as isDelete,
+			m.create_time as createTime,
+			m.update_time as updateTime,
+			u.name,
+			u.header_pic as headerPic
+		FROM
+			music m 
+			  LEFT JOIN music_category c 
+			    ON c.id = m.category_id 
+			  LEFT JOIN user u 
+			    ON u.id = m.user_id 
+				<trim prefix="WHERE" prefixOverrides="AND | OR">  
+					<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+						and (m.title = #{keyword} or m.singer = #{keyword} or m.album = #{keyword}) 
+					</if>
+					<if test="@com.kim.util.StringUtils@isNotEmpty(isDelete)">
+						and m.is_delete = #{isDelete}
+					</if>
+				</trim>	
+				ORDER BY m.${order}
+				<!-- LIMIT #{pageNo},#{pageSize}	 -->
+	</select>
+	
+	<!-- 根据id查询Music -->
+	<select id="getMusic" resultType="java.util.HashMap">
+		SELECT 
+		  	m.id,
+			m.user_id as userId,
+			m.category_id as categoryId,
+			m.title,
+			m.singer,
+			m.album,
+			m.time,
+			m.size,
+			m.playSrc,
+			m.image,
+			m.lrc,
+			m.loves,
+			m.listens,
+			m.collections,
+			m.comments,
+			m.descriptions,
+			m.is_delete as isDelete,
+			m.create_time as createTime,
+			m.update_time as updateTime,
+			u.name,
+			u.header_pic as headerPic
+		FROM
+			music m 
+			  LEFT JOIN music_category c 
+			    ON c.id = m.category_id 
+			  LEFT JOIN user u 
+			    ON u.id = m.user_id 
+		WHERE 
+			id = #{id}
+	</select>
+	
+	<!-- 查询Music的总记录数  -->
+	<select id="countMusic" resultType="int" parameterType="Params">
+		SELECT
+			count(1) 
+		FROM
+			music 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and (m.title = #{keyword} or m.singer = #{keyword} or m.album = #{keyword}) 
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 添加Music -->
+	<insert id="saveMusic" parameterType="Music" useGeneratedKeys="true" keyProperty="id" flushCache="true" >
+	  	INSERT INTO music(
+			title,
+			singer,
+			album,
+			time,
+			size,
+			user_id,
+			category_id,
+			playSrc,
+			image,
+			lrc,
+			loves,
+			listens,
+			collections,
+			comments,
+			descriptions,
+			is_delete
+	  	) VALUES (
+		  	#{title},
+		  	#{singer},
+		  	#{album},
+		  	#{time},
+		  	#{size},
+		  	#{userId},
+		  	#{categoryId},
+		  	#{playSrc},
+		  	#{image},
+		  	#{lrc},
+		  	#{loves},
+		  	#{listens},
+		  	#{collections},
+		  	#{comments},
+		  	#{descriptions},
+		  	#{isDelete}
+	  	)
+	 </insert>
+	
+	<!-- 更新Music -->
+	<update id="updateMusic" parameterType="Music">
+		update music
+		<set>
+			<if test="isDelete!=null">is_delete=#{isDelete},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 删除Music -->
+	<delete id="deleteMusic" parameterType="Params">
+		<!-- delete from music where id = #{id} 真删 -->
+		update music set is_delete = 1 where id = #{id}
+	</delete>
+	
+</mapper>

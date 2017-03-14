@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>换肤</title>
+	<meta charset="utf-8"/>
+	<meta name="keywords" content="关键字"/>
+	<meta name="description" content="描述"/>
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+</head>
+	<style type="text/css">
+		*{margin:0;padding:0;}
+		body{font-family: "微软雅黑";
+			 font-size: 12px;
+			 background:url("images/409.jpg")no-repeat;
+			 background-size:cover;
+		}
+		.box{width:1200px;
+		     height:220px;
+			 background:rgba(0,0,0,0.4);
+			 margin: 0 auto;
+		     overflow: hidden;
+			 display: none;
+			 position:relative;
+		}
+
+		.box .prev{
+			position:absolute;
+			left:120px;
+			top:80px;
+			text-align:center;
+			cursor:pointer;
+			width: 45px;
+			height: 60px;
+			line-height:60px;
+			background:rgba(0,0,0,0);
+		}
+		.box .next{
+			position:absolute;
+			right:120px;
+			top:80px;
+			text-align:center;
+			cursor:pointer;
+			width: 45px;
+			height: 60px;
+			line-height:60px;
+			background:rgba(0,0,0,0);
+		}
+		.box:hover .next{
+			background:rgba(0,0,0,0.5);
+		}
+		.box:hover .prev{
+			background:rgba(0,0,0,0.5);
+		}
+		.box .contains{
+			margin:50px auto;
+			overflow: hidden;
+			position:relative;
+			width:830px;
+			height:120px;
+		}
+		.box .contains ul{
+			position:absolute;
+			left:-840px;
+			top:0;
+			height:120px;
+			width:1670px;
+		}
+		
+		.box ul li{
+			width:200px;
+			height:120px;
+			margin-right:10px;
+		    float:left;
+			list-style: none;
+			cursor:pointer;
+			position:relative;
+		}
+		.box ul li:last-child{margin-right:0;}
+		.box ul li:hover{
+			background:rgba(0,0,0,0.4);
+		}
+		.box ul li span{
+			position:absolute;
+			right:4px;
+			bottom:4px;
+			display:none;
+			width:18px;
+			height:18px;
+			background:url("images/skin_icon_png24_62d35ae7.png")no-repeat;
+			background-position:-180px 0px;
+		}
+		.hf{width:32px;
+			margin-left: 83px;
+			cursor:pointer;
+			height:36px;
+			background:#c00;
+		}
+		
+	</style>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript">
+		
+		$(function(){
+			
+			$("ul li").click(function(e){
+				//获取当前li下的src属性
+				var src = $(this).children().attr("src");
+				//获取到的src绑定到背景图片中去
+				$("body").css("background-image","url("+src+")");
+				/*获取当前li的下标*/
+				var index = $(this).index();
+				/*对号等于当前li的下标则显示*/
+				$("ul li").find("span").eq(index).show();
+				/*对号等于当前li的下标则显示其兄弟元素隐藏*/
+				$(this).siblings().find("span").hide();
+				//阻止事件冒泡
+				e.stopPropagation();
+			});
+			//初始化选中
+			$("ul li").find("span").eq(7).show();
+			
+			//换肤
+			$(".hf").click(function(e){
+				$(".box").slideToggle();
+				$(".hf").find("i").toggleClass("icon-chevron-down icon-chevron-up");
+				e.stopPropagation();
+			});
+			//点击document触发换肤事件
+			$("html").click(function(){
+				$(".box").slideUp();
+				$(".hf").find("i").addClass("icon-chevron-down").removeClass("icon-chevron-up");
+			});
+			
+			//li的切换
+			var index = 4;
+			var nowTime = 0;
+			var len = $(".pic").find("li").length;
+			var width = $(".pic").find("li").eq(0).width();
+			$(".pic").css("width",width*len+(len-1)*10);
+			
+			//点击下一张	
+			$(".next").click(function(e){
+				e.stopPropagation();
+				var time = new Date() - nowTime;//避免狂点的问题
+				if(time > 400){
+					nowTime = new Date();
+					if(index == len-4){
+						index = 4;
+					}else{
+						index++;
+					}
+				}
+				$(".pic").stop(true,true).animate({"left":-(width+10)*index},300,
+				function(){
+					if(index == len-4){
+						$(".pic").css("left",-(width+10)*4);
+						index = 4;
+					}
+				});
+			}).mousedown(function(){return false;});//狂点出现的问题
+			//点击上一张
+			$(".prev").click(function(e){
+				e.stopPropagation();
+				var time = new Date() - nowTime;
+				if(time > 400){
+					nowTime = new Date();
+					if(index == 0){
+						index = len-8;
+					}else{
+						index--;
+					}
+				}
+				$(".pic").stop(true,true).animate({"left":-(width+10)*index},300,
+				function(){
+					if(index == 0){
+						$(".pic").css("left",-(width+10)*(len-8));
+						index = len-8;
+					}
+				});
+			}).mousedown(function(){return false;});
+			
+		});
+	</script>
+<body>
+	<div class="box">
+		
+		<i class="icon-chevron-left prev" style="font-size:34px;color:#fff"></i>
+		<div class="contains">
+			<ul class="pic">
+				<!--无缝尾部-->
+				<li>
+					<img src="images/485.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/486.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/518.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/520.jpg" width="200" height="120">
+					<span></span>
+				</li>
+
+				
+				<!--banner内容-->
+				<li>
+					<img src="images/207.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/259.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/405.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/409.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/410.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/411.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/421.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/423.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/442.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/444.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/476.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/477.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/483.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/485.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/486.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/518.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/520.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				
+				
+				<!--无缝头部-->
+				<li>
+					<img src="images/207.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/259.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/405.jpg" width="200" height="120">
+					<span></span>
+				</li>
+				<li>
+					<img src="images/409.jpg" width="200" height="120">
+					<span></span>
+				</li>
+		
+			</ul>
+		</div>
+		<i class="icon-chevron-right next" style="font-size:34px;color:#fff"></i>
+
+	</div>
+	<div class="hf">
+		<i class="icon-chevron-down" style="font-size:34px;color:#fff"></i>
+	</div>
+	<div class="index" style="font-size:34px;color:#fff"></div>
+</body>
+</html>

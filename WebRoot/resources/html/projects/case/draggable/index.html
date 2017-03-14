@@ -1,0 +1,306 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>购物车</title>
+  <style type="text/css">
+	*{
+		padding:0;
+	    margin:0;
+	}
+	a{
+		text-decoration:none;
+	}
+	ul li{
+		float:left;
+		list-style:none;
+	}
+	body{
+		font-size:12px;
+		font-family:"微软雅黑";	
+	}
+	#shopbox{
+		width:1180px;
+		margin:10px auto;
+		overflow:hidden;
+	}
+	.shop{
+		width:220px;
+		height:300px;
+		float:left;
+		border:4px solid transparent;
+		margin-right:10px;
+		overflow:hidden;
+		text-overflow:ellipsis;
+	}
+	.shop:nth-child(5){
+		margin-right:0px;
+	}
+	.shop:hover{
+		border:4px solid #cc0000;
+	}
+	#shopbox .shop .price{
+		font-size:18px;
+		color:#cc0000;
+	}
+	#shopbox .shop img{
+		width:220px;
+		height:220px;
+	}
+	tr img{
+		cursor:pointer;
+		vertical-align:bottom;
+		width:40px;
+		height:40px;
+	}
+	#shopbox .shop .title a{
+		font-size:14px;
+		color:#000;
+		white-space:nowrap;
+	}
+	#shopbox .shop .title a:hover{
+		color:#cc0000;
+		text-decoration:underline;
+	}
+	#shopbox .shop .shopname a{
+		font-size:14px;
+		color:#999;
+		white-space:nowrap;
+		text-decoration:underline;
+	}
+	#shopbox .shop .shopname a:hover{
+		color:#cc0000;
+	}
+	#shopbox .shop .conment{
+		font-size:12px;
+	}
+	
+	#shopcar{
+		width:1180px;
+		border:4px dashed #cc0033;
+		margin:20px auto;
+		height:293px;
+		position:relative;
+	}
+	#shopcar .t_shopcar{
+		font-size:16px;
+		text-align:center;
+		width:100%;
+	}
+	#last-tr{
+		position:absolute;
+		bottom:2px;
+		left:0;
+	}
+	#last-tr span{
+		display:inline-block;
+		width:200px;
+		background:#cc0033;
+		text-align:center;
+	}
+	#last-tr .buy:hover {
+		background:#990000;
+	}	
+	#last-tr .clear:hover {
+		background:#990000;
+	}
+	#last-tr span.total{
+		margin-left:1px;
+	}
+	#last-tr span.buy{
+		margin-left:571px;
+		cursor:pointer;
+	}
+	#last-tr span.clear{
+		cursor:pointer;
+	}
+  </style>
+ </head>
+ <body>
+ <div id="shopbox">
+	<div class="shop" draggable="true">
+		<a href="#"><img src="imgs/01.jpg"/></a>
+		<p class="price">￥<span>108.00</span></p>
+		<p class="title">
+			<a href="#">夏天亚麻短袖T恤套装男士加肥加大码复古日系棉麻短裤潮宽松男装</a>
+		</p>
+		<p class="shopname"><a href="#">高宾服饰旗舰店</a></p>
+		<p class="conment">月成交 191笔   &nbsp;&nbsp;&nbsp;&nbsp;   评价 478</p>
+		<p class="mark" style="display:none">1</p>
+	</div>
+
+	<div class="shop" draggable="true">
+		<a href="#"><img src="imgs/02.jpg"/></a>
+		<p class="price">￥<span>118.00</span></p>
+		<p class="title">
+			<a href="#">密瓶儿春夏牛仔裤男哈伦裤弹力小脚裤男大档裤大码裤男胖子牛仔裤</a>
+		</p>
+		<p class="shopname"><a href="#">密瓶儿服饰旗舰店</a></p>
+		<p class="conment">月成交 269笔    &nbsp;&nbsp;&nbsp;&nbsp;  评价 1610</p>
+		<p class="mark" style="display:none">2</p>
+	</div>
+
+	<div class="shop" draggable="true">
+		<a href="#"><img src="imgs/03.jpg"/></a>
+		<p class="price">￥<span>99.00</span></p>
+		<p class="title">
+			<a href="#">春季亚麻长袖T恤男士加肥加大码复古日系棉麻休闲裤潮胖男装</a>
+		</p>
+		<p class="shopname"><a href="#">lichun旗舰店</a></p>
+		<p class="conment">月成交 141笔   &nbsp;&nbsp;&nbsp;&nbsp;评价 58</p>
+		<p class="mark" style="display:none">3</p>
+	</div>
+
+	<div class="shop" draggable="true">
+		<a href="#"><img src="imgs/04.jpg"/></a>
+		<p class="price">￥<span>89.00</span></p>
+		<p class="title">
+			<a href="#">春季青年男士休闲长袖衬衫韩版修身青少年学生大码纯棉衬衣潮薄款</a>
+		</p>
+		<p class="shopname"><a href="#">随你行服饰旗舰店</a></p>
+		<p class="conment">月成交 193笔   &nbsp;&nbsp;&nbsp;&nbsp;  评价 543</p>
+		<p class="mark" style="display:none">4</p>
+	</div>
+
+	<div class="shop" draggable="true">
+		<a href="#"><img src="imgs/05.jpg"/></a>
+		<p class="price">￥<span>88.00</span></p>
+		<p class="title">
+			<a href="#">春季中国风亚麻长袖衬衫男士加肥加大码棉麻衬衣韩版宽松潮胖男装</a>
+		</p>
+		<p class="shopname"><a href="#">lichun旗舰店</a></p>
+		<p class="conment"><span>月成交 151笔  &nbsp;&nbsp;&nbsp;&nbsp;  评价 114<span></p>
+		<p class="mark" style="display:none">5</p>
+	</div>
+ </div>
+
+ 
+ 
+ <div id="shopcar">
+	<p style="margin:5px auto;font-size:20px;width:100%;text-align:center;color:#cc0033">
+		请将商品拖进购物车
+	</p>
+	<table class="t_shopcar" style="border-collapse:collapse" border="1px solid #ccc;">
+		<thead>
+			<tr>
+				<td>序号</td>
+				<td>商品</td>
+				<td>标题</td>
+				<td>数量</td>
+				<td>单价</td>
+				<td>小计</td>
+				<td>操作</td>
+			</tr>
+		</thead>
+		<tbody id="tbody">
+			<p id="last-tr">
+				<span class="total" style="color:#000;font-size:20px;">
+					总计：￥<label>0.00</label>
+				</span>
+				<span class="buy" style="color:#000;font-size:20px;">去结算</span>
+				<span class="clear" onclick="clearCar();">
+					<a href="javascript:void(0);"style="color:#000;font-size:20px">清空购物车</a>
+				</span>
+			</p>
+		</tbody>
+	</table>
+ </div>
+ <script type="text/javascript">
+	window.onload = function(){
+		//获取拖拽元素
+		var shopDom = document.getElementById("shopbox");
+		//获取目标元素
+		var shopcarDom = document.getElementById("shopcar");
+		//获取每一个拖拽元素
+		var shops = shopDom.children;
+		var len = shops.length;
+		for(var i=0;i<len;i++){
+			//每一个拖拽元素开始拖拽事件
+			shops[i].ondragstart = function(e){
+				//获取当前拖拽元素的子元素
+				var shop = this.children;
+				var json = {};
+				json.img = shop[0].innerHTML;
+				json.price = shop[1].children[0].innerHTML;
+				json.title = shop[2].innerHTML;
+				json.mark = shop[5].innerHTML;
+				//序列化为jsonstring
+				var jsonstring = JSON.stringify(json);
+				//打包发送数据
+				e.dataTransfer.setData("text",jsonstring);
+			};
+		}
+		//目标元素进行移动
+		shopcarDom.ondragover = function(e){
+			//阻止浏览器默认行为 避免与ondrop发生冲突
+			e.preventDefault();
+		};
+		//拖放元素松开时触发的事件
+		shopcarDom.ondrop = function(e){
+			//获取数据
+			var text = e.dataTransfer.getData("text");
+			var tbody = document.getElementById("tbody");
+			//若数据不为空解析数据
+			if(text){
+				var json = JSON.parse(text);
+				var len = tbody.children.length ||0;
+				//过滤相同商品的反复添加
+				var trDom = document.getElementById("tr_"+json.mark);
+				if(!trDom){
+					
+					var html = "<tr id='tr_"+json.mark+"'>"+
+					"	<td>"+(len+1)+"</td>"+
+					"	<td>"+json.img+"</td>"+
+					"	<td>"+json.title+"</td>"+
+					"	<td>1</td>"+
+					"	<td>"+json.price+"</td>"+
+					"	<td>"+(json.price)+"</td>"+
+					"	<td><a href='#' style='color:#000;' onclick='delshop(this)'>删除</a></td>"+
+					"</tr>";
+					tbody.innerHTML += html;
+				}else{
+					var p = trDom.children[3].innerHTML*1;
+					trDom.children[3].innerHTML = p + 1;
+					trDom.children[5].innerHTML = ((p+1)*trDom.children[4].innerHTML).toFixed(2);
+				}
+				getTotal();
+			}
+		};
+	};
+	
+
+	//获取总金额
+	function getTotal(){
+		var toatlDom = document.getElementById("last-tr");
+		var totalAll = toatlDom.children[0].children[0];
+		var tbodyDom = document.getElementById("tbody");
+		var trDoms = tbodyDom.children;
+		var total = 0;
+		for(var i=0,len=trDoms.length;i<len;i++){
+			var p = trDoms[i].children[5].innerHTML;
+			
+			total += parseFloat(p);
+		}
+		totalAll.innerHTML = (total).toFixed(2);
+	};
+
+	//清空购物车
+	function clearCar(){
+		var tbodyDom = document.getElementById("tbody");
+		tbodyDom.innerHTML = "";
+		getTotal();
+	};
+
+	//删除商品
+	function delshop(obj){
+		var tbodyDom = document.getElementById("tbody");
+		tbodyDom.removeChild(obj.parentElement.parentElement);
+		getTotal();
+	};
+ </script>
+ </body>
+</html>

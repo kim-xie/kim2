@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.dao.user.IUserMapper" >
+	
+	<!-- 查询所有User -->
+	<select id="findUsers" resultType="User" parameterType="Params">
+		SELECT 
+		  	id,
+			name,
+			ip,
+			ipAddress,
+			header_pic as headerPic,
+	 		address,
+			activeCode,
+			level,
+			is_active as isActive,
+			is_forbid as isForbid,
+			email,
+			sex,
+			age,
+			tel,
+		    qq,
+		    weixin,
+			description,
+			create_time as createTime,
+			update_time as updateTime,
+			role_id as roleId,
+			is_delete as isDelete
+		FROM
+		 	user
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and name LIKE '%${keyword}%'
+			</if>
+		</trim>
+		ORDER BY ${order}
+		LIMIT #{pageNo} ,#{pageSize};				
+	</select>
+	
+	<!-- 根据id查询User -->
+	<select id="getUser" resultType="User" parameterType="Params">
+		SELECT 
+		  	id,
+			name,
+			password,
+			ip,
+			ipAddress,
+			header_pic as headerPic,
+	 		address,
+			activeCode,
+			level,
+			is_active as isActive,
+			is_forbid as isForbid,
+			email,
+			sex,
+			age,
+			tel,
+		    qq,
+		    weixin,
+			description,
+			create_time as createTime,
+			update_time as updateTime,
+			role_id as roleId,
+			is_delete as isDelete
+		FROM
+		 	user
+		 <trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(name)">
+				and name = #{name} 
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(password)">
+				and password = #{password}
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(id)">
+				or id = #{id}
+			</if>
+		</trim>
+			
+	</select>
+	
+	<!-- 查询User的总记录数  -->
+	<select id="countUser" resultType="int" parameterType="Params">
+		SELECT
+			count(1) 
+		FROM
+			user 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and name LIKE '%${keyword}%'
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 添加User -->
+	<insert id="saveUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" flushCache="true" >
+	  	INSERT INTO user(
+			id,
+			name,
+			update_time,
+			role_id,
+			is_delete 
+	  	) VALUES (
+		  	#{id},
+		  	#{name},
+		  	#{updateTime},
+		  	#{userId},
+		  	#{isDelete}
+	  	)
+	 </insert>
+	
+	<!-- 更新User -->
+	<update id="updateUser" parameterType="User">
+		update user
+		<set>
+			<if test="isDelete!=null">is_delete=#{isDelete},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 删除User -->
+	<delete id="deleteUser" parameterType="Params">
+		<!-- delete from user where id = #{id} 真删 -->
+		update user set is_delete = 1 where id = #{id}
+	</delete>
+	
+</mapper>

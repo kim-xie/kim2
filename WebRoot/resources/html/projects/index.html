@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>项目锦集</title>
+<link type="text/css" rel="stylesheet" href="css/tz.css"></link>
+<link type="text/css" rel="stylesheet" href="css/case.css"></link>
+</head>
+<body>
+<script src="js/three.min.js"></script>
+<script src="js/tween.min.js"></script>
+<script src="js/TrackballControls.js"></script>
+<script src="js/CSS3DRenderer.js"></script>
+<script src="js/jquery-1.11.1.min.js"></script>
+
+<table id="pager">
+	<tr>
+		<td valign="top">
+			<div id="container"></div>
+				<div id="menu" class="magictime puffIn">
+					<button id="table">Table</button>
+					<button id="sphere">Sphere</button>
+					<button id="helix">Helix</button>
+					<button id="grid">Grid</button>
+				</div>
+			</div>
+		</td>
+		<td valign="top">
+			<div id="frame">
+				<iframe id="iframe" frameborder="0"></iframe>
+				<div id="menu" class="magictime puffIn">
+					<button id="back">Back</button>
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>
+<div id="detail" class="magictime puffIn" style="display:none">
+	<div class="head">
+		<h1></h1>
+	</div>
+	<div class="body">
+		<table>
+			<tr>
+				<td width="60%" valign="top">
+					<span class="img"></span>	
+				</td>
+				<td width="40%" valign="middle">
+						<p />
+						<h1 />
+				</td>	
+			</tr>	
+		</table>
+	</div>
+</div>
+<script>
+
+/*
+	H|H5|Js|Css|Cs3
+*/
+var table = [
+	"Js", "King", "2016.06.04", 1, 1,{root:'case/tanmu/',title:'视频弹幕',author:'King',desc:'html+javacript实现视频弹幕'},
+	"Js", "King", "2016.03.19", 2, 1,{root:'case/oppo/',title:'oppo官网进度条特效切换',author:'King',desc:'html+jquery实现首页进度条特效切换效果'},
+	"Css", "King", "2016.06.04", 3, 1,{root:'case/Boostrap/',title:'Boostrap网页开发',author:'King',desc:'html+css+jQuery+Boostrap实现网页开发'},
+	"H5", "King", "2016.06.04", 13, 1,{root:'case/shiguangzhou/',title:'时光轴数据加载',author:'King',desc:'div+css3+jQuery实现时光轴延迟加载特效'},
+	"Cs3", "King", "2016.06.04", 14, 1,{root:'case/shopping/',title:'外国购物网站',author:'King',desc:'div+css3技术实现简单的外国购物网站'},
+	"H5", "King", "2016.06.04", 15, 1,{root:'case/lrcflow/',title:'音乐播放器解析歌词',author:'King',desc:'div+css+javascript技术实现音乐播放器解析歌词'},
+	"Cs3", "King", "2016.06.04", 16, 1,{root:'case/tanchuang/',title:'js技术实现弹窗效果',author:'King',desc:'div+css+javascript技术实现弹窗效果'},
+	"H5", "King", "2016.06.04", 17, 1,{root:'case/picgrap/',title:'照片墙',author:'King',desc:'div+css+javascript技术实现照片墙效果'},
+	"H5", "King", "2016.06.04", 18, 1,{root:'case/jsbanner/',title:'简单完整版banner图',author:'King',desc:'html+css+javascript技术实现简单无缝完整版banner轮播图'},
+	
+	"Js", "King", "2016.06.04", 1, 2,{root:'case/huanfu/',title:'换肤',author:'King',desc:'html+javascript+jQuery实现无缝换肤效果【事件冒泡】'},
+	"H5", "King", "2016.06.04", 2, 2,{root:'case/shubiao/',title:'鼠标悬停效果',author:'King',desc:'html+css3+jQuery实现鼠标悬停效果'},
+	"Js", "King", "2016.03.17", 3, 2,{root:'case/samsung/',title:'高级jquery智能幻灯片效果',author:'King',desc:'html+jquery打造三星官网首页智能幻灯片切换效果'},
+	"H5", "King", "2016.06.04", 13, 2,{root:'case/shiguangzhou/',title:'时光轴数据加载',author:'King',desc:'div+css3+jQuery实现时光轴延迟加载特效'},
+	"Cs3", "King", "2016.06.04", 14, 2,{root:'case/shopping/',title:'外国购物网站',author:'King',desc:'div+css3技术实现简单的外国购物网站'},
+	"H5", "King", "2016.06.04", 15, 2,{root:'case/lrcflow/',title:'音乐播放器解析歌词',author:'King',desc:'div+css+javascript技术实现音乐播放器解析歌词'},
+	"Cs3", "King", "2016.06.04", 16, 2,{root:'case/tanchuang/',title:'js技术实现弹窗效果',author:'King',desc:'div+css+javascript技术实现弹窗效果'},
+	"H5", "King", "2016.06.04", 17, 2,{root:'case/picgrap/',title:'照片墙',author:'King',desc:'div+css+javascript技术实现照片墙效果'},
+	"H5", "King", "2016.06.04", 18, 2,{root:'case/jsbanner/',title:'简单完整版banner图',author:'King',desc:'html+css+javascript技术实现简单无缝完整版banner轮播图'},
+	
+	"Js", "King", "2016.06.04", 1, 3,{root:'case/scalepic/',title:'图片放大镜',author:'King',desc:'html+css+js技术实现图片放大镜效果'},
+	"Cs3", "King", "2016.06.07", 2, 3,{root:'case/chengfabiao/',title:'九九乘法表实现特效',author:'King',desc:'div+javascript技术实现自动乘法表特效'},
+	"Cs3", "King", "2016.01.26", 3, 3,{root:'case/Jumei_Youpin/',title:'聚美优品之小美来了',author:'King',desc:'纯纯的css3实现小美来了'},
+	"H5", "King", "2016.06.07", 13, 3,{root:'case/draggable/',title:'H5实现购物车拖拽',author:'King',desc:'html5+js技术实现购物车拖拽上传'},
+	"Js", "King", "2016.06.07", 14, 3,{root:'case/lazyloading/',title:'实现网页延迟加载',author:'King',desc:'div+css+js实现网页图片延迟加载功能!'},
+	"H5", "King", "2016.06.07", 15, 3,{root:'case/drag/',title:'js+html5实现拖拽',author:'King',desc:'html5+js实现拖拽功能'},
+	"Js", "King", "2016.06.07", 16, 3,{root:'case/totop/',title:'页面置顶功能',author:'King',desc:'div+css+js技术实现页面置顶功能'},
+	"Js", "King", "2016.06.07", 17, 3,{root:'case/tablist/',title:'选项卡效果',author:'King',desc:'div+css+Jquery实现选项卡效果'},
+	"Js", "King", "2016.06.07", 18, 3,{root:'case/tmallbanner/',title:'天猫banner轮播图效果',author:'King',desc:'div+css+js技术实现天猫banner轮播图效果'},
+	
+	"Cs3", "Star", "2016.03.01", 1, 4,{root:'case/qqPhoto/',title:'比QQ相册更炫酷的效果',author:'Star',desc:'html5+jQuery实现比QQ相册更炫酷的相册交互效果【腾讯内部技术】'},
+	"H5", "Star", "2016.02.11", 2, 4,{root:'case/qqChange/',title:'大数据删选插件',author:'Star',desc:'div+css3+jQuery实现大数据删选效果选项【腾讯内部技术】'},
+	"Cs3", "King", "2016.09.26", 3, 4,{root:'case/3D/',title:'3D旋转',author:'King',desc:'div+css3技术实现3D旋转效果'},
+	"H5", "King", "2016.03.23", 4, 4,{root:'case/Image&Text/',title:'清新亮丽的图文展示效果',author:'King',desc:'div+css3技术实现太平洋时尚美容栏目的图文动态展示效果'},
+	"H5", "King", "2016.03.23", 5, 4,{root:'case/face/',title:'html5人脸',author:'King',desc:'html5+js+flash技术人脸不同终端的展示'},
+	"H5", "King", "2016.03.23", 6, 4,{root:'case/Letter/',title:'html5实现立体效果',author:'King',desc:'html5+css3技术实现26个字母的立体阴影翻动效果,屌炸天哦'},
+	"Js", "King", "2016.03.23", 7, 4,{root:'case/time/',title:'windows的时钟效果',author:'King',desc:'html5+js带着你做出windows的时钟效果,永远的经典呀!'},
+	"Cs3", "King", "2016.03.23", 8, 4,{root:'case/jd/',title:'div+css3解密京东核心产品特效',author:'King',desc:'div+css3解密京东核心产品特效'},
+	"Js", "King", "2016.03.23", 9, 4,{root:'case/hunantv/',title:'湖南卫视导航轮播图效果',author:'King',desc:'html+js实现湖南卫视导航轮播图效果'},
+	"Cs3", "King", "2016.03.23", 10, 4,{root:'case/Gamepage/',title:'全民游戏首页导航',author:'King',desc:'html+js实现全民游戏首页导航'},
+	"Js", "King", "2016.03.23", 11, 4,{root:'case/360pic/',title:'360网站图片导航效果',author:'King',desc:'html+js实现360网站图片导航效果'},
+	"Cs3", "King", "2016.03.23", 12, 4,{root:'case/navigation/',title:'二级导航栏',author:'King',desc:'div+css实现二级导航栏效果'},
+	"Cs3", "King", "2016.03.23", 13, 4,{root:'case/waterfall_Flow/',title:'网页瀑布流效果',author:'King',desc:'div+css+js网页瀑布流效果'},
+	"Cs3", "King", "2016.03.23", 14, 4,{root:'case/pro-3Dfont/',title:'创意3D翻转图文展示架构',author:'King',desc:'div+css3创意3D翻转图文展示架构'},
+	"Cs3", "King", "2016.03.23", 15, 4,{root:'case/hotel/',title:'js+css3温泉假日酒店',author:'King',desc:'js+css3温泉假日酒店'},
+	"Js", "King", "2016.01.12", 16, 4,{root:'case/suningyi_Purchase/',title:'苏宁易购之运动会',author:'King',desc:'纯纯的css3+JQ实现苏宁易购之运动会'},
+	"Cs3", "King", "2016.01.23", 17, 4,{root:'case/shop_Page/',title:'淘宝内页产品旋转动画',author:'King',desc:'纯纯的css3实现淘宝内页产品旋转动画'},
+	"Cs3", "King", "2016.01.25", 18, 4,{root:'case/sudoku_Animation/',title:'九宫格动画',author:'King',desc:'纯纯的css3实现九宫格动画'},
+	
+	"Js", "King", "2016.03.04", 1, 5,{root:'case/Random/',title:'随机动画',author:'King',desc:'纯纯的css3+JQ实现随机动画'},
+	"Cs3", "King", "2016.03.06", 2, 5,{root:'case/star/',title:'导航',author:'King',desc:'页面导航效果'},
+	"H5", "King", "2016.03.08", 3, 5,{root:'case/svg/',title:'svg动画',author:'King',desc:'纯纯的css3实现svg矢量图动画'},
+	"Js", "King", "2016.03.10", 4, 5,{root:'case/switching_LR/',title:'左右切换',author:'King',desc:'JQ实现左右切换'},
+	"Cs3", "King", "2016.01.05", 5, 5,{root:'case/CSS3zoom/',title:'css3放大缩小动画',author:'King',desc:'纯纯的css3实现元素的放大和缩小'},
+	"Cs3","King", "2016.03.14", 6, 5,{root:'case/3D/',title:'3D动画',author:'King',desc:'纯纯的css3实现3D动画'},
+	"H5", "King", "2016.03.16", 7, 5,{root:'case/delayering/',title:'扁平化登陆页面',author:'King',desc:'一定互联网最新的扁平化带你登陆'},
+	"H5", "King", "2016.03.18", 8, 5,{root:'case/form/',title:'表单',author:'King',desc:'纯纯的css3实现3D立体表单'},
+	"Js", "King", "2016.03.20", 9, 5,{root:'case/flash_Animation/',title:'仿Flash时间差动画',author:'King',desc:'jq仿Flash时间差动画'},
+	"Js", "King", "2016.01.20", 10, 5,{root:'case/image_Upload/',title:'仿QQ空间图片上传',author:'King',desc:'仿QQ空间图片上传'},
+	"Cs3", "King", "2016.03.20", 11, 5,{root:'case/css3randon-animation/',title:'css3随机动画',author:'King',desc:'潭州web官网效果，jquery+css3实现三种动画效果随机执行'},
+	"Cs3", "King", "2016.01.20", 12, 5,{root:'case/rotating-cube/',title:'3D旋转立方体',author:'King',desc:'css3+js实现3D旋转轮播图，并能实现自定义轮播个数'},
+	"Js", "King", "2016.01.01", 13, 5,{root:'case/fixed-nav/',title:'顶部悬浮导航',author:'King',desc:'大型互联网技术--常见实用的顶部悬浮导航'},
+	"Js", "King", "2016.02.10", 14, 5,{root:'case/taobao-banner/',title:'淘宝网banner图',author:'King',desc:'大型商城通用的轮播图技术，jq+html实现无缝轮播'},
+	"H5", "King", "2016.02.03", 15, 5,{root:'case/iosAlbum/',title:'苹果相册展示台',author:'King',desc:'css3+jq实现图片3D展示台效果'},
+	"Cs3", "King", "2016.02.17", 16, 5,{root:'case/gradient-nav/',title:'渐变下拉导航',author:'King',desc:'简单实用型，css3渐变下拉二级导航'},
+	"Cs3", "King", "2016.01.02", 17, 5,{root:'case/accordion/',title:'css3手风琴动画',author:'King',desc:'纯纯的css3实现手风琴动画'},
+	"Cs3", "King", "2016.01.03", 18, 5,{root:'case/broadcast/',title:'不一样的动画音乐MV首播',author:'King',desc:'纯纯的css3实现不一样的动画，完爆动画'},
+
+	"H", "King", "2016.05.21", 1, 6,{root:'case/360huanji/',title:'360换机单页',author:'King',desc:'360换机完整单页的制作，滚动js+动态移动导航'},
+	"Js", "King", "2016.03.02", 2, 6,{root:'case/360movise/',title:'360影视单页',author:'King',desc:'360影视完整单页的制作，css3动画实现背景的连续无线滚动'},
+	"H5", "King", "2016.06.04", 3, 6,{root:'case/fireworks/',title:'烟花',author:'King',desc:'html5酷炫效果--烟花绽放'},
+	"H", "King", "2016.03.11", 4, 6,{root:'case/21Cake/',title:'21Cake官网制作',author:'King',desc:'html+css实现21Cake官网制作'},
+	"H", "King", "2016.03.09", 5, 6,{root:'case/hunantv/',title:'芒果TV视频点播器',author:'King',desc:'html+jquery实现芒果TV视频点播器'},
+	"H", "King", "2016.03.07", 6, 6,{root:'case/baiduhf/',title:'百度换肤特效',author:'King',desc:'html+jquery【百度内部技术】实现百度换肤特效'},
+	"Js", "King", "2016.03.05", 7, 6,{root:'case/1688/',title:'高级图片动画效果',author:'King',desc:'html+jquery【阿里巴巴内部技术高级jq图片动画效果】'},
+	"H", "King", "2016.03.03", 8, 6,{root:'case/banner/',title:'大型企业网站banner切换效果',author:'King',desc:'html+jquery实现大型企业网站banner切换效果'},
+	"Js", "King", "2016.03.01", 9, 6,{root:'case/qzgg/',title:'群组广告定时轮播器',author:'King',desc:'html+jquery实现群组广告定时轮播器'},
+	"H", "King", "2016.02.28", 10, 6,{root:'case/baidutm/',title:'百度首页透明滑动导航',author:'King',desc:'html+css实现百度首页透明上下滑动导航'},
+	"Js", "King", "2016.02.26", 11, 6,{root:'case/djs/',title:'倒计时开发',author:'King',desc:'html+jquery实现倒计时开发'},
+	"Cs3", "King", "2016.02.04", 12, 6,{root:'case/accordion2/',title:'css3手风琴动画',author:'King',desc:'纯纯的css3实现手风琴动画'},
+	"H", "King", "2016.02.21", 13, 6,{root:'case/sds/',title:'水滴式导航特效',author:'King',desc:'html+jquery水滴式导航特效'},
+	"Js", "King", "2016.02.23", 14, 6,{root:'case/meinv/',title:'美女来找茬游戏开发',author:'King',desc:'html+jquery实现美女来找茬游戏开发'},
+	"Cs3", "King", "2016.02.21", 15, 6,{root:'case/fc/',title:'风车特效广告轮播',author:'King',desc:'风车特效广告轮播'},
+	"H", "King", "2016.02.19", 16, 6,{root:'case/xc/',title:'携程网单页制作',author:'King',desc:'div+css实现携程网单页制作'},
+	"Js", "King", "2016.02.17", 17, 6,{root:'case/snow/',title:'浪漫圣诞节下雪效果',author:'King',desc:'html+jquery实现浪漫圣诞节下雪效果'},
+	"H", "King", "2016.02.15", 18, 6,{root:'case/baidudwy/',title:'百度动物园视频点播',author:'King',desc:'html+jquery百度动物园视频点播'},
+	
+	"H", "King", "2016.03.21", 1, 7,{root:'case/weirenwu/',title:'百度微任务单页开发',author:'King',desc:'html+jquery实现完整单页开发【百度内部最新技术】'},
+	"CS3", "King", "2016.03.01", 2, 7,{root:'case/accordion/',title:'css3手风琴动画',author:'King',desc:'纯纯的css3实现手风琴动画'},
+	"H5", "King", "2016.06.04", 3, 7,{root:'case/fireworks/',title:'烟花',author:'King',desc:'html5酷炫效果--烟花绽放'},
+	"Cs3", "King", "2016.01.22", 4, 7,{root:'case/css3baidu/',title:'css3实现百度图片首页',author:'King',desc:'css3实现百度图片首页缩放动画效果'},
+	"Cs3", "King", "2016.01.27", 5, 7,{root:'case/css3daoh/',title:'css3实现导航手风琴',author:'King',desc:'css3实现不同风格的导航特效，别样的导航展示特效'},
+	"Js", "King", "2016.01.08", 6, 7,{root:'case/jsbaidunva/',title:'jQuery实现百度导航',author:'King',desc:'jQuery实现百度搜索页面导航特效'},
+	"Js", "King", "2016.02.14", 7, 7,{root:'case/jstup/',title:'jQuery实现焦点图',author:'King',desc:'jQuery实现鼠标点击图片滚动特效，每点击图片达到最后一张，马上返回'},
+	"Js", "King", "2016.02.16", 8, 7,{root:'case/jsqiyeav/',title:'jQuery大型企业导航',author:'King',desc:'jQuery实现大型企业导航产品展示特效，鼠标点击出现相应标题内容。'},
+	"Js", "King", "2016.03.16", 9, 7,{root:'case/jsqqxf/',title:'jQueryQQ悬浮',author:'King',desc:'jQuery实现qq悬浮，点击出现多种qq联系方式'},
+	"Js", "King", "2016.03.18", 10, 7,{root:'case/jsctnav/',title:'jQuery抽屉式导航',author:'King',desc:'jQuery实现鼠标点击横向展示相应内容，实现抽屉是特效'},
+	"Js", "King", "2016.03.19", 11, 7,{root:'case/leftnav/',title:'jQueryonlylady左侧导航',author:'King',desc:'jQuery实现onlylady左侧导航特效，点击悬浮按钮切换相应内容。'},
+	"Js", "King", "2016.03.22", 12, 7,{root:'case/mgnav/',title:'jQuery蘑菇导航',author:'King',desc:'jQuery实现蘑菇街导航特效'},
+	"Js", "King", "2016.03.10", 13, 7,{root:'case/pptvnav/',title:'jQuery 鼠标划过缓慢出现',author:'King',desc:'jQuery实现鼠标划过缓慢出现导航内容，同时切换内容'},
+	"Cs3", "Flerovium", "(289)", 14, 7,{root:'case/shop_Page/',title:'淘宝内页产品旋转动画',author:'King',desc:'纯纯的css3实现淘宝内页产品旋转动画'},
+	"Cs3", "King", "2016.02.06", 15, 7,{root:'case/nav/',title:'树形导航',author:'King',desc:'纯纯的css3实现树形导航动画'},
+	"H5", "King", "2016.06.04", 16, 7,{root:'case/fireworks/',title:'烟花',author:'King',desc:'html5酷炫效果--烟花绽放'},
+	"Cs3", "King", "2016.02.06", 17, 7,{root:'case/nav/',title:'树形导航',author:'King',desc:'纯纯的css3实现树形导航动画'},
+	"H5", "King", "2016.06.04", 18, 7,{root:'case/fireworks/',title:'烟花',author:'King',desc:'html5酷炫效果--烟花绽放'},
+	
+	"Cs3", "King", "2016.04.09", 1, 9,{root:'case/pro/',title:'产品介绍页',author:'King',desc:'原影视精选导航，稍改变样式可按照自己所需样式进行改变'},
+	"H", "King", "2016.01.10", 2, 9,{root:'case/slide-pro/',title:'抽屉式导航',author:'King',desc:'手风琴、抽屉式导航、滑动效果'},
+	"Js", "King", "2016.01.20", 3, 9,{root:'case/jd-banner/',title:'京东图片轮播',author:'King',desc:'大型商城站实用轮播技术，兼容各大浏览器'},
+	"Cs3", "King", "2016.04.09", 4, 9,{root:'case/pro/',title:'产品介绍页',author:'King',desc:'原影视精选导航，稍改变样式可按照自己所需样式进行改变'},
+	"H", "King", "2016.01.10", 5, 9,{root:'case/slide-pro/',title:'抽屉式导航',author:'King',desc:'手风琴、抽屉式导航、滑动效果'},
+	"Js", "King", "2016.01.20", 6, 9,{root:'case/jd-banner/',title:'京东图片轮播',author:'King',desc:'大型商城站实用轮播技术，兼容各大浏览器'},
+	"Js", "King", "2016.04.20", 7, 9,{root:'case/mop-banner/',title:'猫扑首页图片轮播',author:'King',desc:'猫扑官网小图片banner区，精致美观实用'},
+	"H", "King", "2016.01.02", 8, 9,{root:'case/meizu/',title:'魅族官网',author:'King',desc:'完整版魅族官网--vip小型项目练手项目'},
+	"Cs3", "King", "2016.02.02", 9, 9,{root:'case/css3rotation/',title:'css3旋转效果',author:'King',desc:'纯纯的css3实现旋转效果动画'},
+	"Js", "King", "2016.05.04", 10, 9,{root:'case/meizu-nav/',title:'魅族官网顶部导航',author:'King',desc:'魅族官网上部导航区'},
+	"H", "King", "2016.05.04", 11, 9,{root:'case/Gamepage/',title:'手游单页的制作',author:'King',desc:'网站单页的制作，div+css布局'},
+	"Cs3", "King", "2016.01.08", 12, 9,{root:'case/waterfall_Flow/',title:'CSS3瀑布流',author:'King',desc:'css3打造响应式瀑布流'},
+	"H", "King", "2016.06.04", 13, 9,{root:'case/360pic/',title:'360图集',author:'King',desc:'360图集效果-鼠标移动上去文字显示效果'},
+	"H5", "King", "2016.06.04", 14, 9,{root:'case/fireworks/',title:'烟花',author:'King',desc:'html5酷炫效果--烟花绽放'},
+	"Css", "King", "2016.04.04", 15, 9,{root:'case/mop-nav/',title:'猫扑顶部导航',author:'King',desc:'mop官网顶部固定导航（包含网站广告条的制作）'},
+	"Css", "King", "2016.03.01", 16, 9,{root:'case/txt-pic/',title:'经典图文布局',author:'King',desc:'图片与文字的简单布局'},
+	"H", "King", "2013.03.15", 17, 9,{root:'case/tuniu/',title:'途牛网首页景点导航',author:'King',desc:'html+jquery实现途牛网首页景点导航效果'},
+	"H", "King", "2016.03.13", 18, 9,{root:'case/rili/',title:'hao123日历首页定时轮播滑动切换',author:'King',desc:'html+jquery实现hao123日历首页定时轮播滑动切换特效'},
+	
+	"CS3", "king", "2016.03.01", 1, 10,{root:'case/broadcast/',title:'不一样的动画发布音乐MV首播',author:'King',desc:'纯纯的css3实现不一样的动画，完爆动画'},
+	"CS3", "king", "2016.03.01", 2, 10,{root:'case/CSS3zoom/',title:'css3放大缩小动画',author:'King',desc:'纯纯的css3实现元素的放大和缩小'},
+	"CS3", "king", "2016.03.01", 3, 10,{root:'case/waterfall_Flow/',title:'CSS3瀑布流',author:'King',desc:'css3打造响应式瀑布流'},
+	"CS3", "king", "2016.03.01", 4, 10,{root:'case/broadcast/',title:'不一样的动画发布音乐MV首播',author:'King',desc:'纯纯的css3实现不一样的动画，完爆动画'},
+	"CS3", "king", "2016.03.01", 5, 10,{root:'case/CSS3zoom/',title:'css3放大缩小动画',author:'King',desc:'纯纯的css3实现元素的放大和缩小'},
+	"CS3", "king", "2016.03.01", 6, 10,{root:'case/waterfall_Flow/',title:'CSS3瀑布流',author:'King',desc:'css3打造响应式瀑布流'},
+	"CS3", "king", "2016.03.01", 7, 10,{root:'case/css3rotation/',title:'css3旋转效果',author:'King',desc:'纯纯的css3实现旋转效果动画'},
+	"Js", "King", "2016.03.01", 8, 10,{root:'case/jQuerynav/',title:'jQuery带来导航点击伸缩特效，任何一种方式都可以实现特效',author:'King',desc:'jQuery实现鼠标点击导航伸缩特效'},
+	"Cs3", "King", "2016.03.02", 9, 10,{root:'case/css3xuanzhuan/',title:'css360度旋转',author:'King',desc:'css3  360度旋转，同时放大改变内容样式的动画特效.'},
+	"Cs3", "King", "2016.03.02", 10, 10,{root:'case/css3nav/',title:'css3制作动画导航',author:'King',desc:'css3 实现导航点击伸缩特效，不需要js，jq的动画特效。'},
+	"Js", "King", "2016.03.04", 11, 10,{root:'case/jQueryxuanzhe/',title:'jQuery实现鼠标选择动画特效',author:'King',desc:'jQuery实现默认选中与鼠标离开隐藏特效'},
+	"Cs3", "King", "2016.03.05", 12, 10,{root:'case/css3fangda/',title:'css3鼠标划过放大内容',author:'King',desc:'css3鼠标划过整体放大，文字隐藏与出现特效'},
+	"Cs3", "King", "2016.03.21", 13, 10,{root:'case/css3xuanzhuan1/',title:'css3鼠标划过旋转',author:'King',desc:'css3鼠标划过旋转内容同时放大特效'},
+	"Cs3", "King", "2016.03.20", 14, 10,{root:'case/css3ly/',title:'css3落隐落现',author:'King',desc:'css3鼠标划过内容由内外慢慢放大特效'},
+	"Js", "King", "2016.01.15", 15, 10,{root:'case/jsxxk/',title:'jQuery选项卡',author:'King',desc:'用jQ实现选项开网页特效'},
+	"Cs3", "King", "2016.01.17", 16, 10,{root:'case/css3xz2/',title:'css3实现鼠标特效',author:'King',desc:'css3实现动画特效，鼠标划过显示不一样的酷炫动画'},
+	"Cs3", "King", "2016.01.20", 17, 10,{root:'case/css3jd/',title:'css3实现京东图片展示',author:'King',desc:'css3实现商品图片动画特效'},
+	"Cs3", "King", "2016.03.19", 18, 10,{root:'case/css3donghua/',title:'css3实现内容位置变化',author:'King',desc:'css3实现文字图片位置变化缩小动画'},
+	
+];
+
+</script>
+<script type="text/javascript" src="js/case.js"></script>
+</body>
+</html>

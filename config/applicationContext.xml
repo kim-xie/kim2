@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee 
+						http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+						http://www.springframework.org/schema/mvc 
+						http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+						http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://www.springframework.org/schema/util 
+						http://www.springframework.org/schema/util/spring-util-3.2.xsd
+						http://www.springframework.org/schema/data/jpa 
+						http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	
+	<!-- 配置数据库连接信息 -->
+	<!-- <context:property-placeholder location="classpath:db.properties"/>  -->
+	<bean class="com.kim.core.des.EncryptPropertyPlaceholderConfigurer"
+		  p:location="classpath:db.properties" p:fileEncoding="utf-8" />
+	
+	<!-- 配置数据源  配置dbcp数据库连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
+	
+	<!-- 创建sqlSessionFactory -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 指定数据源 -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 注册mybatisbean别名 -->
+        <property name="typeAliasesPackage" value="com.kim.bean"></property>
+        <!-- 加载映射文件  -->
+        <property name="mapperLocations" value="classpath:com/kim/dao/*/*.xml"/>  
+		<!-- 指定mybatis配置文件 -->
+		<property name="configLocation" value="classpath:mybatisConfig.xml"/>
+	</bean>
+	
+	<!-- 配置事务 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	    <property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 扫描映射接口 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.kim.dao"/>
+	</bean>
+	
+	<!-- 开启注解扫描  -->
+	<context:component-scan base-package="com.kim.*"></context:component-scan>
+	
+	<!-- 配置事务转播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+			<tx:attributes>
+				<tx:method name="save*" read-only="false" propagation="REQUIRED" />
+				<tx:method name="add*" read-only="false" propagation="REQUIRED"/>
+				<tx:method name="update*" read-only="false" propagation="REQUIRED" />
+				<tx:method name="del*" read-only="false" propagation="REQUIRED" />
+				
+				<tx:method name="find*" read-only="true" propagation="SUPPORTS" />
+				<tx:method name="get*" read-only="true" propagation="SUPPORTS" />
+				<tx:method name="query*" read-only="true" propagation="SUPPORTS"/>
+				<tx:method name="count*" read-only="true" propagation="SUPPORTS" />
+				<!-- <tx:method name="*" read-only="true" propagation="SUPPORTS" /> -->
+			</tx:attributes>
+	</tx:advice>
+	
+	<!-- 配置aop切入事务 -->
+	<aop:config>
+		<!-- 切点 -->
+		<aop:pointcut expression="execution(* com.kim.service..*.*(..))" id="pointcut"/><!--  || execution(* com.kim.util.GatherUtils.*(..)) -->
+		<!-- 顾问 -->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
+	</aop:config>
+	
+</beans>

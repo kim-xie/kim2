@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="[daoPackage].[smallBeanName].I[beanName]Mapper" >
+	
+	<!-- 查询所有[beanName] -->
+	<select id="find[beanName]s" resultType="[beanName]" parameterType="Params">
+		select 
+			id,
+			name,
+			create_time as createTime,
+			update_time as updateTime,
+			user_id as userId,
+			is_delete as isDelete
+		FROM
+			[smallBeanName] 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and name LIKE '%${keyword}%'
+			</if>
+		</trim>
+		ORDER BY ${order}
+		LIMIT #{pageNo} ,#{pageSize};				
+	</select>
+	
+	<!-- 根据id查询[beanName] -->
+	<select id="get[beanName]" resultType="[beanName]">
+		SELECT 
+		  	id,
+			name,
+			create_time as createTime,
+			update_time as updateTime,
+			user_id as userId,
+			is_delete as isDelete
+		FROM
+		 	[smallBeanName]
+		WHERE 
+			id = #{id}
+	</select>
+	
+	<!-- 查询[beanName]的总记录数  -->
+	<select id="count[beanName]" resultType="int" parameterType="Params">
+		SELECT
+			count(1) 
+		FROM
+			[smallBeanName] 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and name LIKE '%${keyword}%'
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 添加[beanName] -->
+	<insert id="save[beanName]" parameterType="[beanName]" useGeneratedKeys="true" keyProperty="id" flushCache="true" >
+	  	INSERT INTO [smallBeanName](
+			id,
+			name,
+			update_time,
+			user_id,
+			is_delete 
+	  	) VALUES (
+		  	#{id},
+		  	#{name},
+		  	#{updateTime},
+		  	#{userId},
+		  	#{isDelete}
+	  	)
+	 </insert>
+	
+	<!-- 更新[beanName] -->
+	<update id="update[beanName]" parameterType="[beanName]">
+		update [smallBeanName]
+		<set>
+			<if test="isDelete!=null">is_delete=#{isDelete},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 删除[beanName] -->
+	<delete id="delete[beanName]" parameterType="Params">
+		<!-- delete from [smallBeanName] where id = #{id} 真删 -->
+		update [smallBeanName] set is_delete = 1 where id = #{id}
+	</delete>
+	
+</mapper>

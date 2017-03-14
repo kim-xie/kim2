@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:cache="http://www.springframework.org/schema/cache" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/cache 
+	http://www.springframework.org/schema/cache/spring-cache.xsd" 
+	default-autowire="byName" default-lazy-init="false">
+
+	<description>Spring Cache 配置</description>
+	
+	<!-- spring对ehcache的缓存工厂支持 -->
+	<bean id="ehCacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" lazy-init="false" depends-on="propertyConfigurer">
+		<!-- <property name="configLocation" value="classpath:/config/${bim-webui.ehcache.config.file}" /> -->
+		
+		<property name="configLocation" value="classpath:/config/ehcache-config.xml" />
+		<property name="configLocation" value="classpath:/config/ehcache-config-cluster.xml" />
+		
+	</bean>
+	
+	<!-- spring对ehcache的缓存管理 -->
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" lazy-init="false">
+		<property name="cacheManager" ref="ehCacheManagerFactory" />
+		<property name="transactionAware" value="true" />
+	</bean>
+	
+	<bean id="springCacheManagerHolder" class="com.bamboocloud.fw.spring.util.holder.SpringCacheManagerHolder" lazy-init="false">
+		<constructor-arg index="0" ref="ehCacheManagerFactory" />
+		<constructor-arg index="1" ref="ehCacheManager" />
+		<!--
+		<property name="disableCacheNames">
+			<list>
+				<value>defaultCache</value>
+			</list>
+		</property>
+		-->
+	</bean>
+	
+	<!-- 使用缓存annotation 配置 -->
+	<cache:annotation-driven cache-manager="ehCacheManager" proxy-target-class="true" />
+</beans>

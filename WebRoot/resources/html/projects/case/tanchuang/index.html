@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>弹窗</title>
+  <style type="text/css">
+	*{
+		padding:0;
+		margin:0;
+	}
+	a{
+		text-decoration:none;
+	}
+	ul li{
+		float:left;
+		list-style:none;
+	}
+	body{
+		font-size:12px;
+		font-family:"微软雅黑";	
+	}
+	.dialog{
+		width:400px;
+		height:200px;
+		background:black;
+		position:absolute;
+		left:50%;
+		top:50%;
+		margin-top:-100px;
+		margin-left:-200px;
+		z-index:100;
+	}
+	.dialog .d_title{
+		font-size:18px;
+		color:#fff;
+		height:40px;
+		line-height:40px;
+		background:#333;
+		border-bottom:1px solid #ccc;
+	}
+	.dialog .d_cancle{
+		position:absolute;
+		right:-18px;
+		top:-19px;
+		color:#333;
+	}
+	.dialog .d_cancle:hover{
+		color:#0000cc;
+	}
+	.dialog .d_content{
+		font-size:16px;
+		color:#fff;
+		height:80px;
+		padding:20px;
+	}
+	.dialog .d_content .tip{
+		color:#fff;
+		float:left;
+	}
+	.dialog .d_content .content{
+		color:#fff;
+		margin-left:50px;
+		overflow:auto;
+	}
+	.dialog .d_btn{
+		line-height:40px;
+		background:#333;
+		text-align:center;
+	}
+	.dialog .d_btn a{
+		display:inline-block;
+		line-height:40px;
+		font-size:18px;
+		padding:0 12px;
+		color:#fff;
+	}
+	.dialog .d_btn a:hover{
+		color:#6633ff;
+	}
+	.overlay{
+		width:100%;
+		height:100%;
+		opacity:0.6;
+		background:#333;
+		position:absolute;
+		top:0;
+		left:0;
+		z-index:99;
+	}
+	#alertbtn{
+		display:block;
+		width:200px;
+		height:40px;
+		line-height:40px;
+		font-size:20px;
+		color:#333;
+		margin:20px auto;
+		background:#ff9933;
+		text-align:center;
+	}
+  </style>
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_1456745203_7211344.css"/>
+ </head>
+ <body>
+ <!-- <div class="dialog">
+	<div class="d_title"><i class="iconfont icon-home" style="font-size:20px;margin:0 5px;"></i>标题</div>
+	<a href="javascript:void(0);" class="d_cancle"><i class="iconfont icon-false" style="font-size:25px;"></i></a>
+	<div class="d_content">
+		<span class="tip"><i class="iconfont icon-icon-tip" style="font-size:40px;"></i></span>
+		<div class="content">你确定要删除吗？</div>
+	</div>
+	<div class="d_btn">
+		<a href="javascript:void(0);" ><i class="iconfont" style="font-size:20px;margin-right:5px;">&#xe605;</i>确定</a>
+		<a href="javascript:void(0);" ><i class="iconfont" style="font-size:20px;margin-right:5px;">&#xe607;</i>取消</a>
+	</div>
+ </div>
+ <div class="overlay"></div> -->
+
+ <a href="javascript:void(0);"id="alertbtn">弹窗</a>
+ <script type="text/javascript">
+	/*
+		alert();--弹出框
+		confirm();--确认框
+		prompt();--文本提示
+
+
+		混入：相同的元素继承，不同元素覆盖。param2的优先级高于param1
+		jquery中的$.extend();
+			mix({},param1,param2,...);
+			mix(json1,json2,...);
+
+	*/
+	//封装id
+	function $(id){
+		return document.getElementById(id);
+	};
+	//多对象混入
+	function mix(target,source){
+		var arr = [];
+		var args = arr.slice.call(arguments);
+		var i = 1;
+		if(args.length==1){
+			return target;
+		};
+		while((source = args[i++])){
+			for(var key in source){
+				if(source.hasOwnProperty(key)){
+					target[key] = source[key];
+				}
+			}
+		}
+		return target;
+	};
+
+	/*通过className获取dom元素进行过滤*/
+	function domClass(domPid,sClass){
+		var aEle = (typeof domPid ==="string"?dom(domPid):domPid).getElementsByTagName('*');
+		var arrs = [];
+		for(var i=0;i<aEle.length;i++){
+			if(aEle[i].className.indexOf(sClass)!=-1){
+				arrs.push(aEle[i]);
+			}
+		}
+		return arrs;
+	};
+
+	(function(win){
+		var Dialog = {
+			alert:function(options){
+				var opts = mix({},Dialog.methods,Dialog.Default,options);
+				var dialogDom = opts.template(opts);
+				opts._events(dialogDom);
+			},
+			confirm:function(options){
+				var opts = mix({},Dialog.methods,Dialog.Default,options);
+				var dialogDom = opts.template(opts);
+				dialogDom.remove
+				opts._events(dialogDom);
+			},
+			prompt:function(){
+			
+			}
+		};
+		//静态方法
+		Dialog.methods = {
+			template:function(opts){
+				var dialogDom = $("dialogbox");
+					if(dialogDom){
+						document.body.removeChild(dialogDom);
+					}else{
+						dialogDom = document.createElement("div");
+					}
+				var html = "<div class='d_title'><i class='iconfont icon-home' style='font-size:20px;margin:0 5px;'></i>"+opts.title+"</div>"+
+				"<a href='javascript:void(0);' class='d_cancle'><i class='iconfont icon-false' style='font-size:25px;'></i></a>"+
+				"<div class='d_content'>"+
+				"	<span class='tip'><i class='iconfont icon-"+opts.icon+"'style='font-size:40px;'></i></span>"+
+				"	<div class='content'>"+opts.content+"</div>"+
+				"</div>"+
+				"<div class='d_btn'>"+
+				"	<a href='javascript:void(0);' class='dsure' ><i class='iconfont'style='font-size:20px;margin-right:5px;'>&#xe605;</i>"+opts.stext+"</a>"+
+				"	<a href='javascript:void(0);' class='dcancle'><i class='iconfont' style='font-size:20px;margin-right:5px;'>&#xe607;</i>"+opts.ctext+"</a>"+
+				"</div>";
+				
+				//创建弹窗层
+				dialogDom.className = "dialog";
+				dialogDom.id = "dialogbox";
+				dialogDom.innerHTML = html;
+				document.body.appendChild(dialogDom);
+				
+				//创建阴影层
+				var overlayDom = document.createElement("div");
+				overlayDom.className = "overlay";
+				document.body.appendChild(overlayDom);
+
+				return dialogDom;
+			},
+
+			_events:function(dialogDom){//按钮事件
+					//找到三个按钮对象
+					var sureDom = domClass(dialogDom,"dsure")[0];
+					var cancleDom = domClass(dialogDom,"dcancle")[0];
+					var closeDom = domClass(dialogDom,"d_cancle")[0];
+					
+					//确定按钮事件
+					sureDom.onclick = function(){
+						dialogDom.style.top = "-200px;"
+						document.body.removeChild(dialogDom.nextElementSibling);//关闭阴影层
+						document.body.removeChild(dialogDom);//关闭弹出层
+					};
+					
+					//取消按钮事件
+					cancleDom.onclick = function(){
+						document.body.removeChild(dialogDom.nextElementSibling);//关闭阴影层
+						document.body.removeChild(dialogDom);//关闭弹出层
+					};
+					
+					//关闭按钮事件
+					closeDom.onclick = function(){
+						document.body.removeChild(dialogDom.nextElementSibling);//关闭阴影层
+						document.body.removeChild(dialogDom);//关闭弹出层
+					};
+				}
+		};
+		//默认参数
+		Dialog.Default = {
+			title:"提示",
+			content:"请输入要提示的内容...",
+			icon:"tip",
+			stext:"确定",
+			ctext:"取消"
+		};
+
+		
+		win.alert = Dialog.alert;	
+	})(window);
+
+	window.onload = function(){
+		$("alertbtn").onclick = function(){
+			alert({ctext:"关闭",stext:"保存"});
+		};
+	};
+	
+ </script>
+ </body>
+</html>

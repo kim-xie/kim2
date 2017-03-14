@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	*{
+		padding:0;
+	    margin:0;
+	}
+	a{
+		text-decoration:none;
+	}
+	ul li{
+		float:left;
+		list-style:none;
+	}
+	body{
+		font-size:12px;
+		font-family:"微软雅黑";	
+	}
+	#box{
+		width:930px;
+		margin:100px auto;
+    	overflow:hidden;
+		padding:0 0 10px 10px;
+	}
+	#box ul li{
+		margin:10px 10px 0 0; 
+	}
+	#box ul li img{
+		width:300px;
+		height:200px;
+		display:block;
+	}
+	#gotop{
+		position:fixed;
+		bottom:100px;
+		right:20px;
+		z-index:10;
+		cursor:pointer;
+		width:40px;
+		height:40px;
+		border:1px solid #ccffcc;
+		text-align:center;
+		background:url(images/t01941db4255ffd4aaa.png)no-repeat;
+		background-position: center 14px;
+		background-color:#ccffcc;
+		transition:all 0.6s ease;
+	}
+	#gotop:hover{
+		color:#fff;
+		background-color:#00cc00;
+		background-position: center -48px;
+		transition:all 0.6s ease;
+	}
+  </style>
+ </head>
+ <body>
+ <div id="box">
+	 <ul id="imgul">
+		<li><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/5.jpg"></li>
+		<li><img src="images/6.jpg"></li>
+
+		<li><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/5.jpg"></li>
+		<li><img src="images/6.jpg"></li>
+
+		<li><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/5.jpg"></li>
+		<li><img src="images/6.jpg"></li>
+
+		<li><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/5.jpg"></li>
+		<li><img src="images/6.jpg"></li>
+
+		<li><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/5.jpg"></li>
+		<li><img src="images/6.jpg"></li>
+
+		<li><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/5.jpg"></li>
+		<li><img src="images/6.jpg"></li>
+
+		<li><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/5.jpg"></li>
+		<li><img src="images/6.jpg"></li>
+
+		<li><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/5.jpg"></li>
+		<li><img src="images/6.jpg"></li>
+
+		<li><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/5.jpg"></li>
+		<li><img src="images/6.jpg"></li>
+	 </ul>
+ </div>
+ <div id="gotop" style="display:none"></div>
+ <script type="text/javascript">
+	window.onload = function(){
+		//回到顶部
+		var gotopDom = document.getElementById("gotop");
+		gotopDom.onclick = function(){
+			document.body.scrollTop = 0;
+		};
+		window.onscroll = function(){
+			var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+			if(scrollTop<200){
+				gotopDom.style.display = "none";
+			}else{
+				gotopDom.style.display = "block";
+			}
+		};
+	};
+ </script>
+ </body>
+</html>

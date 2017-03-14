@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>图片放大镜</title>
+  <style type="text/css">
+	*{
+		padding:0;
+	    margin:0;
+	}
+	a{
+		text-decoration:none;
+	}
+	ul li{
+		float:left;
+		list-style:none;
+	}
+	body{
+		font-size:12px;
+		font-family:"微软雅黑";	
+	}
+	#box{
+		position:absolute;
+		top:100px;
+		left:100px;
+		cursor:move;
+		overflow:hidden;
+	}
+	#box span{
+		width:200px;
+		height:200px;
+		background:#ffcc66;
+		opacity:0.5;
+		position:absolute;
+		top:0;
+		left:0;
+		display:none;
+	}
+	#imgBox{
+		width:418px;
+		height:418px;
+		overflow:hidden;
+		position:absolute;
+		top: 112px;
+		left: 535px;
+		display:none;
+	}
+	#imgBox img{
+		width:600px;
+		height:600px;
+		position:absolute;
+		top:0;
+		left:0
+	}
+  </style>
+ </head>
+ <body>
+  <div id="box">
+	<img  src="https://img.alicdn.com/bao/uploaded/i1/TB1k1PRKXXXXXbfXpXXXXXXXXXX_!!0-item_pic.jpg_430x430q90.jpg"/>
+	<span></span>
+  </div>
+
+  <div id="imgBox">
+	<img src="https://img.alicdn.com/bao/uploaded/i1/TB1k1PRKXXXXXbfXpXXXXXXXXXX_!!0-item_pic.jpg_430x430q90.jpg"/>
+  </div>
+ <script type="text/javascript">
+	/*
+		放大镜：
+		1:准备两个图片的一个大图片，一个小图片.最好等比例的
+		2:定义拖拽层
+		3:box绑定onmouseover(鼠标进入) 和onmouseout(鼠标离开)事件
+		4:实现层的拖拽中心点的问题和层闪动的问题
+		5:通过拖拽求出放大的x,y比例
+		6:用x,y比例计算出大图要便宜的位置。
+		7:看效果
+	*/
+	//对id进行封装
+	function $(id){
+		return document.getElementById(id);
+	};
+
+	window.onload = function(){
+		var boxDom = $("box");
+		var spanDom = boxDom.children[1];
+		var imgboxDom = $("imgBox");
+		var imgDom = $("imgBox").children[0];
+		
+		//onmouseenter、onmouseleave避免闪动问题
+		boxDom.onmouseenter = function(){
+			spanDom.style.display = "block";
+			imgboxDom.style.display = "block";
+		};
+		boxDom.onmouseleave = function(){
+			spanDom.style.display = "none";
+			imgboxDom.style.display = "none";
+		};
+
+		//鼠标移动onmousemove事件
+		boxDom.onmousemove = function(e){
+			// ||为兼容性写法
+			var ev = e || window.event;
+			//clientX、pageX为鼠标位置（相对于浏览器的位置）
+			var x = (ev.clientX || ev.pageX) - boxDom.offsetLeft;
+			var y = (ev.clientY || ev.pageY) - boxDom.offsetTop;
+			//offsetWidth、offsetHeight、offsetLeft、offsetTop为元素的坐标位置
+			//鼠标位于拖拽层中心
+			var left = x - spanDom.offsetWidth/2;
+			var top = y - spanDom.offsetHeight/2;
+
+			//最大移动位置 boxDom的宽度减去拖拽层的宽度计算得来，高度同理.
+			var maxLeft = boxDom.offsetWidth - spanDom.offsetWidth;
+			var maxTop = boxDom.offsetHeight - spanDom.offsetHeight;
+			//拖拽层边界的判断
+			//上边界
+			if(left<0)left=0;
+			if(top<0)top=0;
+			//下边界
+			if(left>maxLeft)left = maxLeft;
+			if(top>maxTop)top = maxTop;
+			
+			//改变拖拽层的位置
+			spanDom.style.left = left +"px";
+			spanDom.style.top = top +"px";
+
+			//拖拽层移动的比例
+			var xbit = left / maxLeft;
+			var ybit = top / maxTop;
+			//拖过图片层减去父元素maxImgbox的宽度，imgboxDom==imgDom.parentElement
+			var sleft = -(imgDom.offsetWidth-imgboxDom.offsetWidth) * xbit;
+			var stop= -(imgDom.offsetHeight-imgboxDom.offsetHeight) *ybit;
+			//赋予图片位置
+			imgDom.style.top = stop+"px";
+			imgDom.style.left = sleft+"px";
+		};
+	};
+ </script>
+ </body>
+</html>

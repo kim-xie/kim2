@@ -1,0 +1,139 @@
+package [webPackage].[smallBeanName];
+
+import java.util.List;
+import javax.annotation.Resource;
+import com.kim.web.BaseController;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.kim.bean.[beanName];
+import com.kim.bean.Params;
+import com.kim.bean.User;
+import com.kim.service.[smallBeanName].I[beanName]Service;
+
+/**
+ * [description]web
+ * [beanName]Controller
+ * 创建人:[author]
+ * 时间：[date]
+ * @version 1.0.0
+ */
+@Controller
+@RequestMapping("/[smallBeanName]")
+public class [beanName]Controller extends BaseController{
+	
+	@Resource(name="[smallBeanName]Service")
+	private I[beanName]Service [smallBeanName]Service;
+	
+	/**
+	 * 跳转到列表页面
+	 * @Title: list 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param params
+	 * @param @return  参数说明 
+	 * @return String  返回类型 
+	 * @throws
+	 */
+	@RequestMapping("/list")
+	public String list(Params params){
+		return "[smallBeanName]/list";
+	}
+	
+	/**
+	 * 查询所有[beanName]返回模板页面
+	 * @Title: template 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param params
+	 * @param @return  参数说明 
+	 * @return ModelAndView  返回类型 
+	 * @throws
+	 */
+	@RequestMapping("/template")
+	public ModelAndView template(Params params){
+		ModelAndView modelAndView = new ModelAndView();
+		List<[beanName]> [smallBeanName]s = [smallBeanName]Service.find[beanName]s(params);
+		int count = [smallBeanName]Service.count[beanName](params);
+		modelAndView.setViewName("[smallBeanName]/template");
+		modelAndView.addObject("[smallBeanName]s",[smallBeanName]s);
+		modelAndView.addObject("itemCount",count);
+		return modelAndView;
+	}
+	/**
+	 * 添加保存[beanName]
+	 * @Title: save[beanName] 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param [smallBeanName]
+	 * @param @return  参数说明 
+	 * @return String  返回类型 
+	 * @throws
+	 */
+	@ResponseBody
+	@RequestMapping("/save")
+	public String save[beanName]([beanName] [smallBeanName]){
+		if([smallBeanName] != null){
+			User userSession = (User) request.getSession().getAttribute("user");
+			[smallBeanName].setId(userSession.getId());
+			[smallBeanName].setName(userSession.getName());
+			[smallBeanName].setIsDelete(0);
+			boolean faly = [smallBeanName]Service.save[beanName]([smallBeanName]);
+			if(faly){
+				return "success";
+			}else{
+				return "fail";
+			}
+		}else{
+			return "error";
+		}
+	}
+	/**
+	 * 查询[beanName]详情
+	 * @Title: get[beanName] 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param params
+	 * @param @return  参数说明 
+	 * @return ModelAndView  返回类型 
+	 * @throws
+	 */
+	@RequestMapping("/detail/{id}")
+	public ModelAndView get[beanName](@PathVariable("id")Integer id){
+		ModelAndView modelAndView = new ModelAndView();
+		[beanName] [smallBeanName] = [smallBeanName]Service.get[beanName](id);
+		modelAndView.setViewName("[smallBeanName]/detail");
+		modelAndView.addObject("[smallBeanName]",[smallBeanName]);
+		return modelAndView;
+	}
+	/**
+	 * 更新[beanName]
+	 * @Title: update[beanName] 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param content
+	 * @param @return  参数说明 
+	 * @return String  返回类型 
+	 * @throws
+	 */
+	@ResponseBody
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public String update[beanName]([beanName] [smallBeanName]){
+		return [smallBeanName]Service.update[beanName]([smallBeanName])?"success":"fail";
+	}
+	
+	/**
+	 * 删除[beanName]
+	 * @Title: delete[beanName] 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param id
+	 * @param @return  参数说明 
+	 * @return String  返回类型 
+	 * @throws
+	 */
+	@ResponseBody
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	public String delete[beanName](Params Params){
+		return [smallBeanName]Service.delete[beanName](Params)?"success":"fail";
+	}
+}

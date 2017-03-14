@@ -1,0 +1,60 @@
+package [servicePackage].[smallBeanName].impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+
+import com.kim.bean.[beanName];
+import com.kim.bean.Params;
+import com.kim.dao.[smallBeanName].I[beanName]Mapper;
+import [servicePackage].[smallBeanName].I[beanName]Service;
+import com.kim.util.StringUtils;
+
+/**
+ * [description]serviceImpl
+ * I[beanName]Service
+ * 创建人:[author] 
+ * 时间：[date]
+ * @version 1.0.0
+ */
+@Service("[smallBeanName]Service")
+public class [beanName]ServiceImpl implements I[beanName]Service{
+
+	@Resource
+	private I[beanName]Mapper [smallBeanName]Mapper;
+	
+	@Override
+	public List<[beanName]> find[beanName]s(Params params){
+		if(StringUtils.isEmpty(params.getOrder()))params.setOrder("create_time desc");
+		return [smallBeanName]Mapper.find[beanName]s(params);
+	}
+	
+	@Override
+	public int count[beanName](Params params){
+		return [smallBeanName]Mapper.count[beanName](params);
+	}
+
+	@Override
+	public [beanName] get[beanName](Integer id) {
+		return [smallBeanName]Mapper.get[beanName](id);
+	}
+
+	@Override
+	public boolean save[beanName]([beanName] [smallBeanName]) {
+		int count = [smallBeanName]Mapper.save[beanName]([smallBeanName]);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean update[beanName]([beanName] [smallBeanName]) {
+		int count = [smallBeanName]Mapper.update[beanName]([smallBeanName]);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean delete[beanName](Params params) {
+		int count = [smallBeanName]Mapper.delete[beanName](params);
+		return count>0?true:false;
+	}
+}

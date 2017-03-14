@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>照片墙</title>
+	</head>
+	<style>
+		*{margin: 0;padding: 0;}
+		a{text-decoration: none;}
+		body{font-family: "微软雅黑";font-size: 12px;overflow:hidden;}
+		#wrap{position:absolute;left:15%;top:10%;height:80%;width:70%;}
+		#wrap ul li{position:absolute;list-style:none;cursor:pointer;box-shadow:1px 1px 1em #000;width:125px;height:125px;transition:left 1s,top 1s;}
+		#wrap ul li img{transform: scale(0.95);transition:transform 1s;}
+		/*切换按钮*/
+		#wrap div a{position:fixed;top:45%;display: none;z-index: 10;}
+		#wrap div a:hover i{color:#000}
+		#wrap div a i{font-size:50px;color:#999;}
+		#wrap div #next{right: 100px;}
+		#wrap div #prev{left: 100px;}
+		
+	</style>
+	<link rel="stylesheet" href="css/iconfont/iconfont.css" />
+	<script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+	<body onselectstart="return false">
+		<div id="wrap">
+			<ul></ul>
+			<div>
+				<a href="javascript:void(0);" id="prev"><i class="iconfont">&#xe600;</i></a>
+				<a href="javascript:void(0);" id="next"><i class="iconfont">&#xe601;</i></a>
+			</div>
+		</div>
+		<script>
+			$(function(){
+				//获取参数
+				var $wrap = $("#wrap");
+				var $ul = $("#wrap ul");
+				init();
+				var $li = $("#wrap ul li");
+				var $img = $("#wrap ul li img");
+				var $btn = $("#wrap div a");
+				var index = 0;
+				var lock = true;
+				var liTime = 0;
+				var btnTime = 0;
+				//初始化创建li元素
+				function init(){
+					for(var i=0;i<24;i++){
+						$li = $("<li><img src='img/"+(i+1)+".jpg'/></li>");
+						$ul.append($li);
+					}
+				};
+				//对li元素定位
+				function liPosition(){
+					var wrapWidth = $wrap.width();
+					var wrapHeight = $wrap.height();
+					var w = (wrapWidth - 125*6)/5;
+					var h = (wrapHeight - 125*4)/3;
+					$li.each(function(i){
+						//每行6列
+						var ix = i % 6;
+						//6的倍数为一行
+						var iy = parseInt(i/6);
+						$(this).css({
+							left:125*ix + w*ix,
+							top:125*iy + h*iy,
+							backgroundPosition:-ix*125+"px "+(-iy*125)+"px"
+						});
+					});
+				}
+				//响应式布局
+				$(window).resize(liPosition);
+				liPosition();
+				rotate();
+				
+				//旋转任意角度
+				function rotate(){
+					$li.each(function(i){
+						var deg = (Math.random()-0.5)*60;
+						$(this).css("transform","rotate("+deg+"deg)");
+					});
+				};
+				//点击li元素
+				$li.click(function(){
+					if(new Date() - liTime > 1300){
+						liTime = new Date();
+						if(lock){
+							index = $(this).index();
+							$img.css("transform","scale(1)");
+							setTimeout(function(){
+								liclick();
+								$img.fadeOut(1000);
+								$li.css("backgroundImage","url(img/big/"+(index+1)+".jpg)");
+							},1000);
+							$(window).off("resize").resize(liclick);
+							$btn.fadeIn(2000);
+							lock = false;
+						}else{
+							$img.fadeIn(1000,function(){
+								$li.css("backgroundImage","");
+								$(this).css("transform","scale(0.95)");
+							});
+							liPosition();
+							rotate();
+							//解绑窗口移动事件，绑定liPosition事件
+							$(window).off("resize").resize(liPosition);
+							$btn.fadeOut(1000);
+							lock = true;
+						}
+					}
+				});
+				//
+				function liclick(){
+					var wrapWidth = $wrap.width();
+					var wrapHeight = $wrap.height();
+					var l = (wrapWidth - 125*6)/2;
+					var t = (wrapHeight - 125*4)/2;
+					$li.each(function(i){
+						var ix = i % 6;
+						var iy = parseInt(i/6);
+						$(this).css({
+							left:125*ix + l,
+							top:125*iy + t,
+							transform:"rotate(0deg)"
+						});
+					});
+				};
+				//点击上一张、下一张
+				$btn.click(function(){
+					if(new Date() - btnTime > 1300){
+						btnTime = new Date();
+						var i = $(this).index();
+						if(i){
+							index++;
+							index %= $li.length;
+						}else{
+							index--;
+							if(index<0)index=$li.length-1;
+						}
+						libackground();
+					}
+				});
+				//背景切换
+				function libackground(){
+					var arr = [];
+					for(var i=0;i<24;i++){
+						arr[i] = i;
+					}
+					var timer = setInterval(function(){
+						var r = Math.floor(Math.random()*arr.length);
+						$li.eq(arr[r]).css("backgroundImage","url(img/big/"+(index+1)+".jpg)");
+						arr.splice(r,1);
+						if(arr.length == 0){
+							clearInterval(timer);
+						}
+					},50);
+				};
+				//屏蔽浏览器右键功能
+				$(document).contextmenu(function(){
+					return false;
+				});
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <!-- 编码方式 -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <!-- 页面三要素 -->
+  <title> 弹幕 </title>
+  <meta name="Keywords" content="关键词,关键词">
+  <meta name="Description" content="描述 76 -80">
+  <link rel="stylesheet" type="text/css" href="css/animate.css">
+  <link rel="stylesheet" type="text/css" href="css/sg.css">
+  </head>
+
+      <!-- 样式 -->
+	  <style type="text/css">
+		*{margin:0px;
+		  padding:0px;}
+	 body{font-family:"微软雅黑";
+		  font-size:12px;
+		  background:#cc99ff;}
+		.video{margin:100px auto;
+               width:480px;
+			   height:400px;
+			   position:relative;
+		      }
+	    .video .dm_start{ display:block;
+						  width:40px;
+						  height:20px;
+						  border-radius:5px;
+						  position:absolute;
+						  right: 290px;
+						  top: 370px;
+						  text-align:center;
+						  text-decoration:none;
+						  line-height: 20px;
+                          background-color: #ccc;
+						  color:#ff9966;
+						  font-size:16px;
+						  transition:all 1s linear;
+
+						  }
+	     .fb{width:470px;
+			 line-height:35px;
+			 padding:5px;
+			 background:#99ffcc;
+			 }
+		 .fb .fb_con{width:380px;
+		             height:35px;
+					 outline:none;
+		             font-size:16px;
+					 text-indent:0.5em;
+					 border-radius:4px;}
+		 .fb .fb_con:hover{
+					border:1px solid #00cc00;
+		 }
+		 .fb .fb_btn{width:83px;
+		             height:36px;
+                     border:1px solid #00cc00;
+		             cursor:pointer;
+					 text-align:center;
+                     font-size:16px;
+					 background:#00cc00;
+					 transition:all 1s ease;
+					 border-radius:4px;}
+		 .fb .fb_btn:hover{background:#009900;
+		                   transition:all 1s ease;}
+		 .dm{width:480px;
+		     height:350px;
+			 background:rgba(0,0,0,0);
+			 position:absolute;
+			 left:0px;
+			 top:0px;
+			 display:none;
+             overflow:hidden;
+			 }
+		  .dm_show{font-size:18px;
+		           
+			       }
+		  .dm_show div{position:absolute;
+		               top:40px;
+					   right:0;
+			       }
+	  </style>
+  <body>
+  <!-- 视频start -->
+  <div class="video">
+	<embed src="http://player.youku.com/player.php/sid/XMjM2ODk2MzAw/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+	<a href="javascript:void(0);" class="dm_start">弹幕</a>
+	<!-- dmstart -->
+  
+  <div class="dm">
+	<div class="dm_show">
+		
+	</div>
+  </div>
+  <!-- dmend -->
+  <!-- fbstart -->
+  <div class="fb" style="display:none;">
+	<input type="text" class="fb_con" placeholder="请输入要发表的内容..."/>
+	<input type="submit" class="fb_btn" value="发表"/>
+  </div>
+  <!-- fbend -->
+  </div>
+  <!-- 视频end -->
+  
+  <!-- 脚本 -->
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript">
+	$(function(){
+		//初始化屏幕防止重叠
+		init_screen();
+        //点击弹幕显示出弹幕层
+		$(".dm_start").click(function(){
+		//alert(1);
+		//无中生有，有中则无
+		$(".dm").toggle("show");
+        $(".fb").toggle("show");
+		});
+	});
+	//绑定键盘事件
+	$(document).keydown(function(event){
+		if(event.keyCode==13){
+			//触发发表事件
+			$(".fb_btn").trigger("click");
+		}
+	});
+	//获取输入框的内容
+	$(".fb_btn").click(function(){
+		var content = $(".fb_con").val();
+		//alert(content);
+		//将内容附加到弹幕层中
+        $(".dm_show").append("<div class='animated rotateIn'>"+content+"</div>");
+		init_screen();
+	});
+	//初始化屏幕 定义式函数
+	function init_screen(){
+		//初始化高度
+		var _top = 0;
+		//遍历每个div
+		$(".dm_show").find("div").each(function(){
+		//获取弹幕层的高度和宽度
+		var _left = $(".dm").width()-$(this).width();
+		//alert(_left);
+		var _height = $(".dm").height();
+		//alert(_height);
+		 _top=_top+40;
+		//判断高度
+		if(_top >= _height-50){
+			_top =40;
+		}
+		//设置文字的位置
+        $(this).css({left:_left,top:_top,color:getRadomColor()});
+		//设置动画
+        $(this).animate({left:"-"+_left+"px"},5000,function(){
+			$(this).remove();
+		});
+     });
+	};
+	//获取随机颜色的方法
+	function getRadomColor(){
+		var str = Math.ceil(Math.random()*16777215).toString(16);
+        while(str.length<6){
+			str="0"+str;
+		}
+		return "#"+str;
+	};
+  </script>
+ </body>
+</html>

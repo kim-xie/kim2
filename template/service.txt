@@ -1,0 +1,103 @@
+package [servicePackage].[smallBeanName];
+
+import java.util.List;
+
+import com.kim.bean.[beanName];
+import com.kim.bean.Params;
+
+/**
+ * I[beanName]Service
+ * 创建人:[author] 
+ * 时间：[date]
+ * @version 1.0.0
+ * 
+ */
+public interface I[beanName]Service {
+	/**
+	 * [servicePackage].[smallBeanName] 
+	 * 方法名：find[beanName]s
+	 * 创建人：[author] 
+	 * 手机号码:[telephone]
+	 * 时间：[date]
+	 * @param params
+	 * @return 
+	 * 返回类型：List<[beanName]>
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public List<[beanName]> find[beanName]s(Params params);
+	
+	/**
+	 * 求总数
+	 * [daoPackage].[smallBeanName] 
+	 * 方法名：count
+	 * 创建人：[author] 
+	 * 手机号码:[telephone]
+	 * 时间：[date]
+	 * @param id
+	 * @return 
+	 * 返回类型：List<[beanName]>
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public int count[beanName](Params params);
+	
+	/**
+	 * [servicePackage].[smallBeanName] 
+	 * 方法名：find[beanName]s
+	 * 创建人：[author] 
+	 * 手机号码:[telephone]
+	 * 时间：[date]
+	 * @param params
+	 * @return 
+	 * 返回类型：List<[beanName]>
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public [beanName] get[beanName](Integer id);
+	
+	/**
+	 * 保存[description]
+	 * [servicePackage].[smallBeanName] 
+	 * 方法名：save
+	 * 创建人：[author] 
+	 * 手机号码:[telephone]
+	 * 时间：[date] 
+	 * @param [smallBeanName]
+	 * @return 
+	 * 返回类型：[beanName]
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public boolean save[beanName]([beanName] [smallBeanName]);
+	
+	/**
+	 * 更新[description]
+	 * [servicePackage].[smallBeanName] 
+	 * 方法名：update
+	 * 创建人：[author] 
+	 * 手机号码:[telephone]
+	 * 时间：[date]
+	 * @param [smallBeanName]
+	 * @return 
+	 * 返回类型：int
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public boolean update[beanName]([beanName] [smallBeanName]);
+	
+	/**
+	 * 删除[description]
+	 * [servicePackage].[smallBeanName] 
+	 * 方法名：delete
+	 * 创建人：[author] 
+	 * 手机号码:[telephone]
+	 * 时间：[date]
+	 * @param params
+	 * @return 
+	 * 返回类型：int
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public boolean delete[beanName](Params params);
+}
