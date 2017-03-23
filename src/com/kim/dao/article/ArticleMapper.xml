@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.kim.dao.article.IArticleMapper">
+	<!-- 查询所有 -->
+	<select id="findArticles" parameterType="Params" resultType="Article">
+			<![CDATA[ SELECT 
+				article_id as articleId,
+				user_id as userId,
+				title,
+				subTitle,
+				description,
+				article,
+				static_link as staticLink,
+				is_top as isTop,
+				is_delete as isDelete,
+				is_comment as isComment,
+				status,
+				push,
+				comments,
+				hits,
+				collections,
+				loves,
+				tag,
+				width,
+				height,
+				article_channel_id as channelId,
+				article_category_id as categoryId,
+				image,
+				thumnail,
+				create_time as createTime
+				 ]]>
+			FROM 
+				article
+			<trim prefix="WHERE" prefixOverrides="AND | OR">  
+				<if test="@com.kim.util.StringUtils@isNotEmpty(channelId)">
+					and channel_id = #{channelId}
+				</if>
+				<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+					and  title LIKE '%${keyword}%'
+				</if>
+				<if test="@com.kim.util.StringUtils@isNotEmpty(isDelete)">
+					and  is_delete = #{isDelete}
+				</if>
+				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==1"><!-- 今天 -->
+					AND TO_DAYS(create_time) = to_days(now())
+				</if>
+				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==2"><!-- 昨天-->
+					AND <![CDATA[AND TO_DAYS(NOW())-TO_DAYS(create_time)=1]]>
+				</if>
+				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==3"><!-- 近五天-->
+					AND <![CDATA[AND DATE_SUB(NOW(), INTERVAL 5 DAY) <= date(create_time)]]>
+				</if>
+				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==4"><!-- 本周 -->
+					AND  WEEKOFYEAR(create_time)=WEEKOFYEAR(NOW())
+				</if>
+				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==5"><!-- 上周 -->
+					AND YEARWEEK(date_format(create_time,'%Y-%m-%d')) = YEARWEEK(now())-1
+				</if>
+				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==6"><!-- 本月 -->
+					AND date_format(create_time,'%Y-%m')=date_format(now(),'%Y-%m')
+				</if>
+				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==7"><!-- 上月 -->
+					AND date_format(create_time,'%Y-%m')=date_format(DATE_SUB(NOW(), INTERVAL 1 MONTH),'%Y-%m')
+				</if>
+				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==8"><!-- 上季度 -->
+					AND  QUARTER(create_time)=QUARTER(DATE_SUB(now(),interval 1 QUARTER))
+				</if>
+				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==9"><!-- 本季度 -->
+					AND  QUARTER(create_time)=QUARTER(now())
+				</if>
+			</trim>
+			ORDER BY ${order}
+			LIMIT #{pageNo} ,#{pageSize};
+	</select>
+	
+	<!-- 查询总记录数  -->
+	<select id="countArticle" resultType="int" parameterType="Params">
+		SELECT
+			count(1) 
+		FROM
+			article 
+	</select>
+	
+	<!-- 根据id查询内容  -->
+	<select id="getArticle" resultType="Article">
+		<![CDATA[ SELECT 
+          article_id as articleId,
+          user_id as userId,
+          title,
+          subTitle,
+          description,
+          article,
+          static_link AS staticLink,
+          is_top AS isTop,
+          is_delete AS isDelete,
+          is_comment AS isComment,
+          status,
+          push,
+          comments,
+          hits,
+          collections,
+          loves,
+          tag,
+          width,
+          height,
+          article_channel_id AS channelId,
+          article_category_id as categoryId,
+          image,
+          thumnail,
+          create_time AS createTime 
+        FROM
+          article 
+        WHERE 
+        	article_id=#{articleId}
+        ]]>
+	</select>
+	
+	<update id="updateArticle" parameterType="Article">
+		update article 
+		<set>
+			<if test="hits!=null">hits=#{hits},</if>
+			<if test="collections!=null">collections=#{collections},</if>
+			<if test="loves!=null">loves=#{loves},</if>
+			<if test="comments!=null">comments=#{comments},</if>
+			<if test="status!=null">status=#{status},</if>
+			<if test="isDelete!=null">is_delete=#{isDelete},</if>
+			<if test="isComment!=null">is_comment=#{isComment},</if>
+			<if test="isTop!=null">is_top=#{isTop},</if>
+			<if test="push!=null">push=#{push},</if>
+		</set>
+		where article_id = #{articleId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteArticle" parameterType="Params" >
+	<!-- delete from keke_Article  where id = #{id} 假删 -->
+		update article set is_delete = 1 where article_id = #{articleId}
+	</delete>
+	
+	<!-- 添加 -->
+	<insert id="saveArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="id" flushCache="true"  >
+	  	INSERT INTO article(
+			article_id,
+			user_id,
+			title,
+			subTitle,
+			description,
+			article,
+			static_link,
+			is_top,
+			is_delete,
+			is_comment,
+			status,
+	        push,
+	        comments,
+	        hits,
+	        collections,
+	        loves,
+			tag,
+			width,
+			height,
+			article_channel_id,
+			article_category_id,
+			type,
+			image,
+			thumnail,
+			create_time,
+			keyword
+	  	) VALUES (
+	  		#{articleId},
+		  	#{userId},
+		  	#{title},
+		  	#{subTitle},
+		  	#{description},
+		  	#{article},
+		  	#{staticLink},
+		  	#{isTop},
+		  	#{isDelete},
+		  	#{isComment},
+		  	#{status},
+	        #{push},
+	        #{comments},
+	        #{hits},
+	        #{collections},
+	        #{loves},
+		  	#{tag},
+		  	#{width},
+		  	#{height},
+		  	#{channelId},
+		  	#{categoryId},
+		  	#{type},
+		  	#{image},
+		  	#{thumnail},
+		  	#{createTime},
+		  	#{keyword}
+	  	)
+	 </insert>
+	 
+	 		
+</mapper>

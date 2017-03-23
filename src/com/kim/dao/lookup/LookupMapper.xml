@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.dao.lookup.ILookupMapper" >
+	
+	<!-- 查询所有Lookup -->
+	<select id="findLookups" resultType="Lookup" parameterType="Params">
+		select 
+			lookup_id as lookupId,
+			lookupdf_id as lookupdfId,
+			user_id as userId,
+			lookup_code as code,
+			lookup_name as name,
+			lookup_description as description,
+			lookup_status as status,
+			is_delete as isDelete,
+			create_time as createTime,
+			update_time as updateTime
+		FROM
+			lookup 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and name LIKE '%${keyword}%'
+			</if>
+		</trim>
+		ORDER BY ${order}
+		LIMIT #{pageNo} ,#{pageSize};				
+	</select>
+	
+	<!-- 根据id查询Lookup -->
+	<select id="getLookup" resultType="Lookup">
+		SELECT 
+		  	lookup_id as lookupId,
+			lookupdf_id as lookupdfId,
+			user_id as userId,
+			lookup_code as code,
+			lookup_name as name,
+			lookup_description as description,
+			lookup_status as status,
+			is_delete as isDelete,
+			create_time as createTime,
+			update_time as updateTime
+		FROM
+		 	lookup
+		WHERE 
+			lookup_id = #{lookupId}
+	</select>
+	
+	<!-- 查询Lookup的总记录数  -->
+	<select id="countLookup" resultType="int" parameterType="Params">
+		SELECT
+			count(1) 
+		FROM
+			lookup 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and name LIKE '%${keyword}%'
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 添加Lookup -->
+	<insert id="saveLookup" parameterType="Lookup" useGeneratedKeys="true" keyProperty="id" flushCache="true" >
+	  	INSERT INTO lookup(
+			lookup_id,
+			lookupdf_id,
+			user_id,
+			lookup_code,
+			lookup_name,
+			lookup_description,
+			lookup_status,
+			is_delete,
+			update_time
+	  	) VALUES (
+		  	#{lookupId},
+		  	#{lookupdfId},
+		  	#{userId},
+		  	#{code},
+		  	#{name},
+		  	#{description},
+		  	#{status},
+		  	#{isDelete},
+		  	#{updateTime}
+	  	)
+	 </insert>
+	
+	<!-- 更新Lookup -->
+	<update id="updateLookup" parameterType="Lookup">
+		update lookup
+		<set>
+			<if test="isDelete!=null">is_delete=#{isDelete},</if>
+		</set>
+		where lookup_id = #{lookupId}
+	</update>
+	
+	<!-- 删除Lookup -->
+	<delete id="deleteLookup" parameterType="Params">
+		<!-- delete from lookup where lookup_id = #{lookupId} 真删 -->
+		update lookup set is_delete = 1 where lookup_id = #{lookupId}
+	</delete>
+	
+</mapper>

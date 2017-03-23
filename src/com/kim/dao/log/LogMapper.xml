@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.dao.log.ILogMapper" >
+	<select id="findLogs" resultType="Log" parameterType="Params">
+		select 
+		 log_id as logId,
+		 create_time as createTime,
+		 user_id as userId,
+		 user_name as userName,
+		 className,
+		 method,
+		 time,
+		 ip,
+		 ipAddress,
+		 model,
+		 description,
+		 is_delete as isDelete
+		FROM
+			log 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and name LIKE '%${keyword}%'
+			</if>
+		</trim>
+		ORDER BY ${order}
+		LIMIT #{pageNo} ,#{pageSize};				
+	</select>
+	
+	<insert id="saveLog" parameterType="Log">
+			INSERT INTO log(
+				 log_id,
+				 className,
+				 method,
+				 time,
+				 ip,
+				 ipAddress,
+				 user_id,
+				 user_name,
+				 model,
+				 description,
+				 is_delete
+			)VALUES(
+				#{logId},
+				#{className},
+				#{method},
+				#{time},
+				#{ip},
+				#{ipAddress},
+				#{userId},
+				#{userName},
+				#{model},
+				#{description},
+				#{isDelete}
+			)
+	</insert>
+	
+	<select id="countLog" resultType="int" parameterType="Params">
+		SELECT
+			count(1) 
+		FROM
+			log 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and description LIKE '%${keyword}%'
+			</if>
+		</trim>
+	</select>
+</mapper>
