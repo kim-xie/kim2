@@ -3,6 +3,7 @@ package com.kim.test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -81,6 +82,13 @@ public class Test {
 		
 		
 	}
+	@org.junit.Test
+	public void testUUID() throws ParseException{
+		String id = UUID.randomUUID().toString().replace("-", "");;
+		System.out.print(id);
+	}
+	
+	
 	//获取项目路径
 	public static void main(String[] args) {
 		System.out.println(System.getProperty("user.dir"));

@@ -5,7 +5,7 @@
 	<!-- 查询所有User -->
 	<select id="findUsers" resultType="User" parameterType="Params">
 		SELECT 
-		  	id,
+		  	user_id as userId,
 			name,
 			ip,
 			ipAddress,
@@ -40,7 +40,7 @@
 	<!-- 根据id查询User -->
 	<select id="getUser" resultType="User" parameterType="Params">
 		SELECT 
-		  	id,
+		  	user_id as userId,
 			name,
 			password,
 			ip,
@@ -71,8 +71,8 @@
 			<if test="@com.kim.util.StringUtils@isNotEmpty(password)">
 				and password = #{password}
 			</if>
-			<if test="@com.kim.util.StringUtils@isNotEmpty(id)">
-				or id = #{id}
+			<if test="@com.kim.util.StringUtils@isNotEmpty(userId)">
+				or user_id = #{userId}
 			</if>
 		</trim>
 			
@@ -94,16 +94,16 @@
 	<!-- 添加User -->
 	<insert id="saveUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" flushCache="true" >
 	  	INSERT INTO user(
-			id,
+			user_id,
 			name,
 			update_time,
 			role_id,
 			is_delete 
 	  	) VALUES (
-		  	#{id},
+		  	#{userId},
 		  	#{name},
 		  	#{updateTime},
-		  	#{userId},
+		  	#{roleId},
 		  	#{isDelete}
 	  	)
 	 </insert>
@@ -114,13 +114,13 @@
 		<set>
 			<if test="isDelete!=null">is_delete=#{isDelete},</if>
 		</set>
-		where id = #{id}
+		where user_id = #{userId}
 	</update>
 	
 	<!-- 删除User -->
 	<delete id="deleteUser" parameterType="Params">
-		<!-- delete from user where id = #{id} 真删 -->
-		update user set is_delete = 1 where id = #{id}
+		<!-- delete from user where user_id = #{id} 真删 -->
+		update user set is_delete = 1 where user_id = #{userId}
 	</delete>
 	
 </mapper>

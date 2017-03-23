@@ -13,7 +13,7 @@ public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	// 主键
-	private Integer id;
+	private String userId;
 	// 名称
 	private String name;
 	// 密码
@@ -60,13 +60,15 @@ public class User implements Serializable {
 	public User(){
 		super();
 	}
-
-	public Integer getId() {
-		return id;
+	public User(String userId){
+		this.userId = userId;
+	}
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getName() {

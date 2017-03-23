@@ -13,28 +13,49 @@ public class Params implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
+	private String userId;
+	private String channelId;
 	private String name;
 	private String keyword;
 	private String password;
 	private String verifyCode;
-	private String order;
 	private Integer isDelete;
 	private String createTime;
 	private String updateTime;
-	private Integer pageNo;
-	private Integer pageSize;
+	private Integer pageNo = 0;
+	private Integer pageSize = 10;
+	private Integer totalCount = 0;
+	private String order="create_time desc";
+	private Integer status;
+	private Integer year;
+	private Integer month;
+	private Integer day;
+	private Integer hour;
+	private String date;
+	private Integer roleId;
+	private Integer mark;
+	private Integer hits;
+	private Integer collections;
+	private Integer loves;
 	
 	public Params(){
 		super();
 	}
 
-	public Integer getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(String userId) {
+		this.userId = userId;
+	}
+	
+	public String getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
 	}
 
 	public String getName() {
@@ -116,9 +137,105 @@ public class Params implements Serializable {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
+	
+	public Integer getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(Integer totalCount) {
+		this.totalCount = totalCount;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+
+	public Integer getDay() {
+		return day;
+	}
+
+	public void setDay(Integer day) {
+		this.day = day;
+	}
+
+	public Integer getHour() {
+		return hour;
+	}
+
+	public void setHour(Integer hour) {
+		this.hour = hour;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+
+	public Integer getMark() {
+		return mark;
+	}
+
+	public void setMark(Integer mark) {
+		this.mark = mark;
+	}
+
+	public Integer getHits() {
+		return hits;
+	}
+
+	public void setHits(Integer hits) {
+		this.hits = hits;
+	}
+
+	public Integer getCollections() {
+		return collections;
+	}
+
+	public void setCollections(Integer collections) {
+		this.collections = collections;
+	}
+
+	public Integer getLoves() {
+		return loves;
+	}
+
+	public void setLoves(Integer loves) {
+		this.loves = loves;
+	}
+	
 }

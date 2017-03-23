@@ -31,12 +31,12 @@
   
   <!-- spring的配置文件的加载  也可Import到Springmvc管理 -->
   <context-param>
-	    <param-name>contextConfigLocation</param-name>
-	    <param-value>classpath:applicationContext.xml</param-value>
-	  </context-param>
-	  <listener>
-	    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	  </listener>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
  
   <!-- 框架异常处理 -->
   <error-page>

@@ -15,11 +15,11 @@ public class Music implements Serializable {
 	*/ 
 	private static final long serialVersionUID = 1L;
 	// 主键
-	private Integer id;
+	private String musicId;
 	// 分类id
-	private Integer userId;
+	private String userId;
 	// 分类id
-	private Integer categoryId;
+	private String categoryId;
 	// 标题
 	private String title;
 	// 歌手
@@ -58,27 +58,31 @@ public class Music implements Serializable {
 		super();
 	}
 	
-	public Integer getId() {
-		return id;
+	public Music(String musicId){
+		this.musicId = musicId;
+	}
+	
+	public String getMusicId() {
+		return musicId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setMusicId(String musicId) {
+		this.musicId = musicId;
 	}
 
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	public Integer getCategoryId() {
+	public String getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(Integer categoryId) {
+	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 

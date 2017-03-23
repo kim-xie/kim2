@@ -263,25 +263,22 @@
 				var tagval = $("p .input").val();
 				
 				if(!titleVal || !description || !img || !contentVal || !tagval){
-					loading("请填写完整内容",4);
+					alert("请填写完整内容",4);
 					return false;
 				}
-				var params = {title:titleVal,description:description,image:img,content:contentVal,tag:tagval};
+				var params = {title:titleVal,description:description,image:img,article:contentVal,tag:tagval};
 				$.ajax({
-					type:"post",
-					url:basePath+"/content/save.do",
-					data:params,
-					beforeSend:function(){loading("文章发表中请等待...",5);},
+					type: "post",
+					url: basePath+"/article/save",
+					data: params,
+					beforeSend:function(){alert("文章发表中请等待...",5);},
 					success:function(data){
 						var data = data.trim();
 						if(data == "fail" || data=="error"){
-							loading("文章发表失败...",5);
+							alert("文章发表失败...",5);
 						}
 						if(data == "success"){
-							loading("文章发表成功...",5);
-							location.reload();
-							$(".editerBox").slideUp();
-							$(".nav-tabs #content").trigger("click");
+							alert("文章发表成功...",5);
 						}
 					}
 				}); 
@@ -314,6 +311,8 @@
 					};
 				}
 			}
+			
+			
 			/*发表音乐*/
 			function saveMusic(obj){ //http://localhost:8080/MyBoke
 				var img = $("#img").attr("src").substring(28);
@@ -326,7 +325,7 @@
 				var category_id = $(".m_category").val();
 				
 				if(!title || !description || !img || !category_id || !src || !singer || !size || !time){
-					loading("请填写完整内容",4);
+					alert("请填写完整内容",4);
 					return false;
 				}
 				var params = {title:title,description:description,img:img,categoryId:category_id,src:src,singer:singer,size:size,time:time};
@@ -336,14 +335,14 @@
 					type:"post",
 					url:basePath+"/music/save.do",
 					data:params,
-					beforeSend:function(){loading("音乐发表中请等待...",5);},
+					beforeSend:function(){alert("音乐发表中请等待...",5);},
 					success:function(data){
 						var data = data.trim();
 						if(data == "fail" || data=="error"){
-							loading("音乐发表失败...",5);
+							alert("音乐发表失败...",5);
 						}
 						if(data == "success"){
-							loading("音乐发表成功...",5);
+							alert("音乐发表成功...",5);
 							location.reload();
 							$(".musicUploadBox").slideUp();
 							$(".nav-tabs #music").trigger("click");

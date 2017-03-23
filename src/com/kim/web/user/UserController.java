@@ -85,6 +85,12 @@ public class UserController extends BaseController{
 			if(params.getVerifyCode() == null){
 				User user = userService.getUser(params);
 				if(user != null && user.getName().equals(params.getName()) && user.getPassword().equals(params.getPassword())){
+					//将用户信息放到session中
+					session.setAttribute("user",user);
+					//日记监控用户行为和获取请求参数
+					request.getServletContext().setAttribute("user_log", user);
+					//将登陆请求参数放到应用上下文中
+					request.getServletContext().setAttribute("request_log", request);
 					return "success";
 				}else{
 					return "pswError";
@@ -114,7 +120,7 @@ public class UserController extends BaseController{
 		ModelAndView modelAndView = new ModelAndView();
 		List<User> users = userService.findUsers(params);
 		int count = userService.countUser(params);
-		modelAndView.setViewName("user/template");
+		modelAndView.setViewName("fronts/user/template");
 		modelAndView.addObject("users",users);
 		modelAndView.addObject("itemCount",count);
 		return modelAndView;
@@ -133,7 +139,7 @@ public class UserController extends BaseController{
 	public String saveUser(User user){
 		if(user != null){
 			User userSession = (User) request.getSession().getAttribute("user");
-			user.setId(userSession.getId());
+			user.setUserId(userSession.getUserId());
 			user.setName(userSession.getName());
 			user.setIsDelete(0);
 			boolean faly = userService.saveUser(user);
@@ -159,7 +165,7 @@ public class UserController extends BaseController{
 	public ModelAndView getUser(@PathVariable("id")Integer id,Params params){
 		ModelAndView modelAndView = new ModelAndView();
 		User user = userService.getUser(params);
-		modelAndView.setViewName("user/detail");
+		modelAndView.setViewName("fronts/user/detail");
 		modelAndView.addObject("user",user);
 		return modelAndView;
 	}

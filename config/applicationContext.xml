@@ -47,9 +47,9 @@
 		<!-- 注册mybatisbean别名 -->
         <property name="typeAliasesPackage" value="com.kim.bean"></property>
         <!-- 加载映射文件  -->
-        <property name="mapperLocations" value="classpath:com/kim/dao/*/*.xml"/>  
+        <!-- <property name="mapperLocations" value="classpath:com/kim/dao/*/*.xml"/>  --> 
 		<!-- 指定mybatis配置文件 -->
-		<property name="configLocation" value="classpath:mybatisConfig.xml"/>
+		<property name="configLocation" value="classpath:Mybatis-Config.xml"/>
 	</bean>
 	
 	<!-- 配置事务 -->
@@ -77,16 +77,19 @@
 				<tx:method name="get*" read-only="true" propagation="SUPPORTS" />
 				<tx:method name="query*" read-only="true" propagation="SUPPORTS"/>
 				<tx:method name="count*" read-only="true" propagation="SUPPORTS" />
-				<!-- <tx:method name="*" read-only="true" propagation="SUPPORTS" /> -->
+				<tx:method name="*" read-only="true" propagation="SUPPORTS" /> 
 			</tx:attributes>
 	</tx:advice>
 	
 	<!-- 配置aop切入事务 -->
 	<aop:config>
 		<!-- 切点 -->
-		<aop:pointcut expression="execution(* com.kim.service..*.*(..))" id="pointcut"/><!--  || execution(* com.kim.util.GatherUtils.*(..)) -->
+		<aop:pointcut expression="execution(* com.kim.service..*.*(..)) || execution(* com.kim.util.GatherUtils.*(..))" id="pointcut"/><!--  || execution(* com.kim.util.GatherUtils.*(..)) -->
 		<!-- 顾问 -->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
 	</aop:config>
+	
+	<!--导入applicationContext-log.xml 或者放到web.xml管理-->
+	<import resource="classpath:applicationContext-log.xml"/>
 	
 </beans>

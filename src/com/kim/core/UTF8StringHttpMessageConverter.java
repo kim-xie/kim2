@@ -1,5 +1,4 @@
 package com.kim.core;
-
 /*
  * Copyright 2002-2013 the original author or authors.
  *
@@ -7,7 +6,7 @@ package com.kim.core;
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,6 +14,7 @@ package com.kim.core;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -26,10 +26,16 @@ import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.StreamUtils;
 
 /**
- * 请求乱码处理
+ * Implementation of {@link HttpMessageConverter} that can read and write strings.
+ *
+ * <p>By default, this converter supports all media types ({@code &#42;&#47;&#42;}),
+ * and writes with a {@code Content-Type} of {@code text/plain}. This can be overridden
+ * by setting the {@link #setSupportedMediaTypes supportedMediaTypes} property.
+ *
  * @author Arjen Poutsma
  * @since 3.0
  */

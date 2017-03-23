@@ -5,7 +5,7 @@
 	<!-- 查询所有Music -->
 	<select id="findMusics" resultType="java.util.HashMap" parameterType="Params">
 		select 
-			m.id,
+			m.music_id as musicId,
 			m.title,
 			m.singer,
 			m.album,
@@ -23,13 +23,15 @@
 			m.create_time as createTime,
 			m.update_time as updateTime,
 			u.name,
-			u.header_pic as headerPic
+			u.header_pic as headerPic,
+			c.type,
+			c.code
 		FROM
 			music m 
 			  LEFT JOIN music_category c 
-			    ON c.id = m.category_id 
+			    ON c.music_category_id = m.music_category_id 
 			  LEFT JOIN user u 
-			    ON u.id = m.user_id 
+			    ON u.user_id = m.user_id 
 				<trim prefix="WHERE" prefixOverrides="AND | OR">  
 					<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
 						and (m.title = #{keyword} or m.singer = #{keyword} or m.album = #{keyword}) 
@@ -39,15 +41,15 @@
 					</if>
 				</trim>	
 				ORDER BY m.${order}
-				<!-- LIMIT #{pageNo},#{pageSize}	 -->
+				LIMIT #{pageNo},#{pageSize}	
 	</select>
 	
 	<!-- 根据id查询Music -->
 	<select id="getMusic" resultType="java.util.HashMap">
 		SELECT 
-		  	m.id,
+		  	m.music_id as musicId,
 			m.user_id as userId,
-			m.category_id as categoryId,
+			m.music_category_id as categoryId,
 			m.title,
 			m.singer,
 			m.album,
@@ -65,15 +67,17 @@
 			m.create_time as createTime,
 			m.update_time as updateTime,
 			u.name,
-			u.header_pic as headerPic
+			u.header_pic as headerPic,
+			c.type,
+			c.code
 		FROM
 			music m 
 			  LEFT JOIN music_category c 
-			    ON c.id = m.category_id 
+			    ON c.music_category_id = m.music_category_id 
 			  LEFT JOIN user u 
-			    ON u.id = m.user_id 
+			    ON u.user_id = m.user_id 
 		WHERE 
-			id = #{id}
+			music_id = #{musicId}
 	</select>
 	
 	<!-- 查询Music的总记录数  -->
@@ -81,7 +85,7 @@
 		SELECT
 			count(1) 
 		FROM
-			music 
+			music m
 		<trim prefix="WHERE" prefixOverrides="AND | OR">  
 			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
 				and (m.title = #{keyword} or m.singer = #{keyword} or m.album = #{keyword}) 
@@ -92,13 +96,14 @@
 	<!-- 添加Music -->
 	<insert id="saveMusic" parameterType="Music" useGeneratedKeys="true" keyProperty="id" flushCache="true" >
 	  	INSERT INTO music(
+	  		music_id,
+	  		user_id,
+	  		music_category_id,
 			title,
 			singer,
 			album,
 			time,
 			size,
-			user_id,
-			category_id,
 			playSrc,
 			image,
 			lrc,
@@ -109,13 +114,14 @@
 			descriptions,
 			is_delete
 	  	) VALUES (
+	  		#{musicId},
+	  		#{userId},
+	  		#{categoryId},
 		  	#{title},
 		  	#{singer},
 		  	#{album},
 		  	#{time},
 		  	#{size},
-		  	#{userId},
-		  	#{categoryId},
 		  	#{playSrc},
 		  	#{image},
 		  	#{lrc},
@@ -134,13 +140,13 @@
 		<set>
 			<if test="isDelete!=null">is_delete=#{isDelete},</if>
 		</set>
-		where id = #{id}
+		where music_id = #{musicId}
 	</update>
 	
 	<!-- 删除Music -->
 	<delete id="deleteMusic" parameterType="Params">
 		<!-- delete from music where id = #{id} 真删 -->
-		update music set is_delete = 1 where id = #{id}
+		update music set is_delete = 1 where music_id = #{musicId}
 	</delete>
 	
 </mapper>

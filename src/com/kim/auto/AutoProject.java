@@ -19,11 +19,11 @@ public class AutoProject {
 	//service 
 	//web
 	//pages
-	private static String beanName = "Music";
+	private static String beanName = "Content";
 	private static String smallBeanName = beanName.toLowerCase();
 	
 	//注释
-	private static String description = "音乐模块";
+	private static String description = "文章模块";
 	private static String author = "kim";
 	private static String qq = "1134771121";
 	private static String telephone = "18378311282";
@@ -382,12 +382,12 @@ public class AutoProject {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-//		createBean();
-//		createDao();
-//		createSQLXml();
-//		createService();
-//		createServiceImpl();
-//		createweb();
+		createBean();
+		createDao();
+		createSQLXml();
+		createService();
+		createServiceImpl();
+		createweb();
 		createPage();
 		createTemplate();
 //		createTable();

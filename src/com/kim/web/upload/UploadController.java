@@ -51,28 +51,42 @@ public class UploadController extends BaseController{
 	public String uploadMusic(@RequestParam("doc") MultipartFile file) throws IllegalStateException, IOException, JSONException{
 		//获取原文件名
 		String oldName = file.getOriginalFilename();
+		
 		// 文件大小
 		long size = file.getSize();
+		
 		// 文件大小单位为KB
 		String sizeString = TmFileUtil.countFileSize(size);
+		
 		// 生成的新的文件名
 		String newFileName = TmFileUtil.generateFileName(oldName, 10, "yyyyMMddHHmmss");
+		
 		//获取文件后缀
 		String ext = oldName.substring(oldName.lastIndexOf(".")+1);
+		
 		//獲取文件的目錄
 		String dir = request.getParameter("dir");
+		
 		if(StringUtils.isEmpty(dir))dir = "imgs";
+		
 		String fpath = "/resources/"+dir+"/";
+		
+		//获取绝对路径
 		@SuppressWarnings("deprecation")
 		String path = request.getRealPath(fpath);
+		
 		String url = fpath + newFileName;
+		
 		File parent = new File(path);
+		
+		//新建文件夹
 		if(!parent.exists())parent.mkdirs();
-		//上传文件到目标文件夹--文件的赋值
-		file.transferTo(new File(parent, newFileName));// 文件上传
+		
+		//上传文件到目标文件夹--文件的赋值  // 文件上传
+		file.transferTo(new File(parent, newFileName));
 		
 		/*String url = null;
-		if(TmStringUtils.isNotEmpty(ext)&& ext.equalsIgnoreCase("mp3")){
+		if(StringUtils.isNotEmpty(ext)&& ext.equalsIgnoreCase("mp3")){
 			@SuppressWarnings("deprecation")
 			String path = request.getRealPath("/resources/mp3/song");
 			File parent = new File(path);
@@ -83,7 +97,7 @@ public class UploadController extends BaseController{
 			url = "/resources/mp3/song/"+newFileName;
 		}
 		
-		if(TmStringUtils.isNotEmpty(ext)&& ext.equalsIgnoreCase("jpg") || ext.equalsIgnoreCase("jpeg") || ext.equalsIgnoreCase("png") ||ext.equalsIgnoreCase("gif")){
+		if(StringUtils.isNotEmpty(ext)&& ext.equalsIgnoreCase("jpg") || ext.equalsIgnoreCase("jpeg") || ext.equalsIgnoreCase("png") ||ext.equalsIgnoreCase("gif")){
 			@SuppressWarnings("deprecation")
 			String path = request.getRealPath("/resources/mp3/img");
 			File parent = new File(path);
@@ -98,7 +112,7 @@ public class UploadController extends BaseController{
 		map.put("name", oldName);// 文件的原始名称
 		map.put("newName", newFileName);// 文件的新名称
 		map.put("ext", ext);// 文件的后缀
-		map.put("size", size);// 文件的真实大小
+		map.put("size", sizeString);// 文件的真实大小
 		map.put("url",url);// 获取文件的具体服务器的目录
 		return JSONUtil.serialize(map);
 	}
@@ -116,8 +130,7 @@ public class UploadController extends BaseController{
 	 */
 	@ResponseBody 
 	@RequestMapping(method=RequestMethod.POST,value="/upload")
-	public String upload(@RequestParam("doc") MultipartFile file)
-			throws IllegalStateException, IOException, JSONException {
+	public String upload(@RequestParam("doc") MultipartFile file)throws IllegalStateException, IOException, JSONException {
 		
 		if(!file.isEmpty()){
 			
@@ -135,18 +148,25 @@ public class UploadController extends BaseController{
 			
 			// 装载要返回的数据
 			HashMap<String, Object> map = new HashMap<String,Object>();
+			
 			// 上传时的文件名
 			String oldName = file.getOriginalFilename();
+			
 			// 文件大小
 			long size = file.getSize();
+			
 			// 文件大小单位为KB
 			String sizeString = TmFileUtil.countFileSize(size);
+			
 			// 文件后缀名
 			String ext = TmFileUtil.getExtNoPoint(oldName);
+			
 			// 生成的新的文件名
 			String newFileName = TmFileUtil.generateFileName(oldName, 10, "yyyyMMddHHmmss");
+			
 			// 保存路径
 			String url = "/resources/imgs/header_pic/"+newFileName;
+			
 			// 转存文件
 			file.transferTo(new File(parent, newFileName));
 			
@@ -158,6 +178,7 @@ public class UploadController extends BaseController{
 			map.put("url",url);
 			
 			return JSONUtil.serialize(map);
+			
 		}else{
 			return null;
 		}
@@ -173,22 +194,27 @@ public class UploadController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/cutImg",method=RequestMethod.POST)
 	public String cutImages() throws IOException{
+		//头像裁剪：必须图片是覆盖
+		
 		//拿到上传的图片
 		String bigSrc = request.getParameter("bgsrc");
-		//头像裁剪：必须图片是覆盖
+		
 		//拿到目标图片
 		String smallSrc = request.getParameter("smallsrc");
 		
 		if(!bigSrc.isEmpty() && !smallSrc.isEmpty()){
 			//上传图片的路径
 			String realpath = contextProvider.getApplicationRealPath(bigSrc);
+			
 			//裁剪后存放的目标路径
 			String targetPath = contextProvider.getApplicationRealPath(smallSrc);
 			
 			//根据路径创建文件
 			File file = new File(targetPath);
+			
 			//拿到文件所在的目录
 			File pFile = file.getParentFile();
+			
 			//如果不存在进行创建
 			if(!pFile.exists())pFile.mkdirs();
 			

@@ -992,7 +992,7 @@ transform: scale(1.05);}
 		
 		<!-- 内容区域  start -->
 		<div id="mainWrap">
-			<div class="bannerWrap"></div>
+			<div id="bannerWrap" style="width:1180px;height:350px;margin:0 auto;margin-top:60px;"></div>
 		
 			<div class="wpn" id="project">
 		        <!--  -->
@@ -1021,224 +1021,7 @@ transform: scale(1.05);}
 		        </div>
 		        <!--  -->
 		        <!--  -->
-		        <ul class="post post-works mtw cl">
-		            <li>
-		                <!--  -->
-		                <div class="shade" style="opacity: 0;"></div>
-		                <!--  -->
-		                <div class="cover pos">
-		                    <a href="javascript:void(0)" target="_blank" title="业务与用户路径如何运用到产品优化">
-		                        <img width="280" height="210" src="${basePath}/resources/imgs/index/1044522.jpg" data-original="${basePath}/resources/imgs/index/1044522.jpg" class="imgloadinglater" alt="业务与用户路径如何运用到产品优化" rel="nofollow" style="display: inline;">
-		                    </a>
-		                </div>
-		                <div class="info">
-		                    <h4 class="title ellipsis download"> 业务与用户路径如何运用到产品优化</h4>
-		                    <div class="msg mtn cl">
-		                        <span class="classify">原创</span>
-		                        <span><i class="iconfont icon-iconeye" title="浏览数"></i><em>1404</em></span>
-		                        <span><i class="iconfont icon-comment" title="评论数"></i><em>6</em></span>
-		                        <span><i class="iconfont icon-leaf" title="点赞数"></i><em>36</em></span>
-		                    </div>
-		                    <p class="user cl">
-		                        <a href="javascript:void(0)" target="_blank"><img src="${basePath}/resources/imgs/index/auther.png?imageMogr2/auto-orient/crop/!300x300a0a0/thumbnail/60x60" title="星夜Design"> 
-			                        <strong class="name">
-			                            <em>星夜Design</em> 
-			                        	<i class="cert icon-certified2" title="UI中国认证设计师"></i>                                                                       
-			                        </strong>
-		                        </a>
-		                    </p>
-		                </div>
-		                <!--  分隔线  -->
-		                <div class="line"></div>
-		            </li>
-		            <li>
-		                <!--  -->
-		                <div class="shade" style="opacity: 0;"></div>
-		                <!--  -->
-		                <div class="cover pos">
-		                    <a href="javascript:void(0)" target="_blank" title="Point_Vision原创教程Principle简单动效">
-		                        <img width="280" height="210" src="${basePath}/resources/imgs/index/1045420.jpg" data-original="${basePath}/resources/imgs/index/1045420.jpg" class="imgloadinglater" alt="Point_Vision原创教程Principle简单动效" rel="nofollow" style="display: inline;">
-		                    </a>
-		                </div>
-		                <div class="info">
-		                    <h4 class="title ellipsis download">Point_Vision原创教程Principle简单动效</h4>
-		                    <div class="msg mtn cl">
-		                        <span class="classify">原创</span>
-		                        <span><i class="iconfont icon-iconeye" title="浏览数"></i><em>2361</em></span>
-		                        <span><i class="iconfont icon-comment" title="评论数"></i><em>6</em></span>
-		                        <span><i class="iconfont icon-leaf" title="点赞数"></i><em>97</em></span>
-		                    </div>
-		                    <p class="user cl">
-		                        <a href="javascript:void(0)" target="_blank">
-			                        <img src="${basePath}/resources/imgs/index/auther.png?imageMogr2/auto-orient/crop/!300x300a0a0/thumbnail/60x60" title="Point_Vision"> 
-			                        <strong class="name"><em>Point_Vision</em></strong>
-		                        </a>
-		                    </p>
-		                </div>
-		                <!--  分隔线  -->
-		                <div class="line"></div>
-		            </li>
-		            <li>
-		                <!--  -->
-		                <div class="shade" style="opacity: 0;"></div>
-		                <!--  -->
-		                <div class="cover pos">
-		                    <a href="javascript:void(0)" target="_blank" title="Origami教程10-列表视差动画+TAB动画">
-		                        <img width="280" height="210" src="${basePath}/resources/imgs/index/1046463.png" data-original="${basePath}/resources/imgs/index/1046463.png" class="imgloadinglater" alt="Origami教程10-列表视差动画+TAB动画" rel="nofollow" style="display: inline;">
-		                    </a>
-		                </div>
-		                <div class="info">
-			                <div class="msg mtn cl">
-				                 <h4 class="title ellipsis download">Origami教程10-列表视差动画+TAB动画</h4>
-			                     <span class="classify">原创</span>
-			                     <span><i class="iconfont icon-iconeye" title="浏览数"></i><em>2604</em></span>
-			                     <span><i class="iconfont icon-comment" title="评论数"></i><em>4</em></span>
-			                     <span><i class="iconfont icon-leaf" title="点赞数"></i><em>28</em></span>
-			                 </div>
-			                 <p class="user cl">
-			                     <a href="javascript:void(0)" target="_blank"><img src="${basePath}/resources/imgs/index/auther.png?imageMogr2/auto-orient/crop/!300x300a0a0/thumbnail/60x60" title="HeNgrY"> <strong class="name">
-			                         <em>HeNgrY</em> 
-			                     <i class="cert icon-certified2" title="UI中国认证设计师"></i>                                                                        </strong></a>
-			                 </p>
-		                </div>
-		                <!--  分隔线  -->
-		                <div class="line"></div>
-		            </li>
-		            <li>
-		                <!--  -->
-		                <div class="shade" style="opacity: 0;"></div>
-		                <!--  -->
-		                <div class="cover pos">
-		                    <a href="javascript:void(0)" target="_blank" title="深度揭秘上百种H5动效（不看可能会后悔篇）">
-		                        <img width="280" height="210" src="${basePath}/resources/imgs/index/1048507.png" data-original="${basePath}/resources/imgs/index/1048507.png" class="imgloadinglater" alt="深度揭秘上百种H5动效（不看可能会后悔篇）" rel="nofollow" style="display: inline;">
-		                    </a>
-		                </div>
-		                <div class="info">
-		                    <h4 class="title ellipsis download">深度揭秘上百种H5动效（不看可能会后悔篇） </h4>
-		                    <div class="msg mtn cl">
-		                        <span class="classify">原创</span>
-		                        <span><i class="iconfont icon-iconeye" title="浏览数"></i><em>4834</em></span>
-		                        <span><i class="iconfont icon-comment" title="评论数"></i><em>10</em></span>
-		                        <span><i class="iconfont icon-leaf" title="点赞数"></i><em>103</em></span>
-		                    </div>
-		                    <p class="user cl">
-		                        <a href="javascript:void(0)" target="_blank">
-		                        	<img src="${basePath}/resources/imgs/index/auther.png?imageMogr2/auto-orient/crop/!300x300a0a0/thumbnail/60x60" title="尼姑拉丝赵四"> 
-		                        	<strong class="name"><em>尼姑拉丝赵四</em></strong>
-		                        </a>
-		                    </p>
-		                </div>
-		                <!--  分隔线  -->
-		                <div class="line"></div>
-		            </li>
-		            <li>
-		                <!--  -->
-		                <div class="shade" style="opacity: 0;"></div>
-		                <!--  -->
-		                <div class="cover pos">
-		                    <a href="javascript:void(0)" target="_blank" title="球球世界">
-		                        <img width="280" height="210" src="${basePath}/resources/imgs/index/1048934.gif" data-original="${basePath}/resources/imgs/index/1048934.gif" class="imgloadinglater" alt="球球世界" rel="nofollow" style="display: inline;">
-		                    </a>
-		                </div>
-		                <div class="info">
-		                    <h4 class="title ellipsis download">球球世界</h4>
-		                    <div class="msg mtn cl">
-		                        <span class="classify">原创</span>
-		                        <span><i class="iconfont icon-iconeye" title="浏览数"></i><em>1690</em></span>
-		                        <span><i class="iconfont icon-comment" title="评论数"></i><em>10</em></span>
-		                        <span><i class="iconfont icon-leaf" title="点赞数"></i><em>79</em></span>
-		                    </div>
-		                    <p class="user cl">
-		                        <a href="javascript:void(0)" target="_blank">
-		                        <img src="${basePath}/resources/imgs/index/auther.png?imageMogr2/auto-orient/crop/!300x300a0a0/thumbnail/60x60" title="大裤衩"> 
-		                        <strong class="name"><em>大裤衩</em></strong>
-		                        </a>
-		                    </p>
-		                </div>
-		                <!--  分隔线  -->
-		                <div class="line"></div>
-		            </li>
-		            <li>
-		                <!--  -->
-		                <div class="shade" style="opacity: 0;"></div>
-		                <!--  -->
-		                <div class="cover pos">
-		                    <a href="javascript:void(0)" target="_blank" title="《石头记》像素风格百度手机输入法皮肤设计">
-		                        <img width="280" height="210" src="${basePath}/resources/imgs/index/1055025.gif" data-original="${basePath}/resources/imgs/index/1055025.gif" class="imgloadinglater" alt="《石头记》像素风格百度手机输入法皮肤设计" rel="nofollow" style="display: inline;">
-		                    </a>
-		                </div>
-		                <div class="info">
-		                    <h4 class="title ellipsis download">《石头记》像素风格百度手机输入法皮肤设计</h4>
-		                    <div class="msg mtn cl">
-		                        <span class="classify">原创</span>
-		                        <span><i class="iconfont icon-iconeye" title="浏览数"></i><em>1765</em></span>
-		                        <span><i class="iconfont icon-comment" title="评论数"></i><em>17</em></span>
-		                        <span><i class="iconfont icon-leaf" title="点赞数"></i><em>100</em></span>
-		                    </div>
-		                    <p class="user cl">
-		                        <a href="javascript:void(0)" target="_blank">
-		                        	<img src="${basePath}/resources/imgs/index/auther.png?imageMogr2/auto-orient/crop/!300x300a0a0/thumbnail/60x60" title="吉茄木木"> 
-		                        	<strong class="name"><em>吉茄木木</em></strong>
-		                        </a>
-		                    </p>
-		                </div>
-		                <!--  分隔线  -->
-		                <div class="line"></div>
-		            </li>
-		            <li>
-		                <!--  -->
-		                <div class="shade"></div>
-		                <!--  -->
-		                <div class="cover pos">
-		                    <a href="javascript:void(0)" target="_blank" title="百度输入法大赛——Suitcase of bourne">
-		                        <img width="280" height="210" src="${basePath}/resources/imgs/index/1056081.jpg" data-original="${basePath}/resources/imgs/index/1056081.jpg" class="imgloadinglater" alt="百度输入法大赛——Suitcase of bourne" rel="nofollow" style="display: inline;">
-		                    </a>
-		                </div>
-		                <div class="info">
-		                    <h4 class="title ellipsis download">百度输入法大赛——Suitcase of bourne</h4>
-		                    <div class="msg mtn cl">
-		                        <span class="classify">原创</span>
-		                        <span><i class="iconfont icon-iconeye" title="浏览数"></i><em>2785</em></span>
-		                        <span><i class="iconfont icon-comment" title="评论数"></i><em>107</em></span>
-		                        <span><i class="iconfont icon-leaf" title="点赞数"></i><em>193</em></span>
-		                    </div>
-		                    <p class="user cl">
-		                        <a href="javascript:void(0)" target="_blank">
-		                        	<img src="${basePath}/resources/imgs/index/auther.png?imageMogr2/auto-orient/crop/!300x300a0a0/thumbnail/60x60" title="大表狗"> 
-		                        	<strong class="name"><em>大表狗</em></strong>
-		                        </a>
-		                    </p>
-		                </div>
-		                <!--  分隔线  -->
-		                <div class="line"></div>
-		            </li>
-		            <li>
-		                <!--  -->
-		                <div class="shade" style="opacity: 0;"></div>
-		                <!--  -->
-		                <div class="cover pos">
-		                    <a href="javascript:void(0)" target="_blank" title="【旺达与巨像】SHADOW OF THE COLOSSUS">
-		                        <img width="280" height="210" src="${basePath}/resources/imgs/index/1059537.png" data-original="${basePath}/resources/imgs/index/1059537.png" class="imgloadinglater" alt="【旺达与巨像】SHADOW OF THE COLOSSUS" rel="nofollow" style="display: inline;">
-		                    </a>
-		                </div>
-		                <div class="info">
-		                    <h4 class="title ellipsis download">【旺达与巨像】SHADOW OF THE COLOSSUS</h4>
-		                    <div class="msg mtn cl">
-		                        <span class="classify">原创</span>
-		                        <span><i class="iconfont icon-iconeye" title="浏览数"></i><em>2196</em></span>
-		                        <span><i class="iconfont icon-comment" title="评论数"></i><em>29</em></span>
-		                        <span><i class="iconfont icon-leaf" title="点赞数"></i><em>142</em></span>
-		                    </div>
-		                    <p class="user cl">
-		                        <a href="javascript:void(0)" target="_blank">
-		                        	<img src="${basePath}/resources/imgs/index/auther.png?imageMogr2/auto-orient/crop/!300x300a0a0/thumbnail/60x60" title="x行骗艺术家"> 
-		                        	<strong class="name"><em>x行骗艺术家</em></strong>
-		                        </a>
-		                    </p>
-		                </div>
-		                <!--  分隔线  -->
-		                <div class="line"></div>
-		            </li>
+		        <ul id="articleWrap" class="post post-works mtw cl">
 		                       
 		         </ul>
 		         <div class="h_page mtn mbw">
@@ -1515,7 +1298,32 @@ transform: scale(1.05);}
 		<!-- 底部导航  start -->
 		<%@include file="/WEB-INF/pages/fronts/common/footer.jsp"%>
 		<!-- 底部导航  end -->
+		<script type="text/javascript" src="${basePath}/resources/kimUtils/banner/banner.js"></script>
 		<script type="text/javascript"> 
+		
+			$(function(){
+				var param = {pageNo:'0',pageSize:'8'};
+				$.ajax({
+					type: "post",
+					url: basePath+"/article/template",
+					data: param,
+					success:function(data){
+						alert(data)
+						var $data = $(data);
+						$("#articleWrap").html($data);
+					}
+				});
+			});
+		
+		
+			$("#bannerWrap").kimBanner({
+				imgSrc: ["${basePath}/resources/imgs/banner/ui1.png","${basePath}/resources/imgs/banner/ui3.jpeg","${basePath}/resources/imgs/banner/ui4.jpeg"],
+				imgUrl: ["javascript:viod(0);","javascript:viod(0);","javascript:viod(0);"],
+				imgTitle: ["第一张图","第二张图","第三张图"]
+			});
+			
+			
+			
 			
 		</script>
 	</body>

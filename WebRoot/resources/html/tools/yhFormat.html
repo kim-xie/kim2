@@ -12,22 +12,25 @@
 	a{text-decoration:none;color:#fff;border-radius:5px;margin-left:10px;display:inline-block;background:#006AAD;padding:5px;}
 	ul,ol li{list-style:none;}
 	body{font-size:12px;font-family:"微软雅黑";background:#EDEDEF;}
-	textarea{width:99%;height:180px;margin:4px;}
+	#wrap{width:80%;margin:20px auto;}
+	textarea{width:100%;height:180px;padding:6px;margin:10px 0;}
 	label{cursor:pointer;}
 	h2{text-align:center;margin:10px;color: #006AAD;}
-	p{text-align:center;font-size:16px;}
+	p{text-align:center;font-size:16px;margin:10px 0;}
 </style>
 </head>
 <body>
-	<h2>单双引号转换工具</h2>
-	<textarea id="tm-source"></textarea>
-	<p>
-		<label><input type="radio" name="type" value="2">双引号转单引号</label>
-		<label><input type="radio" name="type" value="1" checked="checked">单引号转双引号</label>
-		<label><a href="javascript:void(0);" onclick="tm_transfter()">开始转化</a>
-	</p>
-	<textarea id="tm-target"></textarea>
-	<textarea id="tm-result"></textarea>
+	<div id="wrap">
+		<h2>单双引号转换工具</h2>
+		<textarea id="tm-source"></textarea>
+		<p>
+			<label><input type="radio" name="type" value="2">双引号转单引号</label>
+			<label><input type="radio" name="type" value="1" checked="checked">单引号转双引号</label>
+			<label><a href="javascript:void(0);" onclick="tm_transfter()">开始转化</a>
+		</p>
+		<textarea id="tm-target"></textarea>
+		<textarea id="tm-result"></textarea>
+	</div>
 	<script type="text/javascript">
 		 
 		function tm_transfter() {

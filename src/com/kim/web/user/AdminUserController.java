@@ -78,7 +78,7 @@ public class AdminUserController extends BaseController{
 	public String saveUser(User user){
 		if(user != null){
 			User userSession = (User) request.getSession().getAttribute("user");
-			user.setId(userSession.getId());
+			user.setUserId(userSession.getUserId());
 			user.setName(userSession.getName());
 			user.setIsDelete(0);
 			boolean faly = userService.saveUser(user);

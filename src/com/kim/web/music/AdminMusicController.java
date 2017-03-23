@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kim.bean.Music;
 import com.kim.bean.Params;
+import com.kim.bean.User;
 import com.kim.service.music.IMusicService;
 
 /**
@@ -81,10 +82,9 @@ public class AdminMusicController extends BaseController{
 	@RequestMapping("/save")
 	public String saveMusic(Music music) throws JSONException{
 		if(music != null){
-			//User userSession = (User) request.getSession().getAttribute("user");
-			//music.setId(userSession.getId());
+			User userSession = (User) request.getSession().getAttribute("user");
+			music.setUserId(userSession.getUserId());
 			//music.setName(userSession.getName());
-			music.setUserId(1);
 		  	//music.setLrc("");
 		  	music.setCollections(0);
 		  	music.setLoves(0);
