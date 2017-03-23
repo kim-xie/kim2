@@ -1,5 +1,6 @@
 package com.kim.auto;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -65,10 +66,15 @@ public class SqlFileExecutor {
 	}
 
 	public static void main(String[] args) throws Exception {
-		List<String> sqlList = new SqlFileExecutor().loadSql(args[0]);
+		String template = getRoot("template/table.sql"); 
+		List<String> sqlList = new SqlFileExecutor().loadSql(template);
 		System.out.println("size:" + sqlList.size());
 		for (String sql : sqlList) {
 			System.out.println(sql);
 		}
+	}
+	
+	public static String getRoot(String path){
+		return new File(System.getProperty("user.dir"),path).getAbsolutePath();
 	}
 }

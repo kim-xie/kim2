@@ -77,7 +77,7 @@ public class [beanName]Controller extends BaseController{
 	public String save[beanName]([beanName] [smallBeanName]){
 		if([smallBeanName] != null){
 			User userSession = (User) request.getSession().getAttribute("user");
-			[smallBeanName].setId(userSession.getId());
+			[smallBeanName].setUserId(userSession.getUserId());
 			[smallBeanName].setName(userSession.getName());
 			[smallBeanName].setIsDelete(0);
 			boolean faly = [smallBeanName]Service.save[beanName]([smallBeanName]);

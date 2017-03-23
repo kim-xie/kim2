@@ -19,11 +19,11 @@ public class AutoProject {
 	//service 
 	//web
 	//pages
-	private static String beanName = "Content";
+	private static String beanName = "Lookupdf";
 	private static String smallBeanName = beanName.toLowerCase();
 	
 	//注释
-	private static String description = "文章模块";
+	private static String description = "数据字典模块";
 	private static String author = "kim";
 	private static String qq = "1134771121";
 	private static String telephone = "18378311282";
@@ -91,39 +91,39 @@ public class AutoProject {
 		}
 	}
 	
-		//page
-		public static void createPage() throws IOException{
-			//bean的根目录
-			String rootPath = getRoot(pagePath);
-			//自动创建根目录
-			File rootFile  = new File(rootPath);
-			if(!rootFile.exists())rootFile.mkdirs();
-			//写入的目标文件
-			File beanFile = new File(rootFile,"list.jsp");
-			//获取模板页面路径
-			String template = getRoot(pageTemplate);
-			//读取模板内容
-			String content = FileUtil.readFileByLines(template);
-			//替换模板内容
-			content = replaceTemplate(content);
-			//判断文件是否存在，提示是否覆盖操作
-			if (beanFile.exists()) {
-				System.out.println("【自动构建提示Pages: 】【"+beanFile.getAbsolutePath()+"】已经存在，是否覆盖yes/no!\n");
-				//控制台输入对象
-				@SuppressWarnings("resource")
-				Scanner scanner = new Scanner(System.in);
-				//获取控制台输入的值
-				String mark = scanner.nextLine();
-				if(mark.equalsIgnoreCase("yes")){
-					//替换写入目标文件
-					FileUtils.writeStringToFile(beanFile.getAbsoluteFile(), content, "UTF-8");
-				}
-			}else{
-				System.out.println("【自动构建提示Pages: 】您当前创建的:【"+beanFile.getAbsolutePath()+"】写入到【"+pagePath+"】成功!!!");
+	//page
+	public static void createPage() throws IOException{
+		//bean的根目录
+		String rootPath = getRoot(pagePath);
+		//自动创建根目录
+		File rootFile  = new File(rootPath);
+		if(!rootFile.exists())rootFile.mkdirs();
+		//写入的目标文件
+		File beanFile = new File(rootFile,"list.jsp");
+		//获取模板页面路径
+		String template = getRoot(pageTemplate);
+		//读取模板内容
+		String content = FileUtil.readFileByLines(template);
+		//替换模板内容
+		content = replaceTemplate(content);
+		//判断文件是否存在，提示是否覆盖操作
+		if (beanFile.exists()) {
+			System.out.println("【自动构建提示Pages: 】【"+beanFile.getAbsolutePath()+"】已经存在，是否覆盖yes/no!\n");
+			//控制台输入对象
+			@SuppressWarnings("resource")
+			Scanner scanner = new Scanner(System.in);
+			//获取控制台输入的值
+			String mark = scanner.nextLine();
+			if(mark.equalsIgnoreCase("yes")){
 				//替换写入目标文件
 				FileUtils.writeStringToFile(beanFile.getAbsoluteFile(), content, "UTF-8");
 			}
+		}else{
+			System.out.println("【自动构建提示Pages: 】您当前创建的:【"+beanFile.getAbsolutePath()+"】写入到【"+pagePath+"】成功!!!");
+			//替换写入目标文件
+			FileUtils.writeStringToFile(beanFile.getAbsoluteFile(), content, "UTF-8");
 		}
+	}
 	
 	//web
 	public static void createweb() throws IOException{
@@ -329,13 +329,13 @@ public class AutoProject {
 			FileUtils.writeStringToFile(beanFile.getAbsoluteFile(), content, "UTF-8");
 		}
 	}
-	
+	// 新建表
 	public static void createTable(){
 		try {
 			//获取模板页面路径
 			String template = getRoot(tableTemplate);
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kim?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull", "root", "xiaoer");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kim?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull", "root", "root");
 			new SqlFileExecutor().execute(connection, template,"\\[smallBeanName\\]",smallBeanName);
 	        System.out.println("【自动构建提示Table: 】生成表"+smallBeanName+"表成功!");
 		} catch (Exception e) {
@@ -388,9 +388,9 @@ public class AutoProject {
 		createService();
 		createServiceImpl();
 		createweb();
-		createPage();
-		createTemplate();
-//		createTable();
+//		createPage();
+//		createTemplate();
+		createTable();
 	}
 	
 //		Properties properties = System.getProperties();

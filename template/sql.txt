@@ -5,12 +5,15 @@
 	<!-- 查询所有[beanName] -->
 	<select id="find[beanName]s" resultType="[beanName]" parameterType="Params">
 		select 
-			id,
-			name,
-			create_time as createTime,
-			update_time as updateTime,
+			[smallBeanName]_id as [smallBeanName]Id,
 			user_id as userId,
-			is_delete as isDelete
+			[smallBeanName]_code as code,
+			[smallBeanName]_name as name,
+			[smallBeanName]_description as description,
+			[smallBeanName]_status as status,
+			is_delete as isDelete,
+			create_time as createTime,
+			update_time as updateTime
 		FROM
 			[smallBeanName] 
 		<trim prefix="WHERE" prefixOverrides="AND | OR">  
@@ -25,16 +28,19 @@
 	<!-- 根据id查询[beanName] -->
 	<select id="get[beanName]" resultType="[beanName]">
 		SELECT 
-		  	id,
-			name,
-			create_time as createTime,
-			update_time as updateTime,
+		  	[smallBeanName]_id as [smallBeanName]Id,
 			user_id as userId,
-			is_delete as isDelete
+			[smallBeanName]_code as code,
+			[smallBeanName]_name as name,
+			[smallBeanName]_description as description,
+			[smallBeanName]_status as status,
+			is_delete as isDelete,
+			create_time as createTime,
+			update_time as updateTime
 		FROM
 		 	[smallBeanName]
 		WHERE 
-			id = #{id}
+			[smallBeanName]_id = #{[smallBeanName]Id}
 	</select>
 	
 	<!-- 查询[beanName]的总记录数  -->
@@ -53,17 +59,23 @@
 	<!-- 添加[beanName] -->
 	<insert id="save[beanName]" parameterType="[beanName]" useGeneratedKeys="true" keyProperty="id" flushCache="true" >
 	  	INSERT INTO [smallBeanName](
-			id,
-			name,
-			update_time,
+			[smallBeanName]_id,
 			user_id,
-			is_delete 
+			[smallBeanName]_code,
+			[smallBeanName]_name,
+			[smallBeanName]_description,
+			[smallBeanName]_status,
+			is_delete,
+			update_time
 	  	) VALUES (
-		  	#{id},
-		  	#{name},
-		  	#{updateTime},
+		  	#{[smallBeanName]Id},
 		  	#{userId},
-		  	#{isDelete}
+		  	#{code},
+		  	#{name},
+		  	#{description},
+		  	#{status},
+		  	#{isDelete},
+		  	#{updateTime}
 	  	)
 	 </insert>
 	
@@ -73,13 +85,13 @@
 		<set>
 			<if test="isDelete!=null">is_delete=#{isDelete},</if>
 		</set>
-		where id = #{id}
+		where [smallBeanName]_id = #{[smallBeanName]Id}
 	</update>
 	
 	<!-- 删除[beanName] -->
 	<delete id="delete[beanName]" parameterType="Params">
-		<!-- delete from [smallBeanName] where id = #{id} 真删 -->
-		update [smallBeanName] set is_delete = 1 where id = #{id}
+		<!-- delete from [smallBeanName] where [smallBeanName]_id = #{[smallBeanName]Id} 真删 -->
+		update [smallBeanName] set is_delete = 1 where [smallBeanName]_id = #{[smallBeanName]Id}
 	</delete>
 	
 </mapper>
