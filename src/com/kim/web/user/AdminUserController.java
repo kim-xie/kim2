@@ -57,7 +57,7 @@ public class AdminUserController extends BaseController{
 	@ResponseBody
 	public ModelAndView template(Params params){
 		ModelAndView modelAndView = new ModelAndView();
-		List<User> users = userService.findUsers(params);
+		List<User> users = userService.findAllUsers(params);
 		int count = userService.countUser(params);
 		modelAndView.setViewName("admins/user/template");
 		modelAndView.addObject("users",users);

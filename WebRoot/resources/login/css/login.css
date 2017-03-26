@@ -1,0 +1,33 @@
+@charset "UTF-8";
+/* 提示栏 start */
+#tip{display:none;width:100%;height:60px;vertical-align:middle;position:absolute;left:0;top:0;background-color:#3499DA;line-height:60px;text-align:center;}
+#tip .tip_conts{height:100%;margin:0 auto;}
+#tip .tip_conts i{font-size:26px;}
+#tip .tip_conts .tip_txt{font-size:18px;color:#fff;margin-left:6px;display:inline-block;}
+/* 提示栏 end */
+
+/* 登录栏 start */
+#loginBox{padding:10px 20px;position:absolute;top:25%;left:50%;margin-left:-150px;background:rgba(32, 33, 32, 0.4);text-align:center;border-radius:20px;}
+#logo{margin-bottom:20px;}
+/* loginForm start */
+#form{width:300px;margin:0 auto;}
+#form p{margin-bottom:30px;width:100%;position:relative;height:38px;line-height:38px;}
+#form p.mb10{margin-bottom:10px;}
+#form p.mb0{margin-bottom:0px;}
+#form p input{width:100%;height:100%;line-height:30px;background:rgba(108, 131, 134, 0.59);border:none;border-bottom:4px solid transparent;border-top:4px solid transparent;outline:none;text-indent:2.5em;font-size:16px;color:#fff;font-weight:600;border-radius:16px;}
+#form p #login{text-align:center;text-indent:0em;height:38px;cursor:pointer;background-color:#3499DA;color:#fff;transition: all 1s;border-radius:16px;}
+#form p #login:hover{background-color:#688ac2;transition: color 1s;}
+#form p .left{position:absolute;left:5px;font-size:30px;color:rgba(152, 151, 151, 0.59);vertical-align:middle;}
+#form p #vfy{width:50%;float:left;}
+#form p span a{cursor:pointer;color:#fefefe;font-size:16px;font-weight:600;text-decoration:none;}
+#form p span:hover a{color:#3499DA;}
+#form p .regist{float:left;}
+#form p .pwd{float:right;}
+/* loginForm end */
+.icon{position:absolute;right:6px;top:-1px;color:rgba(152, 151, 151, 0.59);font-size:20px;cursor:pointer;}
+.icon-iconsuccess{color:#0FFD0F;}
+.icon-iconerror{color:red;}
+/* 登录栏 end */
+
+
+

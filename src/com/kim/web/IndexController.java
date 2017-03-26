@@ -43,6 +43,11 @@ public class IndexController extends BaseController{
 		return "fronts/regist";
 	}
 	
+	@RequestMapping("/findPwd")
+	public String findPwd(){
+		return "fronts/findPwd";
+	}
+	
 	@RequestMapping("/logout")
 	public String logout(){
 		session.invalidate();

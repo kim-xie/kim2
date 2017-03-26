@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kim.bean.Params;
 import com.kim.bean.User;
 import com.kim.service.user.IUserService;
+import com.kim.util.StringUtils;
+import com.kim.util.ip.TmIpUtil;
 import com.kim.web.BaseController;
 
 /**
@@ -45,6 +47,68 @@ public class UserController extends BaseController{
 	}
 	
 	/**
+	 * 注册
+	 * @Title: list 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param params
+	 * @param @return  参数说明 
+	 * @return String  返回类型 
+	 * @throws
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/regist", method = RequestMethod.POST)
+	public String regist(User user) {
+		if (user != null) {
+			if (StringUtils.isNotEmpty(user.getName())
+					&& StringUtils.isNotEmpty(user.getPassword())
+					&& StringUtils.isNotEmpty(user.getEmail())) {
+					user.setUserId(StringUtils.getUuid());
+					user.setName(user.getName());
+					user.setPassword(StringUtils.md5Base64(user.getPassword()));
+					user.setActiveCode(StringUtils.getUuid());
+					user.setHeaderPic("/resources/imgs/user/small.png");
+					user.setIp(TmIpUtil.getIpAddress(request));
+					user.setIpAddress(TmIpUtil.ipLocation(request));
+					user.setIsActive(0);
+					user.setIsForbid(0);
+					user.setEmail(user.getEmail());
+					//user.setRoleID(1);
+					user.setIsDelete(0);
+					if (userService.saveUser(user)){
+						return "success";
+					}else{
+						return "fail";
+					}
+			} else {
+				return "null";
+			}
+		} else {
+			return "error";
+		}
+	};
+	
+	/**
+	 * 激活
+	 * @Title: active 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param   参数说明 
+	 * @return void  返回类型 
+	 * @throws
+	 */
+	@RequestMapping("/active")
+	public String active(){
+		String activeCode = request.getParameter("activeCode");
+		String flay = userService.active(activeCode);
+		if(flay == "error"){
+			return "user/activeError";
+		}else if(flay == "fail"){
+			return "user/activeFail";
+		}else {
+			return "user/activeSuccess";
+		}
+	}
+	
+	/**
 	 * 校验用户名
 	 * @Title: list 
 	 * @Description: TODO(这里用一句话描述这个方法的作用) 
@@ -66,7 +130,29 @@ public class UserController extends BaseController{
 		}
 		return "false";
 	}
-	
+	/**
+	 * 注册邮箱校验
+	 * @Title: checkUserEmail
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param @param userEmail
+	 * @param @return 参数说明
+	 * @return String 返回类型
+	 * @throws
+	 */
+	@ResponseBody
+	@RequestMapping("/checkEmail")
+	public String checkEmail(String userEmail) {
+		if (StringUtils.isEmail(userEmail)) {
+			boolean email = userService.checkUserEmail(userEmail);
+			if(email){
+				return "EmailIsAlive";
+			}else{
+				return "EmailIsCorrect";
+			}
+		} else {
+			return "emailError";
+		}
+	}
 	
 	/**
 	 * 登录
@@ -118,7 +204,7 @@ public class UserController extends BaseController{
 	@RequestMapping("/template")
 	public ModelAndView template(Params params){
 		ModelAndView modelAndView = new ModelAndView();
-		List<User> users = userService.findUsers(params);
+		List<User> users = userService.findAllUsers(params);
 		int count = userService.countUser(params);
 		modelAndView.setViewName("fronts/user/template");
 		modelAndView.addObject("users",users);

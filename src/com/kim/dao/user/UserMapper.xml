@@ -3,7 +3,7 @@
 <mapper namespace="com.kim.dao.user.IUserMapper" >
 	
 	<!-- 查询所有User -->
-	<select id="findUsers" resultType="User" parameterType="Params">
+	<select id="findAllUsers" resultType="User" parameterType="Params">
 		SELECT 
 		  	user_id as userId,
 			name,
@@ -96,14 +96,44 @@
 	  	INSERT INTO user(
 			user_id,
 			name,
+			ip,
+			ipAddress,
+			header_pic,
+	 		address,
+			activeCode,
+			level,
+			is_active,
+			is_forbid,
+			email,
+			sex,
+			age,
+			tel,
+		    qq,
+		    weixin,
+			description,
 			update_time,
 			role_id,
-			is_delete 
+			is_delete
 	  	) VALUES (
 		  	#{userId},
 		  	#{name},
+		  	#{ip},
+		  	#{ipAddress},
+		  	#{headerPic},
+		  	#{address},
+		  	#{activeCode},
+		  	#{level},
+		  	#{isActive},
+		  	#{isForbid},
+		  	#{email},
+		  	#{sex},
+		  	#{age},
+		  	#{tel},
+		  	#{qq},
+		  	#{weixin},
+		  	#{email},
+		  	#{description},
 		  	#{updateTime},
-		  	#{roleId},
 		  	#{isDelete}
 	  	)
 	 </insert>
@@ -122,5 +152,25 @@
 		<!-- delete from user where user_id = #{id} 真删 -->
 		update user set is_delete = 1 where user_id = #{userId}
 	</delete>
+	
+	<!-- 用户名注册验证 -->
+	<select id="findUserByUserName" parameterType="string" resultType="int">
+		SELECT count(1) FROM USER WHERE name = #{name}
+	</select>
+	
+	<!-- 邮箱注册验证 -->
+	<select id="checkUserEmail" parameterType="string" resultType="int">
+		SELECT count(1) FROM USER WHERE email = #{email}
+	</select>
+	
+	<!-- 邮箱激活验证 -->
+	<select id="active" parameterType="string" resultType="User">
+		SELECT activeCode,active FROM USER WHERE activeCode = #{activeCode}
+	</select>
+	
+	<!-- 激活 -->
+	<update id="updateActive" parameterType="string" >
+		UPDATE USER SET active=1 WHERE activeCode = #{activeCode}
+	</update>
 	
 </mapper>

@@ -16,91 +16,100 @@ import com.kim.bean.Params;
 public interface IUserMapper {
 
 	/**
-	 * com.kim.dao.user 
-	 * 方法名：findUsers
-	 * 创建人：kim 
-	 * 手机号码:18378311282
-	 * 时间：2016年09月04日  11:53:31
-	 * @param params
-	 * @return 
-	 * 返回类型：List<User>
-	 * @exception 
-	 * @since  1.0.0
+	 * Regist
+	 * @Title: regist 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param regist  参数说明 
+	 * @return void  返回类型 
+	 * @throws
 	 */
-	public List<User> findUsers(Params params);
+	int saveUser(User user);
+	/**
+	 * @Title: findUserByUserName 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param userName
+	 * @param @return  参数说明 
+	 * @return User  返回类型 
+	 * @throws
+	 */
+	int findUserByUserName(String name); 
 	
 	/**
-	 * 求总数
-	 * com.kim.dao.user 
-	 * 方法名：count
-	 * 创建人：kim 
-	 * 手机号码:18378311282
-	 * 时间：2016年09月04日  11:53:31
-	 * @param id
-	 * @return 
-	 * 返回类型：List<User>
-	 * @exception 
-	 * @since  1.0.0
+	 * @Title: checkUserEmail 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param userEmail
+	 * @param @return  参数说明 
+	 * @return boolean  返回类型 
+	 * @throws
 	 */
-	public int countUser(Params params);
+	int checkUserEmail(String email);
+	/**
+	 * @Title: active 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param activeCode
+	 * @param @return  参数说明 
+	 * @return User  返回类型 
+	 * @throws
+	 */
+	User active(String activeCode);
+	/**
+	 * @Title: updateActive 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param activeCode
+	 * @param @return  参数说明 
+	 * @return int  返回类型 
+	 * @throws
+	 */
+	void updateActive(String activeCode);
 	
 	/**
-	 * com.kim.dao.user 
-	 * 方法名：getUser
-	 * 创建人：kim 
-	 * 手机号码:18378311282
-	 * 时间：2016年09月04日  11:53:31
-	 * @param id
-	 * @return 
-	 * 返回类型：List<User>
-	 * @exception 
-	 * @since  1.0.0
+	 * @Title: loginIn 
+	 * @Description: TODO(登录) 
+	 * @param @param login
+	 * @param @return  参数说明 
+	 * @return User  返回类型 
+	 * @throws
 	 */
-	public User getUser(Params params);
+	User getUser(Params params);
 	
 	/**
-	 * 保存用户模块
-	 * com.kim.dao.user 
-	 * 方法名：save
-	 * 创建人：kim 
-	 * 手机号码:18378311282
-	 * 时间：2016年09月04日  11:53:31
-	 * @param user
-	 * @return 
-	 * 返回类型：User
-	 * @exception 
-	 * @since  1.0.0
+	 * @Title: findAllUsers 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @return  参数说明 
+	 * @return List<User>  返回类型 
+	 * @throws
 	 */
-	public int saveUser(User user);
+	List<User> findAllUsers(Params params);
 	
 	/**
-	 * 更新用户模块
-	 * com.kim.dao.user 
-	 * 方法名：update
-	 * 创建人：kim 
-	 * 手机号码:18378311282
-	 * 时间：2016年09月04日  11:53:31
-	 * @param user
-	 * @return 
-	 * 返回类型：int
-	 * @exception 
-	 * @since  1.0.0
+	 * @Title: count 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param userParams
+	 * @param @return  参数说明 
+	 * @return int  返回类型 
+	 * @throws
 	 */
-	public int updateUser(User user);
+	int countUser(Params params);
 	
 	/**
-	 * 删除用户模块
-	 * com.kim.dao.user 
-	 * 方法名：delete
-	 * 创建人：kim 
-	 * 手机号码:18378311282
-	 * 时间：2016年09月04日  11:53:31 
-	 * @param params
-	 * @return 
-	 * 返回类型：int
-	 * @exception 
-	 * @since  1.0.0
+	 * 修改用户信息
+	 * @Title: updateUser 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param user
+	 * @param @return    设定文件 
+	 * @return int    返回类型 
+	 * @throws
 	 */
-	public int deleteUser(Params params);
+	int updateUser(User user);
+	/**
+	 * 删除用户
+	 * @Title: deleteUser 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param params
+	 * @param @return    设定文件 
+	 * @return int    返回类型 
+	 * @throws
+	 */
+	int deleteUser(Params params);
 	
 }

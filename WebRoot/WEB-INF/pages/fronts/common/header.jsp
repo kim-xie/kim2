@@ -2,7 +2,7 @@
 <style>
 	/* 顶部导航  start */
 	#topNav{position:fixed;top:0;left:0;z-index:1993;width:100%;height:50px;background:#333;}
-	#topNav #navWrap{width:80%;height:100%;margin:0 auto;}
+	#topNav #navWrap{width:1180px;height:100%;margin:0 auto;}
 	#topNav #navWrap #navLogo{float:left;/* width:15%; */height:100%;}
 	#topNav #navWrap #navLogo a{display:block;width:100%;height:100%;}
 	
