@@ -78,7 +78,8 @@
     }
 
     function mouseMove(e) {
-        var posx = posy = 0;
+        var posx = 0;
+        var posy = 0;
         if (e.pageX || e.pageY) {
             posx = e.pageX;
             posy = e.pageY;
@@ -181,5 +182,5 @@
     function getDistance(p1, p2) {
         return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
     }
-    
+
 })();

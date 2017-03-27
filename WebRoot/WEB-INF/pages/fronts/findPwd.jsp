@@ -38,7 +38,7 @@
 						<div id="form">
 							<p class="animated bounceInLeft">
 								<i class="iconfont icon-account left" id="icon_user"></i>
-								<input type="text" placeholder="请输入用户名" class="input" maxlength="30" id="user" autofocus="autofocus">
+								<input type="text" placeholder="请输入用户名" class="input" maxlength="20" id="user" autofocus="autofocus">
 								<i class="iconfont icon"></i>
 							</p>
 							

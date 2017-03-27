@@ -1,36 +1,81 @@
-//(function(){
-	$(".input").each(function(i){
+
+require('../css/login.css');
+
+require('./TweenLite.min.js');
+require('./EasePack.min.js');
+//require('./rAF.js');
+require('./demo-1.js');
+
+//;(function(){
+	/*$(".input").each(function(i){
 		//获取焦点事件
 		$(this).focus(function(){
-			$this = $(this);
-			$(this).siblings().blur();
-			$(this).css("borderBottom","4px solid #3499DA");
-			$(this).prev().css("color","#3499DA");
-			if($(this).val()){
-				$(this).keydown(function(){
+			var $this = $(this);
+			//$this.siblings().blur();
+			$this.css("borderBottom","4px solid #3499DA");
+			$this.prev().css("color","#3499DA");
+			if($this.val().trim()){
+				$this.keydown(function(){
 					$this.next().fadeOut(500);
 				});
 			}else{
-				$(this).next().fadeOut(500);
+				$this.next().fadeOut(500);
 			}
 		});
-		
+
 		//失去焦点事件
 		$(this).blur(function(){
-			if(!$(this).val().trim()){
-				$(this).css("borderBottom","");
-				$(this).prev().css("color","");
+			$this = $(this);
+			if(!$this.val().trim()){
+				alert("失去焦点时值为空")
+				$this.css("borderBottom","");
+				$this.prev().css("color","");
+			}else{
+				alert("失去焦点时有值")
+				if($this.has("#user")){
+					alert(1)
+				}
+				if($this.has("#email")){
+					alert(2)
+				}
 			}
-			if($(this).val().trim()){}
-			
 		});
-		
+
 		//去提示
 		$(this).keydown(function(){
 			$("#tip").fadeOut(500);
 		});
-	});
-	
+	});*/
+
+
+	function blur(obj){
+		alert("失去焦点")
+		var val = $(obj).val().trim();
+		if(val){
+			if($(obj).has("#user")){
+				alert(1)
+			}
+			if($(obj).has("#email")){
+				alert(2)
+			}
+		}else{
+			$(obj).css("borderBottom","");
+			$(obj).prev().css("color","");
+		}
+	};
+
+	function focus(obj){
+		alert("获取焦点")
+		$(obj).css("borderBottom","4px solid #3499DA");
+		$(obj).prev().css("color","#3499DA");
+		var val = $(obj).val().trim();
+		if(val){
+
+		}else{
+
+		}
+	};
+
 	//清空按钮
 	$(".icon").click(function(){
 		if($(this).attr("class").indexOf("icon-iconerror")!=-1){
@@ -38,16 +83,17 @@
 			$(this).fadeOut("slow");
 		}
 	});
-	
-	$("#user").blur(function(){
-		var name = $(this).val().trim();
+
+	//检查用户名
+	function checkUser(obj){
+		var name = $(obj).val().trim();
 		if(!name)return;
 		var params = {name:name};
 		$.ajax({
-			type:"post",
-			url:basePath+"/user/checkName",
-			data:params,
-			success:function(data){
+			type: "post",
+			url: basePath+"/user/checkName",
+			data: params,
+			success: function(data){
 				if(data == "nameCorrect"){
 					if(($(this).parents("#loginBox").find("h1").text()=="login" || $(this).parents("#loginBox").find("h1").text()=="findPassword")){
 						$("#user").next().fadeIn(500).removeClass("icon-iconerror").addClass("icon-iconsuccess");
@@ -55,7 +101,7 @@
 						showTip("bounceInDown","icon-iconerror","red","该用户已经被注册,请换个用户名吧^_^！",3000);
 						$("#user").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
 					}
-					
+
 				}else if(data == "nameError"){
 					if(($(this).parents("#loginBox").find("h1").text()=="login" || $(this).parents("#loginBox").find("h1").text()=="findPassword")){
 						showTip("bounceInDown","icon-iconerror","red","您输入的用户名有误！",3000);
@@ -66,10 +112,11 @@
 				}
 			}
 		});
-	});
-	
-	$("#email").blur(function(){
-		var email = $(this).val().trim();
+	};
+
+	//检查邮箱
+	function checkEmail(obj){
+		var email = $(obj).val().trim();
 		if(!email)return;
 		$.ajax({
 			type: "post",
@@ -84,7 +131,7 @@
 					}else{
 						$("#email").next().fadeIn(500).removeClass("icon-iconerror").addClass("icon-iconsuccess");
 					}
-				//找不到邮箱	
+				//找不到邮箱
 				}else if(data == "EmailIsCorrect"){
 					$("#email").next().fadeIn(500).removeClass("icon-iconerror").addClass("icon-iconsuccess");
 				//邮箱格式有误
@@ -94,15 +141,15 @@
 				}
 			}
 		});
-	});
-	
-	//登录
+	};
+
+	//登录、注册、找回密码
 	var user = {
 		getLogin: function(){
-			var name = $("#user").val();
-			var password = $("#pwd").val();
-			var verifyCode = $("#vfy").val();
-			
+			var name = $("#user").val().trim();
+			var password = $("#pwd").val().trim();
+			var verifyCode = $("#vfy").val().trim();
+
 			if(!password && !name){
 				showTip("bounceInDown","icon-warn","yellow","请输入登录信息！",3000);
 				$("#user").focus();
@@ -125,10 +172,10 @@
 			}
 		},
 		login: function(params){
-			
+
 			$("#login").val("登录中...");
 			$("#login").removeAttr("onclick");
-			
+
 			$.ajax({
 				type:"post",
 				url:basePath+"/user/login",
@@ -140,7 +187,7 @@
 						setTimeout(function(){
 							window.location.href = basePath+"/index";
 						},3000);
-						
+
 					}else if(data == "pswError"){
 						showTip("bounceInDown","icon-iconerror","red","您输入的密码有误！",3000);
 						$("#pwd").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
@@ -153,11 +200,11 @@
 			});
 		},
 		getRegist: function(){
-			var name = $("#user").val();
-			var password = $("#pwd").val();
-			var email = $("#email").val();
-			var verifyCode = $("#vfy").val();
-			
+			var name = $("#user").val().trim();
+			var password = $("#pwd").val().trim();
+			var email = $("#email").val().trim();
+			var verifyCode = $("#vfy").val().trim();
+
 			if(!password && !name && !email){
 				showTip("bounceInDown","icon-warn","yellow","请输入注册信息！",3000);
 				$("#user").focus();
@@ -208,12 +255,12 @@
 			});
 		},
 		getFindPwd: function(){
-			var name = $("#user").val();
-			var email = $("#email").val();
-			var verifyCode = $("#vfy").val();
-			
+			var name = $("#user").val().trim();
+			var email = $("#email").val().trim();
+			var verifyCode = $("#vfy").val().trim();
+
 			if(!name && !email){
-				showTip("bounceInDown","icon-warn","yellow","请输入注册信息！",3000);
+				showTip("bounceInDown","icon-warn","yellow","请输入完整信息！",3000);
 				$("#user").focus();
 			}
 			if(name && !email){
@@ -238,32 +285,35 @@
 				data:params,
 				success:function(data){
 					if(data == "success"){
-						
+
 					}else if(data == "pswError"){
-						
+
 					}
 				}
 			});
 		}
 	};
-	
-	//展示提示框信息		
+
+	//展示提示框信息
 	function showTip(animate,icon,color,message,time){
 		$("#tip").css("display","block");
 		$("#tip").removeClass().addClass("animated "+ animate);
 		$("#tip").empty().append(  "<div class='tip_conts'>"+
-						   "	<i class='iconfont "+icon+"' style='color:"+color+"'></i>"+
-						   "	<span class='tip_txt'>"+message+"</span>"+
-						   "</div>");
+								   "	<i class='iconfont "+icon+"' style='color:"+color+"'></i>"+
+								   "	<span class='tip_txt'>"+message+"</span>"+
+								   "</div>");
 		setTimeout(function(){ $("#tip").fadeOut(); },time);
 	};
-	
+
 	//keydown事件
 	$("html").keydown(function(event){
 		var e = event || window.event;
 		if(e.keyCode == 13){
 			user.getLogin();
 		}else if(e.keyCode == 40){
+			$(".input").each(function(i){
+
+			});
 			$("#user").blur();
 			$("#pwd").focus();
 		}else if(e.keyCode == 38){
@@ -271,5 +321,5 @@
 			$("#pwd").blur();
 		}
 	});
+
 //})();
-			

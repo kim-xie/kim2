@@ -39,19 +39,19 @@
 						<div id="form">
 							<p class="animated bounceInLeft">
 								<i class="iconfont icon-account left" id="icon_user"></i>
-								<input type="text" placeholder="请输入用户名" class="input" maxlength="30" id="user" autofocus="autofocus">
+								<input type="text" placeholder="请输入用户名" class="input" maxlength="20" id="user" autofocus="autofocus">
 								<i class="iconfont icon"></i>
 							</p>
 							
 							<p class="animated bounceInRight">
 								<i class="iconfont icon-icon16 left" id="icon_pwd"></i>
-								<input type="password" placeholder="请输入密码" class="input" maxlength="20" id="pwd">
+								<input type="password" placeholder="请输入密码" class="input" maxlength="16" id="pwd">
 								<i class="iconfont icon"></i>
 							</p>
 							
 							<!-- <p class="animated bounceInRight">
 								<i class="iconfont icon-icon16 left" id="icon_confpwd"></i>
-								<input type="password" placeholder="请输入确认密码" class="input" maxlength="20" id="confpwd">
+								<input type="password" placeholder="请输入确认密码" class="input" maxlength="16" id="confpwd">
 								<i class="iconfont icon"></i>
 							</p> -->
 							
