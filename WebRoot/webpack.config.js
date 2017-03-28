@@ -13,13 +13,25 @@ var config = {
 	devtool: 'eval-source-map',
   entry: {
 		// 公共资源
-	 common: [
-            __dirname + '/resources/js/jquery-3.0.0.min.js',
-            __dirname + '/resources/js/common.js'
-   				 ],
+	  common: [
+							__dirname + '/resources/css/common.css',
+							__dirname + '/resources/js/jquery-3.0.0.min.js',
+            	__dirname + '/resources/js/common.js'
+
+   				  ],
   	login: __dirname + '/resources/login/js/login.js',
-
-
+		kimUtils: __dirname + '/resources/kimUtils/KimUtils.js',
+		kimUpload: __dirname + '/resources/js/kim_upload.js',
+		angular: __dirname + '/resources/js/angular.min.js',
+		bootstrap: [
+									__dirname + '/resources/boostrap/css/bootstrap.css',
+									__dirname + '/resources/boostrap/js/bootstrap.js'
+							 ],
+		umeditor: [
+								__dirname + '/resources/js/umeditor/themes/default/css/umeditor.css',
+								__dirname + '/resources/js/umeditor/umeditor.config.js',
+								__dirname + '/resources/js/umeditor/umeditor.js'
+							]
   },
   //文件出口
   output: {
@@ -31,7 +43,7 @@ var config = {
   },
 	//文件路径的指向
 	resolve: {
-      extensions: [".js", ".jsx",".json",".css",".scss",".jpg",".png","jepg"],
+      extensions: [".js", ".jsx",".json",".css",".jpg",".png","jepg"],
 			alias: {
           'jquery': __dirname + '/resources/js/jquery-3.0.0.min.js',//在各个模块中引入var $ = require("jquery");  如果文件在本地,使用它
 					'common': __dirname + '/resources/js/common.js'
@@ -146,14 +158,19 @@ var config = {
 		// externals: { jquery: "jQuery" },
 
 		// 使用别名加载全局jquery 这个插件将jquery暴露给所有模块，其它模块不用再显式require('jquery')了；只要模块的代码中出现了$，webpack就会自动将jQuery注入。
-    // new webpack.ProvidePlugin({
-		// 	 $ : "jquery" ,
-		// 	 jQuery : "jquery",
-		// 	 'window.jQuery': 'jquery',
-    //    'window.$': 'jquery'
-		// }),
+    new webpack.ProvidePlugin({
+			 $ : "jquery" ,
+			 jQuery : "jquery",
+			 'window.jQuery': 'jquery',
+       'window.$': 'jquery'
+		}),
 
-
+		new CleanWebpackPlugin(['./build'], {//['dist/css','dist/js','dist/images']
+			//root: RootDir + '/build',//一个根的绝对路径.
+			verbose: true,//将log写到 console.
+			dry: false,//不要删除任何东西，主要用于测试.
+			//exclude: ['webpack.html']//排除不删除的目录，主要用于避免删除公用的文件
+		}),
 
     //htmlWebpackPlugin html文件自动关联打包后的js文件--不用手动添加打包后的js
     // new htmlWebpackPlugin({
