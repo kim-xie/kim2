@@ -9,9 +9,6 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<%@include file="/WEB-INF/pages/common/common.jsp"%>
-	<link rel="stylesheet" type="text/css" href="${basePath}/resources/login/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="${basePath}/resources/login/css/demo.css" />
-	<link rel="stylesheet" type="text/css" href="${basePath}/resources/login/css/component.css" />
 	<link rel="stylesheet" type="text/css" href="${basePath}/resources/login/css/login.css" />
 
 	<!--[if IE]><script src="js/html5.js"></script><![endif]-->
@@ -38,13 +35,13 @@
 						<div id="form">
 							<p class="animated bounceInLeft">
 								<i class="iconfont icon-account left" id="icon_user"></i>
-								<input type="text" placeholder="请输入用户名" class="input" maxlength="20" id="user" autofocus="autofocus">
+								<input type="text" placeholder="请输入用户名" class="input" maxlength="20" id="user" onblur="checkUser(this)" autofocus="autofocus">
 								<i class="iconfont icon"></i>
 							</p>
 							
 							<p class="animated bounceInRight">
 								<i class="iconfont icon-youxiang1 left" id="icon_email"></i>
-								<input type="email" placeholder="请输入邮箱" class="input" maxlength="20" id="email">
+								<input type="email" placeholder="请输入邮箱" class="input" maxlength="20" id="email" onblur="checkEmail(this)">
 								<i class="iconfont icon"></i>
 							</p>
 							
@@ -75,7 +72,6 @@
 		</div>
 		<script src="${basePath}/resources/login/js/TweenLite.min.js"></script>
 		<script src="${basePath}/resources/login/js/EasePack.min.js"></script>
-		<script src="${basePath}/resources/login/js/rAF.js"></script>
 		<script src="${basePath}/resources/login/js/demo-1.js"></script>
 		<script src="${basePath}/resources/login/js/login.js"></script>
 	</body>

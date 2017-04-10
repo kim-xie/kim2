@@ -49,29 +49,97 @@ public class UserServiceImpl implements IUserService{
 		mailInfo.setPassword("xdj123");
 		mailInfo.setFromAddress("jy_xdj@163.com");
 		mailInfo.setToAddress(user.getEmail());
-		mailInfo.setSubject("Kim技术分享平台激活邮箱");
+		mailInfo.setSubject("Kim技术分享平台-验证邮箱");
 				
 		StringBuffer demo = new StringBuffer();
-		demo.append("<div style='margin:0 auto; width:700px; box-shadow:0 0 10px rgba(0, 0, 0, 0.2); font-family:'Helvetica Neue',Helvetica,Arial,Microsoft YaHei,sans-serif;'>"+
-				"		<div style='padding-left:180px; height:60px; line-height:63px; border-radius:3px 3px 0 0; font-size:18px; font-weight:100; color:#fff; background:url() #337ab7 no-repeat 15px; overflow:hidden;'>请激活您的帐号</div>"+
-				"		<div style='padding:15px 30px 93px; min-height:350px; font-size:14px; word-wrap:break-word; border:#c5c5c5 solid; border-width:0 1px; line-height:24px; overflow:hidden; position:relative;'>	"+
-				"			<p><strong>Hi，<span style='border-bottom:1px dashed #ccc;z-index:1' t='7' onclick='return false;' data='"+user.getName()+"'>"+user.getName()+"</span>：</strong></p>"+
-				"			<p style='padding:5px 0; text-indent:2em;'>您收到这封邮件，是由于在 kim技术分享平台（kim） 进行了新用户注册而使用了这个邮箱地址。如果您并没有访问过 kim技术分享平台（kim），或没有进行上述操作，请忽略这封邮件，您不需要退订或进行其他任何操作，很抱歉打扰您。</p>"+
-				"			<b style='display:block; margin-top:30px; color:#c00;'>帐号激活说明</b>"+
-				"			<p style='padding:5px 0; text-indent:2em;'>如果您是 kim技术分享平台（kim） 的新用户，或在修改您的注册 Email 时使用了本地址，我们需要对您的地址有效性进行验证以避免垃圾邮件或地址被滥用。</p>"+
-				"			<p>您只需点击下面的链接，即可激活您的帐号，<span style='color:#c00;'>为了保障帐号的安全性，请在2小时完成验证</span>：</p>"+
-				"			<div style='margin:10px 0; padding:10px; border:1px #67c4f0 solid; text-align:left; font-size:14px; background:#d9edf7;'>"+
-				"				<a href='http://localhost:8080/kim/user/active?activeCode='"+user.getActiveCode()+"' target='_blank' style='color:#05a;'>http://localhost:8080/kim/user/active?activeCode='"+user.getActiveCode()+"</a>"+
-				"			</div>"+
-				"			<p style='color:#666;'>(如果上面不是链接形式，请将该地址手工粘贴到浏览器地址栏再访问)</p>"+
-				"			<p>感谢您的访问，祝您使用愉快！</p>"+
-				"			<div style='left:0; bottom:0; right:0; padding:15px; height:48px; background:#f0f0f0; text-align:right; position:absolute;'>"+
-				"				<a style='color:#05a; text-decoration:none; font-weight:700;' href='http://www.kim.com/' target='_blank'> kim技术分享平台（kim） </a>管理组敬上<br>"+
-				"				<span style='border-bottom:1px dashed #ccc;' t='5' times=' 09:36'>2017-02-28</span> 09:36:12"+
-				"			</div>"+
-				"         </div>"+
-				"         <div style='height:10px; border-radius:0 0 3px 3px; border: 1px solid #c5c5c5; border-top: none; background:#337ab7 url() repeat-x;'></div>"+
-				"     </div>");
+		
+		demo.append("<!DOCTYPE html>"+
+					"<html>"+
+					"	<head>"+
+					"		<base target='_blank'>"+
+					"		<meta charset='UTF-8' />"+
+					"	</head>"+
+					"	<body>"+
+					"		<table cellpadding='0' cellspacing='0' style='background-color:#e5eaf1; width:100%; height:500px;'>"+
+					"			<tbody>"+
+					"				<tr>"+
+					"					<td>"+
+					"					<table align='center' cellpadding='0' cellspacing='0' style='width:775px; margin: 40px auto 10px; border-radius: 5px;'>"+
+					"						<tbody>"+
+					"							<tr cellpadding='0' cellspacing='0'>"+
+					"								<td cellpadding='0' cellspacing='0'><img src='javascript:;' style='display:block;'></td>"+
+					"							</tr>"+
+					"							<tr style=''>"+
+					"								<td style=' height:100%; width: 100%  ' url='url' repeat-y='repeat-y'>"+
+					"								<table align='left' cellpadding='0' cellspacing='0' style=' padding: 30px 57px 35px  ' url='url' no-repeat='no-repeat' right='right' top='top' fff='fff' color:='color:' font-size:='font-size:' px='px' margin-left:10px='margin-left:10px' width:755px='width:755px' border-radius:='border-radius:'>"+
+					"									<tbody>"+
+					"										<tr>"+
+					"											<td style='width: 755px;'>"+
+					"												<h1 style='margin: 10px 0 0 0; line-height:50px; color: #386fb7; font-size: 22px;  font-weight: bold;'>请验证您的邮箱</h1>"+
+					"											</td>"+
+					"										</tr>"+
+					"										<tr>"+
+					"											<td>"+
+					"												<p style='margin: 0; line-height:37px;'>亲爱的 <span style='font-weight: bold;'>"+user.getName()+"</span> ,您好！</p>"+
+					"											</td>"+
+					"										</tr>"+
+					"										<tr>"+
+					"											<td style=''>"+
+					"												<p style='margin: 0; line-height:37px;'>欢迎加入kim技术分享平台</p>"+
+					"											</td>"+
+					"										</tr>"+
+					"										<tr>"+
+					"											<td>"+
+					"												<p style='margin: 0; line-height:37px;'>请点击下面的按钮进行邮箱验证，以便保证您的网站功能使用和账号安全</p>"+
+					"											</td>"+
+					"										</tr>"+
+					"										<tr>"+
+					"											<td style=''>"+
+					"												<a href='http://localhost:8080/kim/user/active?activeCode="+user.getActiveCode()+"' style='width: 160px; height: 42px; background-color: #386fb7; font-weight: normal; font-size: 20px; color: white; text-align: center; text-decoration: none; display: block; line-height: 42px; margin:5px 0 13px; ' target='_blank'>点击验证</a>"+
+					"											</td>"+
+					"										</tr>"+
+					"										<tr>"+
+					"											<td>"+
+					"												<p style='margin: 0; line-height:27px; font-size:14px;'>如果您并未申请kim技术分享平台账号，可能是其他用户误输入了您的邮箱地址。请忽略此邮件，或与我们联系。</p>"+
+					"											</td>"+
+					"										</tr>"+
+					"										<tr>"+
+					"											<td style='width: 755px;'>"+
+					"												<p style='margin: 0; line-height:30px; margin-top:24px;'>kim技术分享平台管理团队</p>"+
+					"											</td>"+
+					"										</tr>"+
+					"										<tr>"+
+					"											<td>"+
+					"												<p style='margin: 0; line-height:20px; font-size:14px; margin-bottom: 15px; color: #c1c1c1; '>(这是一封自动产生的email，请勿回复。)</p>"+
+					"											</td>"+
+					"										</tr>"+
+					"									</tbody>"+
+					"								</table>"+
+					"							</td>"+
+					"						</tr>"+
+					"					</tbody>"+
+					"				</table>"+
+					"				<table align='center' cellpadding='0' cellspacing='0' style='margin:0 auto;margin-bottom: 50px; width: 755px; '>"+
+					"					<tbody>"+
+					"						<tr style='font-size:12px; color: #bac1cb;'>"+
+					"							<td align='left'><a href='#' target='_blank'></a></td>"+
+					"							<td align='left' style='width:340px; margin-left:10px; '>"+
+					"								<span style=''><span style='font-weight:bold; margin-left:10px;'>kim技术分享平台</span> - 专业技术分享平台</span>"+
+					"							</td>"+
+					"							<td align='right' style='width:340px; margin-left:10px;'>"+
+					"								<span style='margin-right:10px;'>Powered by © <span style='border-bottom:1px dashed #ccc;z-index:1' t='7' onclick='return false;' data='2017-2018'>2017-2018</span> KIM.CN</span>"+
+					"							</td>"+
+					"							<td align='right'><a href='#' target='_blank'></a></td>"+
+					"						</tr>"+
+					"					</tbody>"+
+					"				</table>"+
+					"				</td>"+
+					"			</tr>"+
+					"		</tbody>"+
+					"	</table>"+
+					" </body>"+
+					"</html>");
+		
 		mailInfo.setContent(demo.toString());
 		SimpleMail.sendHtmlMail(mailInfo);
 		
@@ -99,9 +167,8 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public String active(String activeCode) {
 		User user = userMapper.active(activeCode);
-		
 		if(user != null ){
-			if(user.getIsActive()==1){
+			if(user.getIsActive().equals(1)){
 				return "fail";
 			}else{
 				userMapper.updateActive(activeCode);
@@ -110,7 +177,6 @@ public class UserServiceImpl implements IUserService{
 		}else{
 			return "error";
 		}
-		
 	}
 	@Override
 	public List<User> findAllUsers(Params params) {

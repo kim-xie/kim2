@@ -165,8 +165,8 @@ var config = {
        'window.$': 'jquery'
 		}),
 
-		new CleanWebpackPlugin(['./build'], {//['dist/css','dist/js','dist/images']
-			//root: RootDir + '/build',//一个根的绝对路径.
+		new CleanWebpackPlugin(['dev'], {//['dist/css','dist/js','dist/images']
+			root: RootDir + '/build',//一个根的绝对路径.
 			verbose: true,//将log写到 console.
 			dry: false,//不要删除任何东西，主要用于测试.
 			//exclude: ['webpack.html']//排除不删除的目录，主要用于避免删除公用的文件

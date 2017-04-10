@@ -90,6 +90,6 @@
 	</aop:config>
 	
 	<!--导入applicationContext-log.xml 或者放到web.xml管理-->
-	<import resource="classpath:applicationContext-log.xml"/>
+	<!-- <import resource="classpath:applicationContext-log.xml"/> -->
 	
 </beans>

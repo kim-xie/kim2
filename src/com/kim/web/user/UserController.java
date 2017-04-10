@@ -59,26 +59,24 @@ public class UserController extends BaseController{
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public String regist(User user) {
 		if (user != null) {
-			if (StringUtils.isNotEmpty(user.getName())
-					&& StringUtils.isNotEmpty(user.getPassword())
-					&& StringUtils.isNotEmpty(user.getEmail())) {
-					user.setUserId(StringUtils.getUuid());
-					user.setName(user.getName());
-					user.setPassword(StringUtils.md5Base64(user.getPassword()));
-					user.setActiveCode(StringUtils.getUuid());
-					user.setHeaderPic("/resources/imgs/user/small.png");
-					user.setIp(TmIpUtil.getIpAddress(request));
-					user.setIpAddress(TmIpUtil.ipLocation(request));
-					user.setIsActive(0);
-					user.setIsForbid(0);
-					user.setEmail(user.getEmail());
-					//user.setRoleID(1);
-					user.setIsDelete(0);
-					if (userService.saveUser(user)){
-						return "success";
-					}else{
-						return "fail";
-					}
+			if (StringUtils.isNotEmpty(user.getName()) && StringUtils.isNotEmpty(user.getPassword()) && StringUtils.isNotEmpty(user.getEmail())) {
+				user.setUserId(StringUtils.getUuid());
+				user.setName(user.getName());
+				user.setPassword(StringUtils.md5Base64(user.getPassword()));
+				user.setActiveCode(StringUtils.getUuid());
+				user.setHeaderPic("/resources/imgs/user/small.png");
+				user.setIp(TmIpUtil.getIpAddress(request));
+				user.setIpAddress(TmIpUtil.ipLocation(request));
+				user.setIsActive(0);
+				user.setIsForbid(0);
+				user.setEmail(user.getEmail());
+				user.setRoleId(1);
+				user.setIsDelete(0);
+				if (userService.saveUser(user)){
+					return "success";
+				}else{
+					return "fail";
+				}
 			} else {
 				return "null";
 			}
@@ -100,11 +98,11 @@ public class UserController extends BaseController{
 		String activeCode = request.getParameter("activeCode");
 		String flay = userService.active(activeCode);
 		if(flay == "error"){
-			return "user/activeError";
+			return "fronts/user/activeError";
 		}else if(flay == "fail"){
-			return "user/activeFail";
+			return "fronts/user/activeFail";
 		}else {
-			return "user/activeSuccess";
+			return "fronts/user/activeSuccess";
 		}
 	}
 	
@@ -167,10 +165,10 @@ public class UserController extends BaseController{
 	@RequestMapping("/login")
 	public String login(Params params){
 		if(params != null){
-			
 			if(params.getVerifyCode() == null){
+				params.setPassword(StringUtils.md5Base64(params.getPassword()));
 				User user = userService.getUser(params);
-				if(user != null && user.getName().equals(params.getName()) && user.getPassword().equals(params.getPassword())){
+				if(user != null && user.getName().equals(params.getName()) && user.getPassword().equals(params.getPassword()) && user.getIsActive().equals(1) && user.getIsForbid().equals(0) && user.getIsDelete().equals(0)){
 					//将用户信息放到session中
 					session.setAttribute("user",user);
 					//日记监控用户行为和获取请求参数
@@ -178,6 +176,12 @@ public class UserController extends BaseController{
 					//将登陆请求参数放到应用上下文中
 					request.getServletContext().setAttribute("request_log", request);
 					return "success";
+				}else if(user.getIsActive().equals(0)){
+					return "isNotActive";
+				}else if(user.getIsForbid().equals(1)){
+					return "isForbid";
+				}else if(user.getIsDelete().equals(1)){
+					return "isDelete";
 				}else{
 					return "pswError";
 				}

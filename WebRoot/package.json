@@ -5,7 +5,7 @@
   "main": "bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --progress --colors --display-modules --display-reasons",
+    "webpack": "webpack --watch --progress --colors --display-modules --display-reasons",
     "build": "set NODE_ENV=production&&webpack -p --progress --colors",
     "start": "webpack-dev-server --hot --inline --colors"
   },

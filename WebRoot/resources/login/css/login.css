@@ -22,6 +22,8 @@ body {background: #fff;color: #383a3c;font-weight: 400;font-size: 1em;line-heigh
 #form p.mb10{margin-bottom:10px;}
 #form p.mb0{margin-bottom:0px;}
 #form p input{width:100%;line-height:30px;background:rgba(108, 131, 134, 0.59);border:none;border-bottom:4px solid transparent;border-top:4px solid transparent;outline:none;text-indent:2.5em;font-size:16px;color:#fff;font-weight:600;border-radius:16px;}
+#form p.active input{border-bottom:4px solid #3499DA;}
+#form p.active i.left{color:#3499DA;}
 #form p #login{text-align:center;text-indent:0em;height:38px;cursor:pointer;background-color:#3499DA;color:#fff;transition: all 1s;border-radius:16px;}
 #form p #login:hover{background-color:#688ac2;transition: color 1s;}
 #form p .left{position:absolute;left:5px;font-size:30px;color:rgba(152, 151, 151, 0.59);vertical-align:middle;}

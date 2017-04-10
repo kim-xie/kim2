@@ -28,7 +28,8 @@
 			is_delete as isDelete
 		FROM
 		 	user
-		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			is_delete = 0
 			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
 				and name LIKE '%${keyword}%'
 			</if>
@@ -65,6 +66,7 @@
 		FROM
 		 	user
 		 <trim prefix="WHERE" prefixOverrides="AND | OR">  
+		 	is_delete = 0
 			<if test="@com.kim.util.StringUtils@isNotEmpty(name)">
 				and name = #{name} 
 			</if>
@@ -96,6 +98,7 @@
 	  	INSERT INTO user(
 			user_id,
 			name,
+			password,
 			ip,
 			ipAddress,
 			header_pic,
@@ -117,6 +120,7 @@
 	  	) VALUES (
 		  	#{userId},
 		  	#{name},
+		  	#{password},
 		  	#{ip},
 		  	#{ipAddress},
 		  	#{headerPic},
@@ -131,9 +135,9 @@
 		  	#{tel},
 		  	#{qq},
 		  	#{weixin},
-		  	#{email},
 		  	#{description},
 		  	#{updateTime},
+		  	#{roleId},
 		  	#{isDelete}
 	  	)
 	 </insert>
@@ -165,12 +169,12 @@
 	
 	<!-- 邮箱激活验证 -->
 	<select id="active" parameterType="string" resultType="User">
-		SELECT activeCode,active FROM USER WHERE activeCode = #{activeCode}
+		SELECT activeCode,is_active as isActive FROM user WHERE activeCode = #{activeCode}
 	</select>
 	
 	<!-- 激活 -->
 	<update id="updateActive" parameterType="string" >
-		UPDATE USER SET active=1 WHERE activeCode = #{activeCode}
+		UPDATE USER SET is_active=1 WHERE activeCode = #{activeCode}
 	</update>
 	
 </mapper>

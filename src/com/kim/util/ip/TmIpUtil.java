@@ -138,28 +138,27 @@ public class TmIpUtil {
 	}
 
 	// 获取请求主机IP地址,如果通过代理进来，则透过防火墙获取真实IP地址
-	// public static String getIpAddr(HttpServletRequest request) {
-	// String clientIp = request.getHeader("x-forwarded-for");
-	// // log.info("All the IP address string is: " + strClientIp);
-	// if (clientIp == null || clientIp.length() == 0 ||
-	// "unknown".equalsIgnoreCase(clientIp)) {
-	// clientIp = request.getRemoteAddr();
-	// } else {
-	// String[] ips = {};
-	// // BusiAcceptAction.SplitsString(strClientIp, ',' , ipList); //
-	// // 拆分字符串，可直接用String.plit方法
-	// ips = clientIp.split(",");
-	// String ip = new String();
-	// for (int index = 0; index < ips.length; index++) {
-	// ip = (String) ips[index];
-	// if (!("unknown".equalsIgnoreCase(ip))) {
-	// clientIp = ip;
-	// break;
-	// }
-	// }
-	// }
-	// return clientIp;
-	// }
+	 public static String getIpAddr(HttpServletRequest request) {
+		 String clientIp = request.getHeader("x-forwarded-for");
+		 // log.info("All the IP address string is: " + strClientIp);
+		 if (clientIp == null || clientIp.length() == 0 || "unknown".equalsIgnoreCase(clientIp)) {
+			 clientIp = request.getRemoteAddr();
+		 } else {
+			 String[] ips = {};
+			 // BusiAcceptAction.SplitsString(strClientIp, ',' , ipList); 
+			 // 拆分字符串，可直接用String.plit方法
+			 ips = clientIp.split(",");
+			 String ip = new String();
+			 for (int index = 0; index < ips.length; index++) {
+				 ip = (String) ips[index];
+				 if (!("unknown".equalsIgnoreCase(ip))) {
+					 clientIp = ip;
+					 break;
+				 }
+			 }
+		 }
+		 return clientIp;
+	 }
 	
 	/**
 	 * 根据IP地址找到你对应城市和省份
@@ -173,7 +172,7 @@ public class TmIpUtil {
 	 */
 	public static String ipLocation(String ip) {
 		String ipLocation = "";
-		TmIPSeeker ipSeeker = new TmIPSeeker("qqwry.dat","I:/潭州学院高级班-v2.0/项目实战/WebRoot/ip");
+		TmIPSeeker ipSeeker = new TmIPSeeker("qqwry.dat","C:/Users/ThinkPad/Desktop/kim/WebRoot/ip");
 		ipLocation = ipSeeker.getIPLocation(ip).getCountry() + " "+ ipSeeker.getIPLocation(ip).getArea();
 		return ipLocation;
 	}
@@ -190,11 +189,11 @@ public class TmIpUtil {
 	 */
 	public static String ipprovince(String ip) {
 		String ipLocation = "";
-		TmIPSeeker ipSeeker = new TmIPSeeker("qqwry.dat","D:/tzprojects/tz_desk/WebRoot/ip");
+		TmIPSeeker ipSeeker = new TmIPSeeker("qqwry.dat","C:/Users/ThinkPad/Desktop/kim/WebRoot/ip");
 		ipLocation = ipSeeker.getIPLocation(ip).getCountry() ;
 		return ipLocation;
 	}
-
+	
 	/**
 	 * 找到城市
 	 * com.kim.util.ip 
@@ -207,7 +206,7 @@ public class TmIpUtil {
 	 */
 	public static String ipcity(String ip) {
 		String ipLocation = "";
-		TmIPSeeker ipSeeker = new TmIPSeeker("qqwry.dat","D:/tzprojects/tz_desk/WebRoot/ip");
+		TmIPSeeker ipSeeker = new TmIPSeeker("qqwry.dat","C:/Users/ThinkPad/Desktop/kim/WebRoot/ip");
 		ipLocation =  ipSeeker.getIPLocation(ip).getArea();
 		return ipLocation;
 	}
@@ -277,5 +276,6 @@ public class TmIpUtil {
 		System.out.println(ipLocation("123.57.209.52"));
 		System.out.println(ipLocation("58.213.110.2"));
 		System.out.println(ipLocation("14.130.153.128"));
+		System.out.println(ipLocation("127.0.0.1"));
 	}
 }

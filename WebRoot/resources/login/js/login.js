@@ -1,154 +1,53 @@
 
-require('../css/login.css');
+//require('../css/login.css');
 
-require('./TweenLite.min.js');
-require('./EasePack.min.js');
+//require('./TweenLite.min.js');
+//require('./EasePack.min.js');
 //require('./rAF.js');
-require('./demo-1.js');
+//require('./demo-1.js');
 
 //;(function(){
-	/*$(".input").each(function(i){
+	$("#form").find(".input").each(function(){
 		//获取焦点事件
 		$(this).focus(function(){
 			var $this = $(this);
-			//$this.siblings().blur();
-			$this.css("borderBottom","4px solid #3499DA");
-			$this.prev().css("color","#3499DA");
-			if($this.val().trim()){
+			if(!$(this).parent().hasClass("active")){
+				$(this).parent().addClass("active");
+				return false;
+			}
+			if(isNotEmpty($this.val())){
 				$this.keydown(function(){
 					$this.next().fadeOut(500);
 				});
 			}else{
 				$this.next().fadeOut(500);
 			}
+			
 		});
-
+		
 		//失去焦点事件
 		$(this).blur(function(){
 			$this = $(this);
-			if(!$this.val().trim()){
-				alert("失去焦点时值为空")
-				$this.css("borderBottom","");
-				$this.prev().css("color","");
+			if(isEmpty($this.val())){
+				$this.parent().removeClass("active");
+				return false;
 			}else{
-				alert("失去焦点时有值")
-				if($this.has("#user")){
-					alert(1)
-				}
-				if($this.has("#email")){
-					alert(2)
-				}
+				
 			}
 		});
-
+		
 		//去提示
 		$(this).keydown(function(){
 			$("#tip").fadeOut(500);
 		});
-	});*/
-
-
-	function blur(obj){
-		alert("失去焦点")
-		var val = $(obj).val().trim();
-		if(val){
-			if($(obj).has("#user")){
-				alert(1)
-			}
-			if($(obj).has("#email")){
-				alert(2)
-			}
-		}else{
-			$(obj).css("borderBottom","");
-			$(obj).prev().css("color","");
-		}
-	};
-
-	function focus(obj){
-		alert("获取焦点")
-		$(obj).css("borderBottom","4px solid #3499DA");
-		$(obj).prev().css("color","#3499DA");
-		var val = $(obj).val().trim();
-		if(val){
-
-		}else{
-
-		}
-	};
-
-	//清空按钮
-	$(".icon").click(function(){
-		if($(this).attr("class").indexOf("icon-iconerror")!=-1){
-			$(this).prev().val("").focus();
-			$(this).fadeOut("slow");
-		}
 	});
-
-	//检查用户名
-	function checkUser(obj){
-		var name = $(obj).val().trim();
-		if(!name)return;
-		var params = {name:name};
-		$.ajax({
-			type: "post",
-			url: basePath+"/user/checkName",
-			data: params,
-			success: function(data){
-				if(data == "nameCorrect"){
-					if(($(this).parents("#loginBox").find("h1").text()=="login" || $(this).parents("#loginBox").find("h1").text()=="findPassword")){
-						$("#user").next().fadeIn(500).removeClass("icon-iconerror").addClass("icon-iconsuccess");
-					}else{
-						showTip("bounceInDown","icon-iconerror","red","该用户已经被注册,请换个用户名吧^_^！",3000);
-						$("#user").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
-					}
-
-				}else if(data == "nameError"){
-					if(($(this).parents("#loginBox").find("h1").text()=="login" || $(this).parents("#loginBox").find("h1").text()=="findPassword")){
-						showTip("bounceInDown","icon-iconerror","red","您输入的用户名有误！",3000);
-						$("#user").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
-					}else{
-						$("#user").next().fadeIn(500).removeClass("icon-iconerror").addClass("icon-iconsuccess");
-					}
-				}
-			}
-		});
-	};
-
-	//检查邮箱
-	function checkEmail(obj){
-		var email = $(obj).val().trim();
-		if(!email)return;
-		$.ajax({
-			type: "post",
-			url: basePath+"/user/checkEmail",
-			data: "userEmail="+email,
-			success:function(data){
-				//找到邮箱
-				if(data == "EmailIsAlive"){
-					if($("#email").parents("#loginBox").find("h1").text()=="regist"){
-						showTip("bounceInDown","icon-iconerror","red","该邮箱已经被注册,请换个邮箱吧^_^！",3000);
-						$("#email").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
-					}else{
-						$("#email").next().fadeIn(500).removeClass("icon-iconerror").addClass("icon-iconsuccess");
-					}
-				//找不到邮箱
-				}else if(data == "EmailIsCorrect"){
-					$("#email").next().fadeIn(500).removeClass("icon-iconerror").addClass("icon-iconsuccess");
-				//邮箱格式有误
-				}else if(data == "emailError"){
-					showTip("bounceInDown","icon-iconerror","red","您输入的邮箱格式有误,请重新输入吧^_^！",3000);
-					$("#email").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
-				}
-			}
-		});
-	};
 
 	//登录、注册、找回密码
 	var user = {
 		getLogin: function(){
-			var name = $("#user").val().trim();
-			var password = $("#pwd").val().trim();
-			var verifyCode = $("#vfy").val().trim();
+			var name = $.trim($("#user").val());
+			var password = $.trim($("#pwd").val());
+			var verifyCode = $.trim($("#vfy").val());
 
 			if(!password && !name){
 				showTip("bounceInDown","icon-warn","yellow","请输入登录信息！",3000);
@@ -187,23 +86,31 @@ require('./demo-1.js');
 						setTimeout(function(){
 							window.location.href = basePath+"/index";
 						},3000);
-
+					}else if(data == "isNotActive"){
+						showTip("bounceInDown","icon-iconerror","red","您输入的账号还未激活,请到申请账号的邮箱激活！",3000);
+						$("#pwd").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
+					}else if(data == "isForbid"){
+						showTip("bounceInDown","icon-iconerror","red","您输入的账号已被禁用！",3000);
+						$("#pwd").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
+					}else if(data == "isDelete"){
+						showTip("bounceInDown","icon-iconerror","red","您输入的账号已删除！",3000);
+						$("#pwd").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
 					}else if(data == "pswError"){
 						showTip("bounceInDown","icon-iconerror","red","您输入的密码有误！",3000);
 						$("#pwd").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
-						setTimeout(function(){
-							$("#login").val("登   录");
-							$("#login").attr("onclick","user.getLogin()");
-						},3000);
 					}
+					setTimeout(function(){
+						$("#login").val("登   录");
+						$("#login").attr("onclick","user.getLogin()");
+					},3000);
 				}
 			});
 		},
 		getRegist: function(){
-			var name = $("#user").val().trim();
-			var password = $("#pwd").val().trim();
-			var email = $("#email").val().trim();
-			var verifyCode = $("#vfy").val().trim();
+			var name = $.trim($("#user").val());
+			var password = $.trim($("#pwd").val());
+			var email = $.trim($("#email").val());
+			var verifyCode = $.trim($("#vfy").val());
 
 			if(!password && !name && !email){
 				showTip("bounceInDown","icon-warn","yellow","请输入注册信息！",3000);
@@ -222,7 +129,6 @@ require('./demo-1.js');
 				$("#email").focus();
 			}
 			if(!verifyCode && password && name && email){
-				alert(1)
 				var params = {name:name,password:password,email:email};
 				user.regist(params);
 			}
@@ -255,9 +161,9 @@ require('./demo-1.js');
 			});
 		},
 		getFindPwd: function(){
-			var name = $("#user").val().trim();
-			var email = $("#email").val().trim();
-			var verifyCode = $("#vfy").val().trim();
+			var name = $.trim($("#user").val());
+			var email = $.trim($("#email").val());
+			var verifyCode = $.trim($("#vfy").val());
 
 			if(!name && !email){
 				showTip("bounceInDown","icon-warn","yellow","请输入完整信息！",3000);
@@ -293,6 +199,76 @@ require('./demo-1.js');
 			});
 		}
 	};
+	
+	//清空按钮
+	$(".icon").click(function(){
+		if($(this).attr("class").indexOf("icon-iconerror")!=-1){
+			$(this).prev().val("").focus();
+			$(this).fadeOut("slow");
+		}
+	});
+
+	//检查用户名
+	function checkUser(obj){
+		var name = $(obj).val().trim();
+		if(!name)return;
+		var params = {name:name};
+		$.ajax({
+			type: "post",
+			url: basePath+"/user/checkName",
+			data: params,
+			success: function(data){
+				//用户名存在
+				if(data == "nameCorrect"){
+					if(($(obj).parents("#loginBox").find("h1").text()=="login" || $(obj).parents("#loginBox").find("h1").text()=="findPassword")){
+						$("#user").next().fadeIn(500).removeClass("icon-iconerror").addClass("icon-iconsuccess");
+					}else{
+						showTip("bounceInDown","icon-iconerror","red","该用户已经被注册,请换个用户名吧^_^！",3000);
+						$("#user").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
+					}
+				//用户名不存在
+				}else if(data == "nameError"){
+					if(($(obj).parents("#loginBox").find("h1").text()=="login" || $(obj).parents("#loginBox").find("h1").text()=="findPassword")){
+						showTip("bounceInDown","icon-iconerror","red","您输入的用户名有误！",3000);
+						$("#user").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
+					}else{
+						$("#user").next().fadeIn(500).removeClass("icon-iconerror").addClass("icon-iconsuccess");
+					}
+				}
+			}
+		});
+	};
+
+	//检查邮箱
+	function checkEmail(obj){
+		var email = $(obj).val().trim();
+		if(!email)return;
+		$.ajax({
+			type: "post",
+			url: basePath+"/user/checkEmail",
+			data: "userEmail="+email,
+			success:function(data){
+				//找到邮箱
+				if(data == "EmailIsAlive"){
+					if($(obj).parents("#loginBox").find("h1").text()=="regist"){
+						showTip("bounceInDown","icon-iconerror","red","该邮箱已经被注册,请换个邮箱吧^_^！",3000);
+						$("#email").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
+					}else{
+						$("#email").next().fadeIn(500).removeClass("icon-iconerror").addClass("icon-iconsuccess");
+					}
+				//找不到邮箱
+				}else if(data == "EmailIsCorrect"){
+					//showTip("bounceInDown","icon-iconerror","red","您输入的邮箱不存在,请重新输入吧^_^！",3000);
+					//$("#email").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
+					$("#email").next().fadeIn(500).removeClass("icon-iconerror").addClass("icon-iconsuccess");
+				//邮箱格式有误
+				}else if(data == "emailError"){
+					showTip("bounceInDown","icon-iconerror","red","您输入的邮箱格式有误,请重新输入吧^_^！",3000);
+					$("#email").focus().next().fadeIn(500).removeClass("icon-iconsuccess").addClass("icon-iconerror");
+				}
+			}
+		});
+	};
 
 	//展示提示框信息
 	function showTip(animate,icon,color,message,time){
@@ -309,16 +285,31 @@ require('./demo-1.js');
 	$("html").keydown(function(event){
 		var e = event || window.event;
 		if(e.keyCode == 13){
-			user.getLogin();
+			if($("#loginBox").find("h1").text()=="regist"){
+				alert("regist")
+				user.getRegist();
+			}else if($("#loginBox").find("h1").text()=="login"){
+				alert("login")
+				user.getLogin();
+			}else if($("#loginBox").find("h1").text()=="findPassword"){
+				alert("findPassword")
+				user.getFindPwd();
+			}
+			
 		}else if(e.keyCode == 40){
 			$(".input").each(function(i){
-
+				if($(this).parent().hasClass("active")){
+					$(this).parent().next().find(".input").focus();
+					return false;
+				}
 			});
-			$("#user").blur();
-			$("#pwd").focus();
 		}else if(e.keyCode == 38){
-			$("#user").focus();
-			$("#pwd").blur();
+			$(".input").each(function(i){
+				if($(this).parent().hasClass("active")){
+					$(this).parent().prev().find(".input").focus();
+					return false;
+				}
+			});
 		}
 	});
 

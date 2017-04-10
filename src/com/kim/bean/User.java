@@ -55,7 +55,7 @@ public class User implements Serializable {
 	// 更新时间
 	private String updateTime;
 	// 角色ID
-	private Integer roleID;
+	private Integer roleId;
 	
 	public User(){
 		super();
@@ -231,12 +231,12 @@ public class User implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public Integer getRoleID() {
-		return roleID;
+	public Integer getRoleId() {
+		return roleId;
 	}
 
-	public void setRoleID(Integer roleID) {
-		this.roleID = roleID;
+	public void setRoleId(Integer RoleId) {
+		this.roleId = RoleId;
 	}
 
 	public static long getSerialversionuid() {
