@@ -26,16 +26,16 @@ public class ArticleController extends BaseController{
 	private IArticleService articleService;
 	
 	/**
-	 * 前往留言板页面
+	 * 前往发表文章页面
 	 * @Title: toResponse 
 	 * @Description: TODO(这里用一句话描述这个方法的作用) 
 	 * @param @return  参数说明 
 	 * @return String  返回类型 
 	 * @throws
 	 */
-	@RequestMapping("/response")
-	public String toResponse() {
-		return "common/response";
+	@RequestMapping("/common")
+	public String toCommon() {
+		return "fronts/article/common";
 	}
 	/**
 	 * 将数据返回模板页面

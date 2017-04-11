@@ -49,8 +49,6 @@
 	#topNav #navWrap #navInfo .navInfo_list .list_item .quick-list li:hover a{color:#3498DB;background-color:#EFF3F5;}
 	/* 顶部导航  end */
 	
-	
-	
 </style>
 	<!-- 顶部导航  start -->
 	<div id="topNav">
@@ -58,17 +56,18 @@
 			<div id="navLogo"><a href="#"><img alt="logo" src="${basePath}/resources/imgs/logo/logo.png"></a></div>
 			<div id="navList">
 				<ul class="navList_list">
-				    <li class="active"><a href="#">首页</a></li>
-				    <li><a href="#">学习</a></li>
-				    <li><a href="#">作品</a></li>
-				    <li><a href="#">素材</a></li>
-				    <li><a href="#">经验</a></li>
+				    <li class="active"><a href="${basePath}/index">首页</a></li>
+				    <li><a href="javascript:;">学习</a></li>
+				    <li><a href="javascript:;">作品</a></li>
+				    <li><a href="javascript:;">素材</a></li>
+				    <li><a href="javascript:;">经验</a></li>
 				    <li><a href="${basePath}/music/list">音乐</a></li>
+				    <li><a href="${basePath}/article/common">写文章</a></li>
 				</ul>
 			</div>
 			<div id="navInfo">
 				<div class="search-hd">
-					<form action="http://s.ui.cn/index.html" method="get" id="searchForm">
+					<form action="javascript:;" method="get" id="searchForm">
 						<div class="search-status">
 							<div class="search-filter">
 								<a href="javascript:;"><span class="tit">音乐</span><i class="iconfont icon-icontabdown"></i></a>							
@@ -101,8 +100,8 @@
 							<i class="iconfont icon-icon-cloud-upload fz28 listIcon" style="color:#CED7DE"></i>
 						</a>
 						<ul class="quick-menu" style="display: none;">
-							<li><a href="http://upload.ui.cn/work.html"><i class="iconfont icon-up-pic"></i>上传作品</a></li>
-							<li><a href="http://upload.ui.cn/exp.html"><i class="iconfont icon-up-experience"></i>上传经验</a></li>
+							<li><a href="javascript:;"><i class="iconfont icon-up-pic"></i>上传作品</a></li>
+							<li><a href="javascript:;"><i class="iconfont icon-up-experience"></i>上传经验</a></li>
 						</ul>
 					</li>
 				    <li class="list_item">
@@ -167,13 +166,13 @@
 						</div>
 					</li>
 				    <li class="list_item">
-				    	<a href="#"><img class="avatar" alt="userPic" src="${basePath}/resources/imgs/user/small.png"></a>
+				    	<a href="javascript:;"><img class="avatar" alt="userPic" src="${basePath}/resources/imgs/user/small.png"></a>
 			    		<div class="triangle-top"></div>
 				    	<ul class="quick-list" >
-							<li><a href="#"><i class="iconfont icon-10"></i>我的作品</a></li>
-							<li><a href="#"><i class="iconfont icon-fonticonstar02"></i>我的收藏</a></li>
-							<li><a href="#"><i class="iconfont icon-iconmusic"></i>我的音乐</a></li>
-							<li><a href="#"><i class="iconfont icon-user-info"></i>修改资料</a></li>
+							<li><a href="javascript:;"><i class="iconfont icon-10"></i>我的作品</a></li>
+							<li><a href="javascript:;"><i class="iconfont icon-fonticonstar02"></i>我的收藏</a></li>
+							<li><a href="javascript:;"><i class="iconfont icon-iconmusic"></i>我的音乐</a></li>
+							<li><a href="javascript:;"><i class="iconfont icon-user-info"></i>修改资料</a></li>
 							<li><a href="${basePath}/logout"><i class="iconfont icon-end01"></i>退出登录</a></li>
 						</ul>
 				    </li>

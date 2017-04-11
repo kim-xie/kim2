@@ -992,30 +992,31 @@ transform: scale(1.05);}
 		
 		<!-- 内容区域  start -->
 		<div id="mainWrap">
+			<!-- banner start -->
 			<div id="bannerWrap" style="width:1180px;height:350px;margin:0 auto;margin-top:60px;"></div>
-		
+			<!-- banner end -->
 			<div class="wpn" id="project">
 		        <!--  -->
 		        <div class="cl pos">
 		            <ul class="h-screen">
 		                <li class="on"><a href="javascript:;" title="首页推荐">首页推荐</a></li>
-		                <li><a href="/?t=share#project" title="佳作分享">佳作分享</a></li>                                   
-		                <li><a href="/?t=new#project" title="最新作品">最新作品</a></li>                                       
-		                <li><a href="/?t=follow#project" title="我的关注">我的关注</a></li>            
+		                <li><a href="javascript:;" title="佳作分享">佳作分享</a></li>                                   
+		                <li><a href="javascript:;" title="最新作品">最新作品</a></li>                                       
+		                <li><a href="javascript:;" title="我的关注">我的关注</a></li>            
 		            </ul>
 		            <!--  -->
 		            <ul class="h-soup cl">
 						<li>                            
 							<i class="iconfont icon-star1" title="更新"></i>
-		                    <a class="txt" href="/system.html" target="_blank"> 更新：导航栏更新~一起来发现！ </a>
+		                    <a class="txt" href="javascript:;" target="_blank"> 更新：导航栏更新~一起来发现！ </a>
 		                </li>
 		                <li class="open">
 		                     <i class="iconfont icon-heart-round" title="鸡汤"></i>
-		                     <a class="txt" href="/soup.html" target="_blank"> 鸡汤：今早本来要发鸡汤的，被AR红包淹没了~ </a>
+		                     <a class="txt" href="javascript:;" target="_blank"> 鸡汤：今早本来要发鸡汤的，被AR红包淹没了~ </a>
 		                </li>                            
 		                <li>
 							<i class="iconfont icon-warn" title="公告"></i>
-		                    <a class="txt" href="/site.html" target="_blank"> 公告：关于作品／文章推荐，UI中国特此声明 </a>
+		                    <a class="txt" href="javascript:;" target="_blank"> 公告：关于作品／文章推荐，UI中国特此声明 </a>
 		                </li>                
 		            </ul>
 		        </div>
@@ -1302,20 +1303,25 @@ transform: scale(1.05);}
 		<script type="text/javascript"> 
 		
 			$(function(){
+				loadArticles();
+			});
+			
+			
+			//加载文章列表
+			function loadArticles(){
 				var param = {pageNo:'0',pageSize:'8'};
 				$.ajax({
 					type: "post",
 					url: basePath+"/article/template",
 					data: param,
 					success:function(data){
-						alert(data)
 						var $data = $(data);
 						$("#articleWrap").html($data);
 					}
 				});
-			});
+			}
 		
-		
+			//初始化banner
 			$("#bannerWrap").kimBanner({
 				imgSrc: ["${basePath}/resources/imgs/banner/ui1.png","${basePath}/resources/imgs/banner/ui3.jpeg","${basePath}/resources/imgs/banner/ui4.jpeg"],
 				imgUrl: ["javascript:viod(0);","javascript:viod(0);","javascript:viod(0);"],

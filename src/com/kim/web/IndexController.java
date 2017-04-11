@@ -18,11 +18,6 @@ public class IndexController extends BaseController{
 		return "fronts/index";
 	}
 	
-	@RequestMapping("/index1")
-	public String index1(){
-		return "fronts/index1";
-	}
-	
 	@RequestMapping("/login")
 	public String login(){
 		return "fronts/login";
