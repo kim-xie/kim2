@@ -1,5 +1,6 @@
 package com.kim.dao.article;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -29,7 +30,7 @@ public interface IArticleMapper {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<Article> findArticles(Params params);
+	public List<HashMap<String, Object>> findArticles(Params params);
 	
 	/**
 	 * 求总数
@@ -58,7 +59,7 @@ public interface IArticleMapper {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public Article getArticle(Integer id);
+	public Article getArticle(String id);
 	
 	/**
 	 * 保存文章模块

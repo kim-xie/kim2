@@ -1,5 +1,6 @@
 package com.kim.service.article;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.kim.bean.Article;
@@ -25,7 +26,7 @@ public interface IArticleService {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<Article> findArticles(Params params);
+	public List<HashMap<String, Object>> findArticles(Params params);
 	
 	/**
 	 * 求总数
@@ -54,7 +55,7 @@ public interface IArticleService {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public Article getArticle(Integer id);
+	public Article getArticle(String id);
 	
 	/**
 	 * 保存文章模块

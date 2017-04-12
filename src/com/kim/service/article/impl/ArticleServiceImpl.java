@@ -1,8 +1,10 @@
 package com.kim.service.article.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.kim.bean.Article;
@@ -25,7 +27,7 @@ public class ArticleServiceImpl implements IArticleService{
 	private IArticleMapper articleMapper;
 	
 	@Override
-	public List<Article> findArticles(Params params){
+	public List<HashMap<String, Object>> findArticles(Params params){
 		if(StringUtils.isEmpty(params.getOrder()))params.setOrder("create_time desc");
 		return articleMapper.findArticles(params);
 	}
@@ -36,7 +38,7 @@ public class ArticleServiceImpl implements IArticleService{
 	}
 
 	@Override
-	public Article getArticle(Integer id) {
+	public Article getArticle(String id) {
 		return articleMapper.getArticle(id);
 	}
 
@@ -57,4 +59,5 @@ public class ArticleServiceImpl implements IArticleService{
 		int count = articleMapper.deleteArticle(params);
 		return count>0?true:false;
 	}
+
 }

@@ -982,6 +982,7 @@ transform: scale(1.05);}
 		/* 内容区域  end */
 	</style>
 	<body style="background:#EFF3F5;">
+		<input type="hidden" class="nav_model" value="首页">
 		<!-- 顶部导航  start -->
 		<%@include file="/WEB-INF/pages/fronts/common/header.jsp"%>
 		<!-- 顶部导航  end -->
@@ -1027,10 +1028,10 @@ transform: scale(1.05);}
 		         </ul>
 		         <div class="h_page mtn mbw">
 		                <ul class="cl">
-		                	<li><a class="on" href="?p=1#project">1</a></li>
+		                	<li><a class="on" href="javascript:;">1</a></li>
 		                	<li><a href="javascript:;">2</a></li>
-		                	<li><a href="?p=3#project">3</a></li>
-		                	<li><a href="/list.html?r=main&amp;p=2" target="_blank">...</a></li>
+		                	<li><a href="javascript:;">3</a></li>
+		                	<li><a href="javascript:;" target="_blank">...</a></li>
 		                </ul>            
 		         </div>
 		         <!--  -->
@@ -1041,7 +1042,7 @@ transform: scale(1.05);}
 			        <div class="w820 z">
 			            <h1 class="h-tit mtv h-article-btn pos">
 			                <a class="on" href="javascript:;" title="文章">推荐文章</a>
-			                <a href="/?art=article#article" title="最新文章">最新文章</a>            
+			                <a href="javascript:;" title="最新文章">最新文章</a>            
 			            </h1>
 			
 			            <div class="h-article-box">
@@ -1055,7 +1056,7 @@ transform: scale(1.05);}
 		                                    </span>
 		                                    <div class="h-article-info">
 		                                        <h1 class="cl">
-		                                            <span class="tag bg-blue" target="_blank" href="/exp.html?scatid=15">经验观点</span>
+		                                            <span class="tag bg-blue" target="_blank" href="javascript:;">经验观点</span>
 		                                            <span class="ellipsis" href="javascript:void(0)" title="2017年，UI设计风格预测。" target="_blank">2017年，UI设计风格预测。</span>
 		                                        </h1>
 		                                        <p>这不仅仅是一篇经验，而是前辈用日积月累得工作心得，用笔记用脑想，最重要得是要走心。还有我是占位符不是简介。</p>
@@ -1086,7 +1087,7 @@ transform: scale(1.05);}
 		                                    </span>
 		                                    <div class="h-article-info">
 		                                        <h1 class="cl">
-		                                            <span class="tag bg-blue" target="_blank" href="/exp.html?scatid=11">设计教程</span>
+		                                            <span class="tag bg-blue" target="_blank" href="javascript:;">设计教程</span>
 		                                            <span class="ellipsis" href="javascript:void(0)" title="C4D置换星球教程" target="_blank">C4D置换星球教程</span>
 		                                        </h1>
 		                                        <p>附件下载在最下面，高清观看移步b站 &nbsp;&nbsp;</p>
@@ -1115,7 +1116,7 @@ transform: scale(1.05);}
 		                                    </span>
 		                                    <div class="h-article-info">
 		                                        <h1 class="cl">
-		                                            <span class="tag bg-blue" target="_blank" href="/exp.html?scatid=15">经验观点</span>
+		                                            <span class="tag bg-blue" target="_blank" href="javascript:;">经验观点</span>
 		                                            <span class="ellipsis" href="javascript:void(0)" title="UI配色整理" target="_blank">UI配色整理</span>
 		                                        </h1>
 		                                        <p>这不仅仅是一篇经验，而是前辈用日积月累得工作心得，用笔记用脑想，最重要得是要走心。还有我是占位符不是简介。</p>
@@ -1228,9 +1229,9 @@ transform: scale(1.05);}
 			                <div class="h_page mtw mbw">
 			                    <ul class="cl">
 			                    	<li><a class="on" href="javascript:;">1</a></li>
-			                    	<li><a href="?page=2#article">2</a></li>
-			                    	<li><a href="?page=3#article">3</a></li>
-			                    	<li><a href="/exp.html?tag=1&amp;p=3" target="_blank">...</a></li>
+			                    	<li><a href="javascript:;">2</a></li>
+			                    	<li><a href="javascript:;">3</a></li>
+			                    	<li><a href="javascript:;" target="_blank">...</a></li>
 			                    </ul>                
 			               </div>
 			            </div>
@@ -1240,7 +1241,7 @@ transform: scale(1.05);}
 			            <h1 class="h-tit-aside">点击排行</h1>
 			            <ul class="h-aside-list">
 			                <li class="pos">
-		                        <a href="http://zhaopin.ui.cn/prev/pid/349.html" target="_blank">
+		                        <a href="javascript:;" target="_blank">
 		                            <img class="cover" width="280" height="125" src="http://img.ui.cn/data/booth/201609/1473307771_779.jpeg" alt="" rel="nofollow">
 		                            <div class="h-aside-show">
 		                                <p class="item ellipsis">[上海市] 高级UI设计师 [18k-30k]</p>
@@ -1249,7 +1250,7 @@ transform: scale(1.05);}
 		                        </a>
 		                    </li>
 		                    <li class="pos">
-		                        <a href="http://zhaopin.ui.cn/prev/pid/322.html" target="_blank">
+		                        <a href="javascript:;" target="_blank">
 		                            <img class="cover" width="280" height="125" src="http://img.ui.cn/data/booth/201609/1474862195_107.jpeg" alt="" rel="nofollow">
 		                            <div class="h-aside-show">
 		                                <p class="item ellipsis">[上海市] 视觉设计师 [10k-25k]</p>
@@ -1258,7 +1259,7 @@ transform: scale(1.05);}
 		                        </a>
 		                    </li>
 		                    <li class="pos">
-		                        <a href="http://zhaopin.ui.cn/prev/pid/481.html" target="_blank">
+		                        <a href="javascript:;" target="_blank">
 		                            <img class="cover" width="280" height="125" src="http://img.ui.cn/data/booth/201612/1482144673_737.jpeg" alt="" rel="nofollow">
 		                            <div class="h-aside-show">
 		                                <p class="item ellipsis">[西安] 交互设计师 [5k-15k]</p>
@@ -1273,17 +1274,17 @@ transform: scale(1.05);}
 			            <h1 class="h-tit-aside mtw">热门标签</h1>
 			            <ul class="h-aside-list">
 			                <li class="pos">
-		                        <a href="http://peixun.ui.cn/detail/363.html" target="_blank">
+		                        <a href="javascript:;" target="_blank">
 		                            <img class="cover" width="280" height="125" src="http://img.ui.cn/data/booth/201702/1487744828_327.jpeg" alt="" rel="nofollow">
 		                        </a>
 		                    </li>
 		                    <li class="pos">
-		                        <a href="http://peixun.ui.cn/detail/364.html" target="_blank">
+		                        <a href="javascript:;" target="_blank">
 		                            <img class="cover" width="280" height="125" src="http://img.ui.cn/data/booth/201609/1473390683_245.jpeg" alt="" rel="nofollow">
 		                        </a>
 		                    </li>
 		                    <li class="pos">
-		                        <a href="http://peixun.ui.cn/detail/390.html" target="_blank">
+		                        <a href="javascript:;" target="_blank">
 		                            <img class="cover" width="280" height="125" src="http://img.ui.cn/data/booth/201702/1487908457_191.jpeg" alt="" rel="nofollow">
 		                        </a>
 		                    </li>            

@@ -1,76 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
-<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
- "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="com.kim.dao.article.IArticleMapper">
 	<!-- 查询所有 -->
-	<select id="findArticles" parameterType="Params" resultType="Article">
+	<select id="findArticles" parameterType="Params" resultType="java.util.HashMap">
 			<![CDATA[ SELECT 
-				article_id as articleId,
-				user_id as userId,
-				title,
-				subTitle,
-				description,
-				article,
-				static_link as staticLink,
-				is_top as isTop,
-				is_delete as isDelete,
-				is_comment as isComment,
-				status,
-				push,
-				comments,
-				hits,
-				collections,
-				loves,
-				tag,
-				width,
-				height,
-				article_channel_id as channelId,
-				article_category_id as categoryId,
-				image,
-				thumnail,
-				create_time as createTime
+						a.article_id as articleId,
+						a.user_id as userId,
+						a.title,
+						a.subTitle,
+						a.description,
+						a.article,
+						a.static_link as staticLink,
+						a.is_top as isTop,
+						a.is_delete as isDelete,
+						a.is_comment as isComment,
+						a.status,
+						a.push,
+						a.comments,
+						a.hits,
+						a.collections,
+						a.loves,
+						a.tag,
+						a.width,
+						a.height,
+						a.article_channel_id as channelId,
+						a.article_category_id as categoryId,
+						a.image,
+						a.thumnail,
+						a.create_time as createTime,
+						u.name,
+						u.header_pic as headerPic
 				 ]]>
 			FROM 
-				article
+				article a
+					LEFT JOIN user u 
+				    ON u.user_id = a.user_id 
 			<trim prefix="WHERE" prefixOverrides="AND | OR">  
 				<if test="@com.kim.util.StringUtils@isNotEmpty(channelId)">
-					and channel_id = #{channelId}
+					and a.channel_id = #{channelId}
 				</if>
 				<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
-					and  title LIKE '%${keyword}%'
+					and  a.title LIKE '%${keyword}%'
 				</if>
 				<if test="@com.kim.util.StringUtils@isNotEmpty(isDelete)">
-					and  is_delete = #{isDelete}
+					and  a.is_delete = #{isDelete}
 				</if>
 				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==1"><!-- 今天 -->
-					AND TO_DAYS(create_time) = to_days(now())
+					AND TO_DAYS(a.create_time) = to_days(now())
 				</if>
 				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==2"><!-- 昨天-->
-					AND <![CDATA[AND TO_DAYS(NOW())-TO_DAYS(create_time)=1]]>
+					AND <![CDATA[AND TO_DAYS(NOW())-TO_DAYS(a.create_time)=1]]>
 				</if>
 				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==3"><!-- 近五天-->
-					AND <![CDATA[AND DATE_SUB(NOW(), INTERVAL 5 DAY) <= date(create_time)]]>
+					AND <![CDATA[AND DATE_SUB(NOW(), INTERVAL 5 DAY) <= date(a.create_time)]]>
 				</if>
 				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==4"><!-- 本周 -->
-					AND  WEEKOFYEAR(create_time)=WEEKOFYEAR(NOW())
+					AND  WEEKOFYEAR(a.create_time)=WEEKOFYEAR(NOW())
 				</if>
 				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==5"><!-- 上周 -->
-					AND YEARWEEK(date_format(create_time,'%Y-%m-%d')) = YEARWEEK(now())-1
+					AND YEARWEEK(date_format(a.create_time,'%Y-%m-%d')) = YEARWEEK(now())-1
 				</if>
 				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==6"><!-- 本月 -->
-					AND date_format(create_time,'%Y-%m')=date_format(now(),'%Y-%m')
+					AND date_format(a.create_time,'%Y-%m')=date_format(now(),'%Y-%m')
 				</if>
 				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==7"><!-- 上月 -->
-					AND date_format(create_time,'%Y-%m')=date_format(DATE_SUB(NOW(), INTERVAL 1 MONTH),'%Y-%m')
+					AND date_format(a.create_time,'%Y-%m')=date_format(DATE_SUB(NOW(), INTERVAL 1 MONTH),'%Y-%m')
 				</if>
 				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==8"><!-- 上季度 -->
-					AND  QUARTER(create_time)=QUARTER(DATE_SUB(now(),interval 1 QUARTER))
+					AND  QUARTER(a.create_time)=QUARTER(DATE_SUB(now(),interval 1 QUARTER))
 				</if>
 				<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==9"><!-- 本季度 -->
-					AND  QUARTER(create_time)=QUARTER(now())
+					AND  QUARTER(a.create_time)=QUARTER(now())
 				</if>
 			</trim>
-			ORDER BY ${order}
+			ORDER BY a.${order}
 			LIMIT #{pageNo} ,#{pageSize};
 	</select>
 	
@@ -83,7 +86,7 @@
 	</select>
 	
 	<!-- 根据id查询内容  -->
-	<select id="getArticle" resultType="Article">
+	<select id="getArticle" parameterType="String" resultType="Article">
 		<![CDATA[ SELECT 
           article_id as articleId,
           user_id as userId,
@@ -91,10 +94,10 @@
           subTitle,
           description,
           article,
-          static_link AS staticLink,
-          is_top AS isTop,
-          is_delete AS isDelete,
-          is_comment AS isComment,
+          static_link as staticLink,
+          is_top as isTop,
+          is_delete as isDelete,
+          is_comment as isComment,
           status,
           push,
           comments,
@@ -104,15 +107,15 @@
           tag,
           width,
           height,
-          article_channel_id AS channelId,
+          article_channel_id as channelId,
           article_category_id as categoryId,
           image,
           thumnail,
-          create_time AS createTime 
+          create_time as createTime 
         FROM
           article 
         WHERE 
-        	article_id=#{articleId}
+        	article_id = #{articleId}
         ]]>
 	</select>
 	

@@ -6,7 +6,7 @@
        <div class="shade" style="opacity: 0;"></div>
        <!--  -->
        <div class="cover pos">
-           <a href="javascript:void(0)" target="_blank" title="${article.title}">
+           <a href="${basePath}/article/detail/${article.articleId}" target="_blank" title="${article.title}">
                <img width="280" height="210" src="${article.image}" data-original="${article.image}" class="imgloadinglater" alt="${article.title}" rel="nofollow" style="display: inline;">
            </a>
        </div>
@@ -19,9 +19,9 @@
                <span><i class="iconfont icon-leaf" title="点赞数"></i><em>${article.loves}</em></span>
            </div>
            <p class="user cl">
-               <a href="javascript:void(0)" target="_blank"><img src="${basePath}${article.image}" title=""> 
+               <a href="javascript:void(0)" target="_blank"><img src="${basePath}${article.headerPic}" title=""> 
                 <strong class="name">
-                    <em>${article.title}</em> 
+                    <em>${article.name}</em> 
                 	<i class="cert icon-certified2" title=""></i>                                                                       
                 </strong>
                </a>

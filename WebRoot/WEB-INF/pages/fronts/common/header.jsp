@@ -53,16 +53,16 @@
 	<!-- 顶部导航  start -->
 	<div id="topNav">
 		<div id="navWrap">
-			<div id="navLogo"><a href="#"><img alt="logo" src="${basePath}/resources/imgs/logo/logo.png"></a></div>
+			<div id="navLogo"><a href="javascript:;"><img alt="logo" src="${basePath}/resources/imgs/logo/logo.png"></a></div>
 			<div id="navList">
 				<ul class="navList_list">
-				    <li class="active"><a href="${basePath}/index">首页</a></li>
-				    <li><a href="javascript:;">学习</a></li>
-				    <li><a href="javascript:;">作品</a></li>
-				    <li><a href="javascript:;">素材</a></li>
-				    <li><a href="javascript:;">经验</a></li>
-				    <li><a href="${basePath}/music/list">音乐</a></li>
-				    <li><a href="${basePath}/article/common">写文章</a></li>
+				    <li class="active"><a class="navModel" href="${basePath}/index">首页</a></li>
+				    <li><a class="navModel" href="javascript:;">学习</a></li>
+				    <li><a class="navModel" href="javascript:;">作品</a></li>
+				    <li><a class="navModel" href="javascript:;">素材</a></li>
+				    <li><a class="navModel" href="javascript:;">经验</a></li>
+				    <li><a class="navModel" href="${basePath}/music/list">音乐</a></li>
+				    <li><a class="navModel" href="${basePath}/article/common">写文章</a></li>
 				</ul>
 			</div>
 			<div id="navInfo">
@@ -182,6 +182,20 @@
 	</div>
 	<!-- 顶部导航  end -->
 	<script type="text/javascript"> 
+	
+		
+		
+		$(function(){
+			//导航选中按钮
+			var model = $.trim($(".nav_model").val());
+			$("#navList .navModel").each(function(){
+				if($(this).text() == model){
+					$(this).parent().addClass("active").siblings().removeClass("active");
+					return false;
+				}
+			});
+		});
+		
 		
 		$(".search-hd-btn").bind("click",function(e){
 			stopBubble(e);

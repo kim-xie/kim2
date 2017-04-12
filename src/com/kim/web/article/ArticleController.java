@@ -1,5 +1,6 @@
 package com.kim.web.article;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import com.kim.bean.Params;
 import com.kim.bean.User;
 import com.kim.core.CoreUtils;
 import com.kim.service.article.IArticleService;
+import com.kim.service.user.IUserService;
 import com.kim.web.BaseController;
 
 @Controller
@@ -24,6 +26,8 @@ public class ArticleController extends BaseController{
 	
 	@Resource(name="articleService")
 	private IArticleService articleService;
+	@Resource(name="userService")
+	private IUserService userService;
 	
 	/**
 	 * 前往发表文章页面
@@ -49,7 +53,7 @@ public class ArticleController extends BaseController{
 	@RequestMapping("/template")
 	@ResponseBody
 	public ModelAndView index(Params Params){
-		List<Article> articles = articleService.findArticles(Params);
+		List<HashMap<String, Object>> articles = articleService.findArticles(Params);
 		int itemCount = articleService.countArticle(Params);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("articles", articles);
@@ -69,11 +73,11 @@ public class ArticleController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(method=RequestMethod.POST,value="/loadData")
-	public List<Article> loadData(Params Params){
+	public List<HashMap<String, Object>> loadData(Params Params){
 		Params.setStatus(1);
 		Params.setIsDelete(0);
 		Params.setPageSize(12);
-		List<Article> articles = articleService.findArticles(Params);
+		List<HashMap<String, Object>> articles = articleService.findArticles(Params);
 		return articles;
 	}
 	
@@ -122,12 +126,15 @@ public class ArticleController extends BaseController{
 	 * @throws
 	 */
 	@RequestMapping("/detail/{id}")
-	public ModelAndView template(@PathVariable("id")Integer id){
+	public ModelAndView template(@PathVariable("id")String id){
 		ModelAndView modelAndView = new ModelAndView();
 		Article article = articleService.getArticle(id);
-		System.out.println(article.getArticle());
+		Params param = new Params();
+		param.setId(article.getUserId());
+		User user = userService.getUser(param);
 		modelAndView.setViewName("fronts/article/detail");
 		modelAndView.addObject("article",article);
+		modelAndView.addObject("user",user);
 		return modelAndView;
 	}
 	/**

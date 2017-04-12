@@ -65,9 +65,9 @@
 	  <link rel="stylesheet" type="text/css" href="${basePath}/resources/js/umeditor/themes/default/css/umeditor.css">
 	  <script type="text/javascript" charset="utf-8" src="${basePath}/resources/js/umeditor/umeditor.config.js"></script>
 	  <script type="text/javascript" charset="utf-8" src="${basePath}/resources/js/umeditor/umeditor.min.js"></script>
-	  <script type="text/javascript" charset="utf-8" src="${basePath}/resources/js/umeditor/umeditor.js"></script>
 	  <script type="text/javascript" src="${basePath}/resources/js/kim_upload.js"></script>
 	<body>
+		<input type="hidden" class="nav_model" value="写文章">
 		<!-- 顶部导航  start -->
 		<%@include file="/WEB-INF/pages/fronts/common/header.jsp"%>
 		<!-- 顶部导航  end -->

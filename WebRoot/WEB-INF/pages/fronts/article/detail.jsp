@@ -4,16 +4,14 @@
 <html>
 <head>
  	<meta charset="UTF-8">
- 	<meta name="Generator" content="EditPlus®">
  	<meta name="Author" content="">
  	<meta name="Keywords" content="">
  	<meta name="Description" content="">
- 	<title>${content.title}-king博客</title>
+ 	<title>${article.title}-kim博客</title>
  	<%@include file="/WEB-INF/pages/common/common.jsp"%>
- 	<link rel="stylesheet" href="${basePath}/resources/css/global.css">
  	<link rel="stylesheet" href="${basePath}/resources/css/UI.css">
 </head>
-<body data-opid="${content.id}">
+<body style="background:#EFF3F5;" data-opid="${article.articleId}">
 
 	<!-- 顶部导航  start -->
 	<%@include file="/WEB-INF/pages/fronts/common/header.jsp"%>
@@ -23,32 +21,32 @@
     	<div class="wth1200 clearfix">
         	<div class="fl cont_left">
                <div class="cont_head">
-                    <div class="conte_title overflow">${content.title}</div>
+                    <div class="conte_title overflow">${article.title}</div>
                     <div class="Classification">
                         <span class="tage">原创作品</span>
-                        <span>分类：<a href="javascript:void(0);">${content.tag}</a></span>
+                        <span>分类：<a href="javascript:void(0);">${article.tag}</a></span>
                         <span> 
                         	<i class="iconfont icon-time font18" style="margin-right:6px;"></i>
-                        		${king:formatDate(content.createTime,'yyyy-MM-dd HH:mm:ss')}
+                        		${kim:formatDate(article.createTime,'yyyy-MM-dd HH:mm:ss')}
                         </span>
                     </div>
                     <div class="Classification">
-                        <span class="Operation">浏览数<i>(${content.hits})</i></span>
-                        <span class="Operation">收藏<i>(${content.collections})</i></span>
-                        <span class="Operation">点赞<i>(${content.loves})</i></span>
-                        <span class="Operation">评论<i>(${content.comments})</i></span>
-                        <span class="Operation">作者<i>(${content.userName})</i></span>
+                        <span class="Operation">浏览数<i>(${article.hits})</i></span>
+                        <span class="Operation">收藏<i>(${article.collections})</i></span>
+                        <span class="Operation">点赞<i>(${article.loves})</i></span>
+                        <span class="Operation">评论<i>(${article.comments})</i></span>
+                        <span class="Operation">作者<i>(${user.name})</i></span>
                     </div>
                     <div class="tag-star tag-star1" title="首页推荐">
                     	<img src="${basePath}/resources/imgs/share/tag-star1.png" alt="首页推荐">
                     </div>
                     <div class="hot">
 						<i class="iconfont icon-hot"></i>
-						<span class="num">${content.hits}<strong>。</strong></span>
+						<span class="num">${article.hits}<strong>。</strong></span>
 					</div>
                 </div>
                 <div class="cont_details">
-                   ${content.content}
+                   ${article.article}
                 </div>
                 <div class="comment_box bg_white clearfix">
                     <div class="fl share_box">
@@ -60,19 +58,19 @@
                         </ul>快分享给朋友吧！
                     </div>
                     <div class="fl praise">
-                    	<a href="javascript:void(0)" data-loves="${content.loves}" data-opid="${content.id}" onclick="changeLoves(this);">赞</a>
-                    	${content.loves}人已经点赞
+                    	<a href="javascript:void(0)" data-loves="${article.loves}" data-opid="${article.articleId}" onclick="changeLoves(this);">赞</a>
+                    	${article.loves}人已经点赞
                     </div>
                     <div class="fr collect_box" style="text-align: center;">
-                        <a href="javascript:void(0)" data-collections="${content.collections}" data-opid="${content.id}" onclick="changeCollections(this);">点击收藏</a>
-                        ${content.collections}人已经收藏
+                        <a href="javascript:void(0)" data-collections="${article.collections}" data-opid="${article.articleId}" onclick="changeCollections(this);">点击收藏</a>
+                        ${article.collections}人已经收藏
                     </div>
                 </div>
                 <div class="pingl_box bg_white">
                     <div class="clearfix login_hint">
                         <p>大牛，别默默的看了，快登录帮我点评一下吧！:)</p>
-                        <a href="${basePath}/user/toLogin.do" class="primary_btn">登录</a>
-                        <a href="${basePath}/user/toRegist.do" class="nature_btn">立即注册</a>
+                        <a href="${basePath}/login" class="primary_btn">登录</a>
+                        <a href="${basePath}/regist" class="nature_btn">立即注册</a>
                     </div>
                     
                     <div class="t_box">
@@ -188,12 +186,12 @@
             	var timer = null;
             	clearTimeout(timer);
 				timer = setTimeout(function(){
-					var contentId = $("body").data("opid");
-					var params = {pageNo:pageNo*pageSize,pageSize:pageSize,contentId:contentId};
+					var articleId = $("body").data("opid");
+					var params = {pageNo:pageNo*pageSize,pageSize:pageSize,articleId:articleId};
 					$.ajax({
 						type:"post",
 						data:params,
-						url:basePath+"/comment/load.do",
+						url:basePath+"/comment/load",
 						success:function(dataArr){
 							if(dataArr && dataArr.length>0){
 								for(var i=0,len=dataArr.length;i<len;i++){
@@ -219,25 +217,25 @@
             
             // 设置缓存
             function setCacheData(obj){
-            	var content = $(".t_msg").html();
-        		if(isNotEmpty(content)){
+            	var article = $(".t_msg").html();
+        		if(isNotEmpty(article)){
         			if(window.localStorage){
-        				localStorage.setItem("king",content);
+        				localStorage.setItem("kim",article);
         			}
         		}
         	};
          	// 保存评论
         	function saveComment(obj){
-        		var content = $(".t_msg").html();
-        		var contentId = $("body").data("opid");
+        		var article = $(".t_msg").html();
+        		var articleId = $("body").data("opid");
         		var username = $("#userName").val();
         		var headerPic = $("#headerPic").val();
-        		if(!content){
+        		if(!article){
         			loading("请输入评论信息...",4);
         			$(".t_msg").focus();
         			return;
         		}
-        		var params = {description:content,contentId:contentId};
+        		var params = {description:article,articleId:articleId};
         		//清空并且获取焦点
         		$(".t_msg").html("").focus();
         		$.ajax({
@@ -249,7 +247,7 @@
 "                            <a href='javascript:void(0)' class='single_img fl'><img src='"+basePath+headerPic+"' width='60' height='60'></a>"+
 "                            <div class='fl single_cont'>"+
 "                                <p class='single_name'><a href='javascript:void(0)'>"+username+"</a><i>刚刚</i></p>"+
-"                                <p class='yijian'>"+content+"</p>"+
+"                                <p class='yijian'>"+article+"</p>"+
 "                                <p class='huifu'>"+
 "                                   <a href='javascript:void(0)' onclick='replay(this);' data-opid=''>回复</a>"+
 "                                   <a href='javascript:void(0)' class=''>分享</a> "+
@@ -258,7 +256,7 @@
 "                            </div>"+
 "                        </div>");
         				 if(window.localStorage){
-        					localStorage.removeItem("king");
+        					localStorage.removeItem("kim");
         				} 
         			}
         		});
@@ -273,9 +271,9 @@
             <div class="fr cont_right">
                 <div class="personal">
                     <p>
-                        <a href="javascript:void(0)" class="user_img"><img src="${basePath}${content.headerPic}" width="100" height="100"></a>
+                        <a href="javascript:void(0)" class="user_img"><img src="${basePath}${user.headerPic}" width="100" height="100"></a>
                     </p>
-                    <p style="margin-bottom:10px;"><a href="javascript:void(0)" class="font18">${content.userName}</a></p>
+                    <p style="margin-bottom:10px;"><a href="javascript:void(0)" class="font18">${user.name}</a></p>
                     <a href="javascript:void(0)" class="add_tb">+</a>
                     <div class="attention_box clearfix">
                         <a href="javascript:void(0)" class="fens">
@@ -291,11 +289,11 @@
                 <div class="praise_box clearfix">
                     <a href="javascript:void(0)" class="fens">
                         <i>已赞</i><br>
-                        <b>${content.loves}</b>
+                        <b>${article.loves}</b>
                     </a>
                     <a href="javascript:void(0)" class="guanz">
                         <i>评论</i><br>
-                        <b>${content.comments}</b>
+                        <b>${article.comments}</b>
                     </a>
                 </div>
             </div>
@@ -318,7 +316,7 @@
 			var params={loves:loves,id:id};
 			$.ajax({
 				type:"post",
-				url:basePath+"/content/update.do",
+				url:basePath+"/article/update.do",
 				data:params,
 				success:function(data){
 					if(data == "success"){
@@ -346,7 +344,7 @@
 			var params={id:id,collections:collections};
 			$.ajax({
 				type:"post",
-				url:basePath+"/content/update.do",
+				url:basePath+"/article/update.do",
 				data:params,
 				success:function(data){
 					if(data == "success"){
