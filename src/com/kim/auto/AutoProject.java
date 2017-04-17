@@ -19,11 +19,11 @@ public class AutoProject {
 	//service 
 	//web
 	//pages
-	private static String beanName = "Lookupdf";
+	private static String beanName = "FeedBack";
 	private static String smallBeanName = beanName.toLowerCase();
 	
 	//注释
-	private static String description = "数据字典模块";
+	private static String description = "意见反馈";
 	private static String author = "kim";
 	private static String qq = "1134771121";
 	private static String telephone = "18378311282";

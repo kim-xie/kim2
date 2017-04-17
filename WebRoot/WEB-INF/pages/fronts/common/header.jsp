@@ -57,6 +57,7 @@
 			<div id="navList">
 				<ul class="navList_list">
 				    <li class="active"><a class="navModel" href="${basePath}/index">首页</a></li>
+				    <li><a class="navModel" href="javascript:;">文章</a></li>
 				    <li><a class="navModel" href="javascript:;">学习</a></li>
 				    <li><a class="navModel" href="javascript:;">作品</a></li>
 				    <li><a class="navModel" href="javascript:;">素材</a></li>
@@ -165,7 +166,7 @@
 							</div>
 						</div>
 					</li>
-				    <li class="list_item">
+				    <li class="list_item avatar">
 				    	<a href="javascript:;"><img class="avatar" alt="userPic" src="${basePath}/resources/imgs/user/small.png"></a>
 			    		<div class="triangle-top"></div>
 				    	<ul class="quick-list" >
@@ -226,10 +227,10 @@
 			$(this).find(".options").hide();
 		});
 		
-		$(".list_item .avatar").hover(function(){
-			$(".list_item .triangle-top, .quick-list").show();
+		$(".list_item.avatar").hover(function(){
+			$(".list_item .triangle-top, .quick-list").fadeIn();
 		},function(){
-			$(".list_item .triangle-top, .quick-list").hide();
+			$(".list_item .triangle-top, .quick-list").fadeOut();
 		});
 		
 		$(".search-filter .options").find("a").click(function(e){

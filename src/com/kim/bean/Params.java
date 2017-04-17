@@ -14,6 +14,7 @@ public class Params implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String userId;
+	private String feedbackId;
 	private String channelId;
 	private String name;
 	private String keyword;
@@ -46,8 +47,16 @@ public class Params implements Serializable {
 		return userId;
 	}
 
-	public void setId(String userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	
+	public String getFeedbackId() {
+		return feedbackId;
+	}
+
+	public void setFeedbackId(String feedbackId) {
+		this.feedbackId = feedbackId;
 	}
 	
 	public String getChannelId() {

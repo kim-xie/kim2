@@ -49,6 +49,11 @@ public class IndexController extends BaseController{
 		return "fronts/login";
 	}
 	
+	@RequestMapping("/feedback")
+	public String feedback(){
+		return "fronts/common/response";
+	}
+	
 	/**
 	 * 后台页面
 	 * @Title: index 

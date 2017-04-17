@@ -87,16 +87,19 @@
      </bean>
      
 	<!-- 配置拦截器 -->
-	<!-- <mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
-			匹配的是url路径， 如果不配置或/**,将拦截所有的Controller 
+			<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller  -->
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/user/*"/>
-			<mvc:exclude-mapping path="/content/template.do"/>
-			<mvc:exclude-mapping path="/music/template.do"/>
+			<mvc:exclude-mapping path="/login"/>
+			<mvc:exclude-mapping path="/index"/>
+			<mvc:exclude-mapping path="/regist"/>
+			<mvc:exclude-mapping path="/findPwd"/>
+			<mvc:exclude-mapping path="/resources/**"/>
 			<bean class="com.kim.core.LoginIntercetor"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors>
 	
   	 <!-- 统一异常处理 -->
      <bean id="handlerExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

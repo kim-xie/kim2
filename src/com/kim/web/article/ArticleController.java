@@ -130,7 +130,7 @@ public class ArticleController extends BaseController{
 		ModelAndView modelAndView = new ModelAndView();
 		Article article = articleService.getArticle(id);
 		Params param = new Params();
-		param.setId(article.getUserId());
+		param.setUserId(article.getUserId());
 		User user = userService.getUser(param);
 		modelAndView.setViewName("fronts/article/detail");
 		modelAndView.addObject("article",article);

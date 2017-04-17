@@ -43,5 +43,6 @@
 		<mapper resource="com/kim/dao/music/MusicMapper.xml" />
 		<mapper resource="com/kim/dao/log/LogMapper.xml" />
 		<mapper resource="com/kim/dao/article/ArticleMapper.xml" />
+		<mapper resource="com/kim/dao/feedback/FeedBackMapper.xml" />
 	</mappers> 
 </configuration> 

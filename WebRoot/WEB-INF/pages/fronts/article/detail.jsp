@@ -12,7 +12,7 @@
  	<link rel="stylesheet" href="${basePath}/resources/css/UI.css">
 </head>
 <body style="background:#EFF3F5;" data-opid="${article.articleId}">
-
+	<input type="hidden" class="nav_model" value="文章">
 	<!-- 顶部导航  start -->
 	<%@include file="/WEB-INF/pages/fronts/common/header.jsp"%>
 	<!-- 顶部导航  end -->
@@ -287,11 +287,12 @@
                     </div>
                 </div>
                 <div class="praise_box clearfix">
-                    <a href="javascript:void(0)" class="fens">
+                    <a href="javascript:void(0)" class="loves">
                         <i>已赞</i><br>
                         <b>${article.loves}</b>
+                        <div class="arrow-shadow"></div>
                     </a>
-                    <a href="javascript:void(0)" class="guanz">
+                    <a href="javascript:void(0)" class="comments">
                         <i>评论</i><br>
                         <b>${article.comments}</b>
                     </a>

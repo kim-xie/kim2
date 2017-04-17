@@ -3,7 +3,7 @@
 <c:forEach var="article" varStatus="articleIndex" items="${articles}">
 	<li>
        <!--  -->
-       <div class="shade" style="opacity: 0;"></div>
+       <div class="shade"></div>
        <!--  -->
        <div class="cover pos">
            <a href="${basePath}/article/detail/${article.articleId}" target="_blank" title="${article.title}">

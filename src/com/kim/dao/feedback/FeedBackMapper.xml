@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.dao.feedback.IFeedBackMapper" >
+	
+	<!-- 查询所有FeedBack -->
+	<select id="findFeedBacks" resultType="FeedBack" parameterType="Params">
+		select 
+			feedback_id as feedbackId,
+			user_id as userId,
+			feedback_content as feedBack,
+			app_version as appVersion,
+			feedback_description as description,
+			feedback_status as status,
+			is_delete as isDelete,
+			create_time as createTime,
+			update_time as updateTime
+		FROM
+			feedback 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and feedBack LIKE '%${keyword}%'
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==1"><!-- 今天 -->
+				AND TO_DAYS(create_time) = to_days(now())
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==2"><!-- 昨天-->
+				AND <![CDATA[AND TO_DAYS(NOW())-TO_DAYS(create_time)=1]]>
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==3"><!-- 近五天-->
+				AND <![CDATA[AND DATE_SUB(NOW(), INTERVAL 5 DAY) <= date(create_time)]]>
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==4"><!-- 本周 -->
+				AND  WEEKOFYEAR(create_time)=WEEKOFYEAR(NOW())
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==5"><!-- 上周 -->
+				AND YEARWEEK(date_format(create_time,'%Y-%m-%d')) = YEARWEEK(now())-1
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==6"><!-- 本月 -->
+				AND date_format(create_time,'%Y-%m')=date_format(now(),'%Y-%m')
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==7"><!-- 上月 -->
+				AND date_format(create_time,'%Y-%m')=date_format(DATE_SUB(NOW(), INTERVAL 1 MONTH),'%Y-%m')
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==8"><!-- 上季度 -->
+				AND  QUARTER(create_time)=QUARTER(DATE_SUB(now(),interval 1 QUARTER))
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(mark) and mark==9"><!-- 本季度 -->
+				AND  QUARTER(create_time)=QUARTER(now())
+			</if>
+		</trim>
+		ORDER BY ${order}
+		LIMIT #{pageNo} ,#{pageSize};				
+	</select>
+	
+	<!-- 根据id查询FeedBack -->
+	<select id="getFeedBack" resultType="FeedBack">
+		SELECT 
+		  	feedback_id as feedbackId,
+			user_id as userId,
+			feedback_content as feedBack,
+			app_version as appVersion,
+			feedback_description as description,
+			feedback_status as status,
+			is_delete as isDelete,
+			create_time as createTime,
+			update_time as updateTime
+		FROM
+		 	feedback
+		WHERE 
+			feedback_id = #{feedbackId}
+	</select>
+	
+	<!-- 查询FeedBack的总记录数  -->
+	<select id="countFeedBack" resultType="int" parameterType="Params">
+		SELECT
+			count(1) 
+		FROM
+			feedback 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and feedBack LIKE '%${keyword}%'
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 添加FeedBack -->
+	<insert id="saveFeedBack" parameterType="FeedBack" useGeneratedKeys="true" keyProperty="id" flushCache="true">
+	  	INSERT INTO feedback(
+			feedback_id,
+			user_id,
+			feedback_content,
+			app_version,
+			feedback_description,
+			feedback_status,
+			is_delete,
+			update_time
+	  	) VALUES (
+		  	#{feedbackId},
+		  	#{userId},
+		  	#{feedBack},
+		  	#{appVersion},
+		  	#{description},
+		  	#{status},
+		  	#{isDelete},
+		  	#{updateTime}
+	  	)
+	 </insert>
+	
+	<!-- 更新FeedBack -->
+	<update id="updateFeedBack" parameterType="FeedBack">
+		update feedback
+		<set>
+			<if test="isDelete!=null">is_delete=#{isDelete},</if>
+		</set>
+		where feedback_id = #{feedbackId}
+	</update>
+	
+	<!-- 删除FeedBack -->
+	<delete id="deleteFeedBack" parameterType="Params">
+		<!-- delete from feedback where feedback_id = #{feedbackId} 真删 -->
+		update feedback set is_delete = 1 where feedback_id = #{feedbackId}
+	</delete>
+	
+</mapper>

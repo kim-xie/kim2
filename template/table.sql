@@ -22,8 +22,8 @@ Date: 2015-11-29 02:02:43
 
 CREATE TABLE `[smallBeanName]` (
   `[smallBeanName]_id` varchar(32) NOT NULL,
-  `[smallBeanName]_code` varchar(100) DEFAULT NULL,
-  `[smallBeanName]_name` varchar(100) DEFAULT NULL,
+  `[smallBeanName]_content` varchar(100) DEFAULT NULL,
+  `app_version` varchar(100) DEFAULT NULL,
   `[smallBeanName]_description` varchar(100) DEFAULT NULL,
   `[smallBeanName]_status` int(1) NOT NULL,
   `user_id` varchar(32) DEFAULT NULL,

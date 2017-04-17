@@ -286,13 +286,10 @@
 		var e = event || window.event;
 		if(e.keyCode == 13){
 			if($("#loginBox").find("h1").text()=="regist"){
-				alert("regist")
 				user.getRegist();
 			}else if($("#loginBox").find("h1").text()=="login"){
-				alert("login")
 				user.getLogin();
 			}else if($("#loginBox").find("h1").text()=="findPassword"){
-				alert("findPassword")
 				user.getFindPwd();
 			}
 			
