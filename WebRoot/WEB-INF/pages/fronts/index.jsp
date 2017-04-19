@@ -93,7 +93,7 @@
 		.post .info .title.download + .i-rar:after,.post .info .classify{float:left;height:20px;margin-right:10px;padding:0 5px;font-size:12px;color:#9aabb8;line-height:19px;text-align:center;background-color:#dfe5e9;border-radius:3px;}
 		.post .info .msg{height:21px;overflow:hidden;}
 		.post .info .msg span{margin-right:10px;display:inline-block;}
-		.post .info .msg span i{font-size:18px;color:#9aabb8;margin-right:5px;display:inline-block;line-height:21px;vertical-align:middle;}
+		.post .info .msg span i{color:#9aabb8;margin-right:5px;display:inline-block;vertical-align:middle;}
 		.post .info .msg span em{font-size:14px;color:#9aabb8;display:inline-block;line-height:21px;vertical-align:middle;}
 		.post .info .msg .slogan{height:21px;line-height:21px;font-size:12px;}
 		.post .info .user{margin-top:7px;}
@@ -321,7 +321,7 @@
 		                                            <div class="msg z cl">
 		                                                <span><i class="iconfont icon-iconeye"></i><em>14016</em></span>
 		                                                <span><i class="iconfont icon-comment"></i><em>30</em></span>
-		                                                <span><i class="iconfont icon-leaf"></i><em>456</em></span>
+		                                                <span><i class="iconfont icon-Love"></i><em>456</em></span>
 		                                            </div>
 		                                        </div>
 		                                        <div class="data"><i class="iconfont icon-time"></i>3-2 16:32</div>
@@ -350,7 +350,7 @@
 		                                            <div class="msg z cl">
 		                                                <span><i class="iconfont icon-iconeye"></i><em>4506</em></span>
 		                                                <span><i class="iconfont icon-comment"></i><em>13</em></span>
-		                                                <span><i class="iconfont icon-leaf"></i><em>109</em></span>
+		                                                <span><i class="iconfont icon-Love"></i><em>109</em></span>
 		                                            </div>
 		                                        </div>
 		                                        <div class="data"><i class="iconfont icon-time"></i>3-2 09:52</div>
@@ -381,7 +381,7 @@
 		                                            <div class="msg z cl">
 		                                                <span><i class="iconfont icon-iconeye"></i><em>14016</em></span>
 		                                                <span><i class="iconfont icon-comment"></i><em>30</em></span>
-		                                                <span><i class="iconfont icon-leaf"></i><em>456</em></span>
+		                                                <span><i class="iconfont icon-Love"></i><em>456</em></span>
 		                                            </div>
 		                                        </div>
 		                                        <div class="data"><i class="iconfont icon-time"></i>3-2 16:32</div>
@@ -410,7 +410,7 @@
 		                                            <div class="msg z cl">
 		                                                <span><i class="iconfont icon-iconeye"></i><em>4506</em></span>
 		                                                <span><i class="iconfont icon-comment"></i><em>13</em></span>
-		                                                <span><i class="iconfont icon-leaf"></i><em>109</em></span>
+		                                                <span><i class="iconfont icon-Love"></i><em>109</em></span>
 		                                            </div>
 		                                        </div>
 		                                        <div class="data"><i class="iconfont icon-time"></i>3-2 09:52</div>

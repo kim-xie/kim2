@@ -31,7 +31,7 @@
 			.wrap .timeline .t_send .t_box .t_send_btn:hover{background:#209df1;}
 			.wrap .timeline .t_send .t_box .t_face_con{width:365px;border:1px solid #ccc;background:#fff;box-shadow: 1px 2px 6px 0px #000;position:absolute;left:26px;top:180px;padding:5px;display:none;z-index:1;}
 			.wrap .timeline .t_send .t_box .t_face_con ul li{list-style:none;float:left;margin:2px;	cursor: pointer;}
-			.wrap .timeline .t_all{position:relative;overflow:hidden;border:1px solid red;}
+			.wrap .timeline .t_all{position:relative;overflow:hidden;}
 			.wrap .timeline .t_all .t_ul{margin-top:0px;}
 			.wrap .timeline .t_all .t_ul .l_header{float:left;}
 			.wrap .timeline .t_all .t_ul .t_list{margin:20px 0;}
@@ -45,25 +45,13 @@
 			/*end timeline*/
 			#arrow{position:fixed;top:50%;right:30px;}
 			*html #arrow{position:absolute;top:expression(eval(document.documentElement.scrollTop));margin-top:350px;}
-			
-			#arrow ul li{
-				display:block;height:20px;width:20px;background:url(${basePath}/resources/imgs/bg/icons.png) no-repeat 0 0;cursor:pointer;
-				-webkit-transition:all 0.2s ease-out;
-				-moz-transition:all 0.2s ease-out;
-				-o-transition:all 0.2s ease-out;
-				transition:all 0.2s ease-out;
-			}
+			#arrow ul li{display:block;height:20px;width:20px;background:url(${basePath}/resources/imgs/bg/icons.png) no-repeat 0 0;cursor:pointer;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;transition:all 0.2s ease-out;}
 			#arrow ul li:active{background-color:#000;}
-			#arrow ul .arrow_active{
-				background-color:#000;
-				-webkit-transition:all 0.1s ease-in;
-				-moz-transition:all 0.1s ease-in;
-				-o-transition:all 0.1s ease-in;
-				transition:all 0.1s ease-in;
-			}
+			#arrow ul .arrow_active{background-color:#000;-webkit-transition:all 0.1s ease-in;-moz-transition:all 0.1s ease-in;-o-transition:all 0.1s ease-in;transition:all 0.1s ease-in;}
 			#arrow ul .arrowup{background-position:0px -26px;margin-bottom:10px;}
 			#arrow ul .arrowdown{background-position:0px 0px;}
-					</style>
+			
+		</style>
 	</head>
 	<body>
 		<!-- 顶部导航  start -->
@@ -205,32 +193,21 @@
 				return time<10 ? "0" + time:time;
 			};
 			
-			var wH = 0;
-			/* $(window).scroll(function(e){
-				var scrollTop = $(this).scrollTop();
-				var allHeight = $(".t_all").height();
-				scrollTop = allHeight+140;
-				$(".t_line").height(scrollTop);
-				
-			}); */
-			
 			// 初始化
 			//var message = sessionStorage.getItem("message");
-			var message = localStorage.getItem("message");
+			//var message = localStorage.getItem("message");
 			
 			$(function(){
-				
-				loadData();
-				
+				loadData(0,10);
 				var wH = $(window).height();
 				$(".t_line").height(wH-100);
 				$(".t_all").height(wH-300);
 				$(".t_msg").text("请在这里输入您的反馈信息...").css("color","#999");
 				
-				if(message){
-					$(".t_ul").html(message);
-					eachLi();
-				}
+				//if(message){
+				//	$(".t_ul").html(message);
+				//	eachLi();
+				//}
 				
 				
 			});
@@ -254,21 +231,19 @@
 			
 			var mark = false;
 			var $index = 0;
-			function eachLi(){
-				var listLen = $(".t_ul .t_list").length;
+			function ResizeLi(){
 				var allHeight = $(".t_all").height();
 				var liHeight = 0;
 				var ulMt = parseInt($(".t_all .t_ul ").css("margin-top"));
 				if(ulMt != 0){
-					$(".t_all .t_ul ").css("margin-top",0);
-				}
-				
+					window.location.href = window.location.href;
+				} 
 				$(".t_ul .t_list").each(function(i){
 					liHeight += $(this).height()+20;
 					if((liHeight > allHeight) && !mark){
-						//alert(liHeight+"--"+allHeight+"--"+listLen)
+						//alert(liHeight+"--"+allHeight+"--"+listLen +"--"+$(this).index())
 						mark = true;
-						$index = listLen - 2;
+						$index = $(this).index() - 1;
 					}
 					if((liHeight > allHeight) && mark){
 						//alert(mark+"--"+$index)
@@ -280,8 +255,8 @@
 			}
 			
 			//加载数据
-			function loadData(){
-				var params = {pageNo:0,pageSize:5,order:"create_time asc"};
+			function loadData(pageNo,pageSize){
+				var params = {pageNo:pageNo,pageSize:pageSize,order:"create_time desc"};
 				$.ajax({
 					type: "get",
 					url: "${basePath}/feedback/findFeedBacks",
@@ -289,24 +264,25 @@
 					success: function(data){
 						var dataLen = data.feedBacks.length;
 						for(var i=0;i<dataLen;i++){
-							$(".t_ul").prepend( "<div class='t_list'>"+
-									"	<div class='l_header animated fadeInLeft'><img src='${basePath}/"+data.users[i].headerPic+"' width='66' height='66'/></div>"+
-									"	<div class='l_icon animated fadeInRight'><i class='iconfont icon-iconzuosanjiao'></i></div>"+
-								    "	<div class='l_msg animated fadeInRight'>"+data.feedBacks[i].feedBack+
-									"		<span class='time'>"+data.feedBacks[i].createTime+"</span>"+
-									"		<span class='version'>version: "+data.feedBacks[i].appVersion+"</span>"+
-									"	</div>"+
-									"</div>");
+							$(".t_ul").append( "<div class='t_list'>"+
+												"	<div class='l_header animated fadeInLeft'><img src='${basePath}/"+data.users[i].headerPic+"' width='66' height='66'/></div>"+
+												"	<div class='l_icon animated fadeInRight'><i class='iconfont icon-iconzuosanjiao'></i></div>"+
+											    "	<div class='l_msg animated fadeInRight'>"+data.feedBacks[i].feedBack+
+												"		<span class='time'>"+data.feedBacks[i].createTime+"</span>"+
+												"		<span class='version'>version: "+data.feedBacks[i].appVersion+"</span>"+
+												"	</div>"+
+												"</div>");
 						}
-						
+						ResizeLi();
 					}
 				});
 			}
 			
 			// 点击发布
+			var headerPic = '<%=session.getAttribute("headerPic")%>';
 			function saveFeedBack(obj){
 				$(".t_face_con").hide(500);
-				var feedBack = $(".t_msg").text();
+				var feedBack = $(".t_msg").html();
 				if(feedBack == "" || feedBack == "请在这里输入您的反馈信息..."){
 					$(".t_msg").focus();
 					return;
@@ -318,42 +294,32 @@
 					url: "${basePath}/feedback/save",
 					data: params,
 					beforeSend: function(XMLHttpRequest){
-						layerIndex = layer.load(0, {
-						  shade: [0.1,'#666'] //0.1透明度的白色背景
-						});
+						layerIndex = layer.load(0, {shade:0.1});
 					},
 					success: function(data){
 						//关闭加载层
 						layer.close(layerIndex);
 						
 						if(data == "success"){
-							layer.msg('发表成功！', {icon: 6, shade: [0.1,'#666']}); //1-打钩 2-打叉 3-问号 4-锁 5-悲伤 6-笑脸
-							var year = new Date().getFullYear();
-							var month = new Date().getMonth()+1;
-							var day = new Date().getDate();
-							var hours = new Date().getHours();
-							var minutes = new Date().getMinutes();
-							var seconds = new Date().getSeconds();
-					
+							layer.msg("发表成功！", {icon:6,shade:0.1,time:2000,shadeClose:true}); //1-打钩 2-打叉 3-问号 4-锁 5-悲伤 6-笑脸
 							$(".t_ul").prepend("<div class='t_list'>"+
-												"	<div class='l_header animated fadeInLeft'><img src='${basePath}/resources/imgs/user/small.png' width='66' height='66'/></div>"+
+												"	<div class='l_header animated fadeInLeft'><img src='${basePath}/"+headerPic+"' width='66' height='66'/></div>"+
 												"	<div class='l_icon animated fadeInRight'><i class='iconfont icon-iconzuosanjiao'></i></div>"+
 											    "	<div class='l_msg animated fadeInRight'>"+$('.t_msg').html()+
-												"		<span class='time'>"+year+"-"+timeFormate(month)+"-"+timeFormate(day)+"&nbsp;&nbsp;"+timeFormate(hours)+":"+timeFormate(minutes)+":"+timeFormate(seconds)+"</span>"+
+												"		<span class='time'>刚刚</span>"+
 												"		<span class='version'>version: 1.0.0</span>"+
 												"	</div>"+
 												"</div>");
 							// 存储到浏览器session中，浏览器关闭，即消失
 							//sessionStorage.setItem("message",$(".t_all").html());
 							$(".t_msg").html("").focus();
-							eachLi();
+							ResizeLi();
 							// 本地存储，浏览器关闭仍然存在
 							//localStorage.setItem("message",$(".t_all").html());
 							//localStorage.removeItem("message");
 						}else if(data == "fail"){
-							layer.msg('发表失败！', {icon: 5,shade: [0.1,'#666']}); 
+							layer.msg("发表失败！", {icon: 5,shade:0.1,time:2000,shadeClose:true}); 
 						}
-						
 					},
 					complete: function(XMLHttpRequest, textStatus){
 						layer.close(layerIndex);
@@ -364,14 +330,14 @@
 			
 			/* 输入框操作 */
 			$(".t_msg").focus(function(){
-				if($(this).text()!="" && $(this).text()=="请在这里输入您的反馈信息..."){
+				if($(this).html()!="" && $(this).html()=="请在这里输入您的反馈信息..."){
 					$(this).text("").css({"font-size":"14px","color":"#333","border":"1px solid #3498db"});
 				}else{
 					$(this).css({"font-size":"14px","color":"#333","border":"1px solid #3498db"});
 				}
 			}).blur(function(){
-				if($(this).text()==""){
-					$(".t_msg").text("请在这里输入您的反馈信息...").css({"font-size":"14px","color":"#999","border":"1px solid #ccc"});
+				if($(this).html()==""){
+					$(".t_msg").html("请在这里输入您的反馈信息...").css({"font-size":"14px","color":"#999","border":"1px solid #ccc"});
 				}
 			});
 			
@@ -390,45 +356,67 @@
 				event = event || window.event;
 				onmousewheel(event);
 			});
-			var scrollIndex = 0;
+			var scrollIndex = scrollLen = marTopUp = marTopDown = nowTime = 0;
 			function onmousewheel(event){
 				event = event || window.event;
 				if(event.detail<0 || event.wheelDelta>0){
-					alert($index+"--"+$(".t_ul .t_list").length)
-					scrollIndex = $(".t_ul .t_list").length - $index -2;
-					alert(scrollIndex)
-					if($index > 0 && scrollIndex >= 0){
-						alert(scrollIndex)
-						$(".t_all .t_ul ").css("margin-top",-($(".t_ul .t_list").eq(0).height()+20));
-						$(".t_ul .t_list").eq(0).find(".l_header").removeClass("fadeInLeft").addClass("fadeOutLeft");
-						$(".t_ul .t_list").eq(0).find(".l_icon").removeClass("fadeInRight").addClass("fadeOutRight");	
-						$(".t_ul .t_list").eq(0).find(".l_msg").removeClass("fadeInRight").addClass("fadeOutRight");
-						$(".t_ul .t_list").eq($index+1).find(".l_header").removeClass("fadeOutLeft").addClass("fadeInLeft");
-						$(".t_ul .t_list").eq($index+1).find(".l_icon").removeClass("fadeOutRight").addClass("fadeInRight");	
-						$(".t_ul .t_list").eq($index+1).find(".l_msg").removeClass("fadeOutRight").addClass("fadeInRight");	
-						if(scrollIndex > 0){
-							scrollIndex--;
-						}
-					}
-					alert("向上滚动")
+					scrollDown();
+					//alert("向上滚动")
 				}else{
-					$(".t_all .t_ul ").css("margin-top",0);
-					$(".t_ul .t_list").eq(0).find(".l_header").removeClass("fadeOutLeft").addClass("fadeInLeft");
-					$(".t_ul .t_list").eq(0).find(".l_icon").removeClass("fadeOutRight").addClass("fadeInRight");
-					$(".t_ul .t_list").eq(0).find(".l_msg").removeClass("fadeOutRight").addClass("fadeInRight");	
-					$(".t_ul .t_list").eq($index+1).find(".l_header").removeClass("fadeInLeft").addClass("fadeOutLeft");
-					$(".t_ul .t_list").eq($index+1).find(".l_icon").removeClass("fadeInRight").addClass("fadeOutRight");		
-					$(".t_ul .t_list").eq($index+1).find(".l_msg").removeClass("fadeInRight").addClass("fadeOutRight");
-					alert("向下滚动")
+					scrollUp();
+					//alert("向下滚动")
 				}
 			}
 			
 			$(".arrowdown").click(function(){
-				alert("向下滚动")
+				scrollUp();
 			});
 			$(".arrowup").click(function(){
-				alert("向上滚动")
+				scrollDown();
 			});
+			
+			/* 向上滚动  */
+			function scrollUp(){
+				if(new Date()- nowTime > 600){
+					nowTime = new Date();
+					if(scrollIndex < $(".t_ul .t_list").length - $index - 1 && mark){
+						scrollIndex++;
+						scrollLen = ($(".t_ul .t_list").length - $index -1) - scrollIndex;
+						marTopUp += ($(".t_ul .t_list").eq(scrollIndex -1).height()+20);
+						//alert(scrollIndex + "--" + scrollLen + "--" +marTopUp)
+						$(".t_all .t_ul ").css("margin-top",-marTopUp + marTopDown);
+						$(".t_ul .t_list").eq(scrollIndex -1).find(".l_header").removeClass("fadeInLeft").addClass("fadeOutLeft");
+						$(".t_ul .t_list").eq(scrollIndex -1).find(".l_icon").removeClass("fadeInRight").addClass("fadeOutRight");	
+						$(".t_ul .t_list").eq(scrollIndex -1).find(".l_msg").removeClass("fadeInRight").addClass("fadeOutRight");
+						$(".t_ul .t_list").eq($index + scrollIndex).find(".l_header").removeClass("fadeOutLeft").addClass("fadeInLeft");
+						$(".t_ul .t_list").eq($index + scrollIndex).find(".l_icon").removeClass("fadeOutRight").addClass("fadeInRight");	
+						$(".t_ul .t_list").eq($index + scrollIndex).find(".l_msg").removeClass("fadeOutRight").addClass("fadeInRight");	
+					}else{
+						layer.msg("数据已经到顶了...",{icon:6,shade:0.1,time:2000,shadeClose:true});
+					}
+				}
+			}
+			/* 向下滚动  */
+			function scrollDown(){
+				if(new Date()- nowTime > 600){
+					nowTime = new Date();
+					if(scrollIndex > 0 && mark){
+						//alert(scrollIndex + "--" + scrollLen + "--" +marTopUp)
+						marTopDown += ($(".t_ul .t_list").eq(scrollIndex - 1).height()+20);
+						$(".t_all .t_ul ").css("margin-top",-marTopUp + marTopDown);
+						$(".t_ul .t_list").eq(scrollIndex - 1).find(".l_header").removeClass("fadeOutLeft").addClass("fadeInLeft");
+						$(".t_ul .t_list").eq(scrollIndex - 1).find(".l_icon").removeClass("fadeOutRight").addClass("fadeInRight");
+						$(".t_ul .t_list").eq(scrollIndex - 1).find(".l_msg").removeClass("fadeOutRight").addClass("fadeInRight");	
+						$(".t_ul .t_list").eq($index + scrollIndex).find(".l_header").removeClass("fadeInLeft").addClass("fadeOutLeft");
+						$(".t_ul .t_list").eq($index + scrollIndex).find(".l_icon").removeClass("fadeInRight").addClass("fadeOutRight");		
+						$(".t_ul .t_list").eq($index + scrollIndex).find(".l_msg").removeClass("fadeInRight").addClass("fadeOutRight");
+						scrollIndex--;
+						scrollLen = ($(".t_ul .t_list").length - $index -1) - scrollIndex;
+					}else{
+						layer.msg("数据已经到底了...",{icon:6,shade:0.1,time:2000,shadeClose:true});
+					}
+				}
+			}
 			
 			
 			/* 反馈页面背景  */
@@ -481,10 +469,7 @@
 				var wH = $(window).height();
 				$(".t_line").height(wH-100);
 				$(".t_all").height(wH-300);
-				if(message){
-					$(".t_ul").html(message);
-					eachLi();
-				}
+				ResizeLi();
 				camera.aspect = $(window).width() / $(window).height();
 				camera.updateProjectionMatrix();
 				renderer.setSize( $(window).width(), $(window).height()-4);
