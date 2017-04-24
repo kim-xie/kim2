@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>首页</title>
+		<title>写文章</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -62,9 +62,12 @@
 		/* 音乐上传 end */
 
 	</style>
-	  <link rel="stylesheet" type="text/css" href="${basePath}/resources/js/umeditor/themes/default/css/umeditor.css">
+	 <%--  <link rel="stylesheet" type="text/css" href="${basePath}/resources/js/umeditor/themes/default/css/umeditor.css">
 	  <script type="text/javascript" charset="utf-8" src="${basePath}/resources/js/umeditor/umeditor.config.js"></script>
 	  <script type="text/javascript" charset="utf-8" src="${basePath}/resources/js/umeditor/umeditor.min.js"></script>
+	   --%>
+	  <link rel="stylesheet" type="text/css" href="${basePath}/resources/editor/css/editormd.min.css">
+	  <script type="text/javascript" charset="utf-8" src="${basePath}/resources/editor/js/editormd.min.js"></script>
 	  <script type="text/javascript" src="${basePath}/resources/js/kim_upload.js"></script>
 	<body>
 		<input type="hidden" class="nav_model" value="写文章">
@@ -121,7 +124,8 @@
 				 				<img id="preview" src="" data-dir="imgs/contentImg" width="548" height="318" style="display:none;">
 				 			</span>
 				 		</div>
-						<script id="myEditor" type="text/plain" style="width:650px;height:300px;margin:10px 0;overflow-X:hidden;overflow-Y:auto;"></script>
+						<!-- <script id="myEditor" type="text/plain" style="width:650px;height:300px;margin:10px 0;overflow-X:hidden;overflow-Y:auto;"></script> -->
+				 		<div id="editormd"><textarea style="display:none;"></textarea></div>
 				 		<p>
 							标签：
 							<input type="text" class="input" placeholder="请输入标签" maxlength="40">	
@@ -216,26 +220,66 @@
 		<!-- 底部导航  end -->
 		<script type="text/javascript"> 
 			//实例化编辑器
-			var um = UM.getEditor("myEditor");
+			//var um = UM.getEditor("myEditor");
 			
 			//获得整个html的内容
-			function getAllHtml(myEditor){
-		        return UM.getEditor(myEditor).getAllHtml();
-		    }
+			//function getAllHtml(myEditor){
+		    //    return UM.getEditor(myEditor).getAllHtml();
+		    //}
 			
 			//获取富文本编辑器的带有格式的文本
-			function getPlainTxt(myEditor){
-				return UM.getEditor(myEditor).getPlainTxt();
-			}
+			//function getPlainTxt(myEditor){
+			//	return UM.getEditor(myEditor).getPlainTxt();
+			//}
 			
 			//获取富文本编辑器的纯文本内容
-			function getEditText(myEditor){
-				return UM.getEditor(myEditor).getContentTxt();
-			}
+			//function getEditText(myEditor){
+			//	return UM.getEditor(myEditor).getContentTxt();
+			//}
 			//给某个富文本框赋值
-			function setEditorText(message,myEditor){
-				 UM.getEditor(myEditor).setContent(message, false);//清空富文本编辑器
-			}
+			//function setEditorText(message,myEditor){
+			//	 UM.getEditor(myEditor).setContent(message, false);//清空富文本编辑器
+			//}
+			var Editor;
+			$(function() {
+                Editor = editormd("editormd", {
+                    width   : "100%",
+                    height  : 640,
+                    syncScrolling : "single",
+                    path    : basePath + "/resources/editor/lib/",
+                    pluginPath    : basePath + "/resources/editor/plugins/",
+                    emoji   : true,
+                    codeFold: true,
+                    watch   : true,
+                    saveHTMLToTextarea : true,//需要开启配置项
+                    value   : getCodeValue(),
+                    theme   : "default",
+                    toolbarIcons : function() {
+                        return editormd.toolbarModes["full"]; // full, simple, mini
+                        // Using "||" set icons align right.
+                        //return ["undo", "redo", "|", "bold", "hr", "|", "preview", "watch", "|", "fullscreen", "info", "testIcon", "testIcon2", "file", "faicon", "||", "watch", "fullscreen", "preview", "testIcon"]
+                    },
+                });
+                
+                /*
+                // or
+                Editor = editormd({
+                    id      : "editormd",
+                    width   : "100%",
+                    height  : 640,
+                    path    : basePath + "/resources/editor/lib/"
+                });
+                */
+            });
+			
+
+            
+            function getCodeValue() {
+                return $(".editormd-markdown-textarea").val();
+            }
+            
+            
+        
 			
 			 /* 发表文章栏目  */
 			 $(".fb_aritcle").click(function(){
@@ -259,11 +303,11 @@
 				var titleVal = $(".txt_title").val();
 				var description = $(".txt_description").val();
 				var img = $(".txt-pic img").attr("src");
-				var contentVal = getPlainTxt("myEditor");
+				var contentVal = Editor.getMarkdown();  //.getHTML();.getMarkdown();
 				var tagval = $("p .input").val();
-				
+				alert(contentVal)
 				if(!titleVal || !description || !img || !contentVal || !tagval){
-					alert("请填写完整内容",4);
+					layer.msg("请填写完整内容...");
 					return false;
 				}
 				var params = {title:titleVal,description:description,image:img,article:contentVal,tag:tagval};
@@ -271,14 +315,14 @@
 					type: "post",
 					url: basePath+"/article/save",
 					data: params,
-					beforeSend:function(){alert("文章发表中请等待...",5);},
+					beforeSend:function(){layer.msg("文章发表中请等待...");},
 					success:function(data){
 						var data = data.trim();
 						if(data == "fail" || data=="error"){
-							alert("文章发表失败...",5);
+							layer.msg("文章发表失败...");
 						}
 						if(data == "success"){
-							alert("文章发表成功...",5);
+							layer.msg("文章发表成功...");
 						}
 					}
 				}); 

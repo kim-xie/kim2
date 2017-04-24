@@ -14,7 +14,7 @@ public class LoginIntercetor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request,HttpServletResponse response, Object handler) throws Exception {
 		
-		System.out.println("进来了吗..........");
+		System.out.println("登录拦截器进来了吗..........");
 		
 		User user =(User)request.getSession().getAttribute("user");
 		

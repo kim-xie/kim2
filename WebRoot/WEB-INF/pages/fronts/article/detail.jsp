@@ -10,18 +10,24 @@
  	<title>${article.title}-kim博客</title>
  	<%@include file="/WEB-INF/pages/common/common.jsp"%>
  	<link rel="stylesheet" href="${basePath}/resources/css/UI.css">
+ 	<link rel="stylesheet" type="text/css" href="${basePath}/resources/editor/css/editormd.min.css">
+	<script type="text/javascript" charset="utf-8" src="${basePath}/resources/editor/js/editormd.min.js"></script>
 </head>
-<body style="background:#EFF3F5;" data-opid="${article.articleId}">
+<body style="background:#EFF3F5;">
 	<input type="hidden" class="nav_model" value="文章">
+	<input type="hidden" id="opid" value="${article.articleId}">
 	<!-- 顶部导航  start -->
 	<%@include file="/WEB-INF/pages/fronts/common/header.jsp"%>
 	<!-- 顶部导航  end -->
 	
     <div class="content">
-    	<div class="wth1200 clearfix">
+    	<div class="wth1180 clearfix">
         	<div class="fl cont_left">
                <div class="cont_head">
-                    <div class="conte_title overflow">${article.title}</div>
+                    <div class="conte_title overflow">
+                    	<div class="titleWrap">${article.title}</div>
+                    	<div class="operationType"><a href="javascript:editArticle();" target="_blank" class="editArticle">编辑文章</a><a href="javascript:removeArticle();" class="removeArticle">删除文章</a></div>
+                    </div>
                     <div class="Classification">
                         <span class="tage">原创作品</span>
                         <span>分类：<a href="javascript:void(0);">${article.tag}</a></span>
@@ -45,9 +51,12 @@
 						<span class="num">${article.hits}<strong>。</strong></span>
 					</div>
                 </div>
-                <div class="cont_details">
-                   ${article.article}
+                <%-- <div class="cont_details"> ${article.article} </div> --%>
+                <div class="cont_details clearfix"> 
+                	<div id="editormd"><textarea> ${article.article} </textarea></div> 
+                	<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div>
                 </div>
+                
                 <div class="comment_box bg_white clearfix">
                     <div class="fl share_box">
                         <ul class="clearfix">
@@ -74,8 +83,6 @@
                     </div>
                     
                     <div class="t_box">
-                    	<input type="hidden" id="userName" value="<%=request.getSession().getAttribute("userName")%>">
-						<input type="hidden" id="headerPic" value="<%=request.getSession().getAttribute("userHeaderPic")%>">
 						<div class="t_msg" contenteditable="true" onkeyup="setCacheData(this)"></div> 
 						<p class="t_face">
 							<a href="javascript:void(0);" class="t_face_btn">
@@ -178,9 +185,145 @@
                 </div>
             </div>
             <script type="text/javascript">
+           var Editor;
            $(function(){
-        	   loadComment(0,5);
+        	   //判断是否显示修改和删除功能
+        	   if("${user.name}" == $("#topNav").attr("data-uid")){
+        		   $(".operationType").show().css("left",(Math.ceil($(".conte_title .titleWrap").width())+20)+"px");
+        	   }else{
+        		   $(".operationType").hide();
+        	   }
+        	   
+			   //初始化文本编辑器
+        	   Editor = editormd("editormd", {
+                   width   : "100%",
+                   path    : basePath + "/resources/editor/lib/",
+                   pluginPath    : basePath + "/resources/editor/plugins/",
+                   saveHTMLToTextarea : true,//保存html到textarea
+                   htmlDecode: false,//开启html标签解析
+                   mode                 : "gfm",          //gfm or markdown
+                   theme                : "default",
+                   name                 : "",
+                   value                : "",             // value for CodeMirror, if mode not gfm/markdown
+                   markdown             : "",
+                   appendMarkdown       : "",             // if in init textarea value not empty, append markdown to textarea
+                   delay                : 0,            // Delay parse markdown to html, Uint : ms
+                   autoLoadModules      : true,           // Automatic load dependent module files
+                   watch                : true,
+                   placeholder          : "Enjoy Markdown! coding now...",
+                   gotoLine             : true,
+                   codeFold             : true,
+                   autoHeight           : false,
+           		   autoFocus            : true,
+                   autoCloseTags        : true,
+                   searchReplace        : true,
+                   syncScrolling        : false,
+                   readOnly             : false,
+                   tabSize              : 4,
+           		   indentUnit           : 4,
+                   lineNumbers          : true,
+           		   lineWrapping         : true,
+           		   autoCloseBrackets    : true,
+           		   showTrailingSpace    : true,
+           		   matchBrackets        : true,
+           		   indentWithTabs       : true,
+           		   styleSelectedText    : true,
+                   matchWordHighlight   : true,           // options: true, false, "onselected"
+                   styleActiveLine      : true,           // Highlight the current line
+                   dialogLockScreen     : true,
+                   dialogShowMask       : true,
+                   dialogDraggable      : true,
+                   dialogMaskBgColor    : "#fff",
+                   dialogMaskOpacity    : 0.1,
+                   fontSize             : "14px",
+                   disabledKeyMaps      : [],
+                   onload               : function() {
+                	   this.watch();
+                	   this.previewing();
+                	   $(".editormd-preview-close-btn").hide();
+                	   $("#editormd").css("border","none").height($(".editormd-preview-container").innerHeight());
+                	   $(".editormd-preview").height($(".editormd-preview-container").innerHeight());
+                   },
+                   onresize             : function() {},
+                   onchange             : function() {},
+                   onwatch              : null,
+                   onunwatch            : null,
+                   onpreviewing         : function() {
+                	   
+                   },
+                   onpreviewed          : function() {
+                	   
+                   },
+                   onfullscreen         : function() {},
+                   onfullscreenExit     : function() {},
+                   onscroll             : function() {},
+                   onpreviewscroll      : function() {},
+                   
+                   imageUpload          : false,
+                   imageFormats         : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                   imageUploadURL       : "",
+                   crossDomainUpload    : false,
+                   uploadCallbackURL    : "",
+                   
+                   toc                  : true,           // Table of contents
+                   tocm                 : false,           // Using [TOCM], auto create ToC dropdown menu
+                   tocTitle             : "",             // for ToC dropdown menu btn
+                   tocDropdown          : false,
+                   tocContainer         : "",
+                   tocStartLevel        : 1,              // Said from H1 to create ToC
+                   pageBreak            : true,           // Enable parse page break [========]
+                   atLink               : true,           // for @link
+                   emailLink            : true,           // for email address auto link
+                   taskList             : false,          // Enable Github Flavored Markdown task lists
+                   emoji                : false,          // :emoji: , Support Github emoji, Twitter Emoji (Twemoji);
+                                                          // Support FontAwesome icon emoji :fa-xxx: > Using fontAwesome icon web fonts;
+                                                          // Support Editor.md logo icon emoji :editormd-logo: :editormd-logo-1x: > 1~8x;
+                   tex                  : false,          // TeX(LaTeX), based on KaTeX
+                   flowChart            : false,          // flowChart.js only support IE9+
+                   sequenceDiagram      : false,          // sequenceDiagram.js only support IE9+
+                   previewCodeHighlight : true,
+                           
+                   toolbar              : false,           // show/hide toolbar
+               }).css("border","none");
+               
+               
            });
+           
+           //编辑文章
+           function editArticle(){
+        	   var opid = $.trim($("#opid").val());
+        	   
+           }
+           
+           //删除文章
+           function removeArticle(){
+        	   var opid = $.trim($("#opid").val());
+        	   var params = {articleId: opid};
+        	   layer.confirm("大人!确定要把小的给删掉吗?",{
+        		   title: "温馨提示",
+        		   icon: 6,
+        	   },function(index){
+        		   $.ajax({
+						type:"post",
+						data: params,
+						url: basePath+"/article/delete",
+						success:function(data){
+							if(data == "success"){
+								layer.msg("恭喜删除成功!");
+								setTimeout(function(){
+									window.location.href = "${basePath}/index";
+								},3000);
+							}else{
+								layer.msg("抱歉删除失败!");
+							}
+						}
+        		   });
+        		   layer.close(index);
+        	   })
+        	   
+           }
+           
+           
             // 加载评论数据
             function loadComment(pageNo,pageSize){
             	var timer = null;
@@ -241,7 +384,7 @@
         		$.ajax({
         			type:"post",
         			data:params,
-        			url:basePath+"/comment/save.do",
+        			url:basePath+"/comment/save",
         			success:function(data){
         				$(".comment_cont").prepend("<div class='single_comment clearfix animated rollIn'>"+
 "                            <a href='javascript:void(0)' class='single_img fl'><img src='"+basePath+headerPic+"' width='60' height='60'></a>"+

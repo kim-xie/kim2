@@ -28,7 +28,10 @@ public class ArticleServiceImpl implements IArticleService{
 	
 	@Override
 	public List<HashMap<String, Object>> findArticles(Params params){
-		if(StringUtils.isEmpty(params.getOrder()))params.setOrder("create_time desc");
+		if(StringUtils.isEmpty(params.getOrder())){
+			params.setOrder("create_time desc");
+			params.setIsDelete(0);
+		}
 		return articleMapper.findArticles(params);
 	}
 	

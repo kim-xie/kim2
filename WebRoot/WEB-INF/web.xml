@@ -54,7 +54,7 @@
   
   <!-- session会话时间分钟  -->
   <session-config>
-	<session-timeout>10</session-timeout>
+	<session-timeout>30</session-timeout>
   </session-config> 
   
   <!-- post请求统一编码过滤器 -->

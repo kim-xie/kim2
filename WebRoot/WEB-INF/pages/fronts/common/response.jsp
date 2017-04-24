@@ -392,7 +392,7 @@
 						$(".t_ul .t_list").eq($index + scrollIndex).find(".l_icon").removeClass("fadeOutRight").addClass("fadeInRight");	
 						$(".t_ul .t_list").eq($index + scrollIndex).find(".l_msg").removeClass("fadeOutRight").addClass("fadeInRight");	
 					}else{
-						layer.msg("数据已经到顶了...",{icon:6,shade:0.1,time:2000,shadeClose:true});
+						layer.msg("数据加载已经到底了...",{icon:6,shade:0.1,time:2000,shadeClose:true});
 					}
 				}
 			}
@@ -413,7 +413,7 @@
 						scrollIndex--;
 						scrollLen = ($(".t_ul .t_list").length - $index -1) - scrollIndex;
 					}else{
-						layer.msg("数据已经到底了...",{icon:6,shade:0.1,time:2000,shadeClose:true});
+						layer.msg("数据加载已经到顶了...",{icon:6,shade:0.1,time:2000,shadeClose:true});
 					}
 				}
 			}

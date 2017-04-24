@@ -165,7 +165,10 @@ public class ArticleController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	public String delete(Params Params){
-		articleService.deleteArticle(Params);
-		return "success";
+		if(articleService.deleteArticle(Params)){
+			return "success";
+		}else{
+			return "fail";
+		}
 	}
 }

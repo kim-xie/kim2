@@ -51,7 +51,7 @@
 	
 </style>
 	<!-- 顶部导航  start -->
-	<div id="topNav">
+	<div id="topNav" data-uid="<%= session.getAttribute("userName") %>">
 		<div id="navWrap">
 			<div id="navLogo"><a href="javascript:;"><img alt="logo" src="${basePath}/resources/imgs/logo/logo.png"></a></div>
 			<div id="navList">
@@ -167,7 +167,7 @@
 						</div>
 					</li>
 				    <li class="list_item avatar">
-				    	<a href="javascript:;"><img class="avatar" alt="userPic" src="${basePath}/resources/imgs/user/small.png"></a>
+				    	<a href="javascript:;"><img class="avatar" alt="<%= session.getAttribute("userName") %>" src="${basePath}<%= session.getAttribute("headerPic") %>"></a>
 			    		<div class="triangle-top"></div>
 				    	<ul class="quick-list" >
 							<li><a href="javascript:;"><i class="iconfont icon-10"></i>我的作品</a></li>
