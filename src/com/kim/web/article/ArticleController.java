@@ -76,7 +76,7 @@ public class ArticleController extends BaseController{
 	public List<HashMap<String, Object>> loadData(Params Params){
 		Params.setStatus(1);
 		Params.setIsDelete(0);
-		Params.setPageSize(12);
+		Params.setPageSize(10);
 		List<HashMap<String, Object>> articles = articleService.findArticles(Params);
 		return articles;
 	}

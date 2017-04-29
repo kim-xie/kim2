@@ -7,7 +7,7 @@
  	<meta name="Author" content="">
  	<meta name="Keywords" content="">
  	<meta name="Description" content="">
- 	<title>${article.title}-kim博客</title>
+ 	<title>${article.title}</title>
  	<%@include file="/WEB-INF/pages/common/common.jsp"%>
  	<link rel="stylesheet" href="${basePath}/resources/css/UI.css">
  	<link rel="stylesheet" type="text/css" href="${basePath}/resources/editor/css/editormd.min.css">
@@ -292,8 +292,23 @@
            //编辑文章
            function editArticle(){
         	   var opid = $.trim($("#opid").val());
-        	   var article = {articleId: opid}
-        	   
+        	   if(opid){
+        		   $.ajax({
+	   					type:"post",
+	   					data: params,
+	   					url: basePath+"/article/delete",
+	   					success:function(data){
+	   						if(data == "success"){
+	   							layer.msg("恭喜删除成功!");
+	   							setTimeout(function(){
+	   								window.location.href = "${basePath}/index";
+	   							},3000);
+	   						}else{
+	   							layer.msg("抱歉删除失败!");
+	   						}
+	   					}
+	      		   });
+        	   }
            }
            
            //删除文章

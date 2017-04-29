@@ -62,10 +62,6 @@
 		/* 音乐上传 end */
 
 	</style>
-	 <%--  <link rel="stylesheet" type="text/css" href="${basePath}/resources/js/umeditor/themes/default/css/umeditor.css">
-	  <script type="text/javascript" charset="utf-8" src="${basePath}/resources/js/umeditor/umeditor.config.js"></script>
-	  <script type="text/javascript" charset="utf-8" src="${basePath}/resources/js/umeditor/umeditor.min.js"></script>
-	   --%>
 	  <link rel="stylesheet" type="text/css" href="${basePath}/resources/editor/css/editormd.min.css">
 	  <script type="text/javascript" charset="utf-8" src="${basePath}/resources/editor/js/editormd.min.js"></script>
 	  <script type="text/javascript" src="${basePath}/resources/js/kim_upload.js"></script>
@@ -252,7 +248,7 @@
                     codeFold: true,
                     watch   : true,
                     saveHTMLToTextarea : true,//需要开启配置项
-                    value   : getCodeValue(),
+                    value   : "1234567890",
                     theme   : "default",
                     toolbarIcons : function() {
                         return editormd.toolbarModes["full"]; // full, simple, mini
@@ -271,13 +267,6 @@
                 });
                 */
             });
-			
-
-            
-            function getCodeValue() {
-                return $(".editormd-markdown-textarea").val();
-            }
-            
             
         
 			
@@ -293,10 +282,7 @@
 				 $(".editerBox").slideUp();
 				 $(".musicUploadBox").slideDown();
 			 });
-			 /* 公告栏触发事件  */
-			 $(".soup li").click(function(){
-				 $(this).addClass("open").siblings().removeClass("open");
-			 });
+			
 			 
 			/*发表文章*/
 			function saveContent(obj){
@@ -305,7 +291,6 @@
 				var img = $(".txt-pic img").attr("src");
 				var contentVal = Editor.getMarkdown();  //.getHTML();.getMarkdown();
 				var tagval = $("p .input").val();
-				alert(contentVal)
 				if(!titleVal || !description || !img || !contentVal || !tagval){
 					layer.msg("请填写完整内容...");
 					return false;
@@ -317,7 +302,6 @@
 					data: params,
 					beforeSend:function(){layer.msg("文章发表中请等待...");},
 					success:function(data){
-						var data = data.trim();
 						if(data == "fail" || data=="error"){
 							layer.msg("文章发表失败...");
 						}
@@ -358,7 +342,7 @@
 			
 			
 			/*发表音乐*/
-			function saveMusic(obj){ //http://localhost:8080/MyBoke
+			function saveMusic(obj){ 
 				var img = $("#img").attr("src").substring(28);
 				var src = $("#audio").attr("src").substring(28);
 				var title = $(".m_title").val();
