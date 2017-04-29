@@ -292,6 +292,7 @@
            //编辑文章
            function editArticle(){
         	   var opid = $.trim($("#opid").val());
+        	   var article = {articleId: opid}
         	   
            }
            
