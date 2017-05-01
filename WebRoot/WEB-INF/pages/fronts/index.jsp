@@ -188,7 +188,7 @@
 		<div id="mainWrap">
 		
 			<!-- banner start -->
-			<div id="bannerWrap" style="width:1180px;height:350px;margin:0 auto;margin-top:60px;"></div>
+			<div id="bannerWrap" style="width:1180px;height:350px;margin:0 auto;margin-top:80px;"></div>
 			<!-- banner end -->
 			
 			<div class="wpn" id="project">

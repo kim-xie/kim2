@@ -10,7 +10,9 @@
 .haed_text:hover{ border-bottom:5px solid #C33; color:#fff;}
 .content{ margin: 80px 0;}
 .cont_left{ width: 930px;}
-.cont_right{ width: 220px;}
+.cont_right{ width:220px;position:relative;}
+.fixed1 {position: fixed!important;top: 80px!important;}
+.works-author-aside{width:220px;position:absolute;top:0;}
 
 .pingl_box,.cont_head,.cont_details,.comment_cont{ padding: 20px;}
 .cont_details{padding: 0;height:100%;}

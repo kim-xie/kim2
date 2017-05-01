@@ -14,53 +14,52 @@
 	</head>
 	<style>
 		body{ background-color: #eff3f5;}
-		.uploadBox{width:1180px;margin:0 auto;padding-top:30px;}
-		/* 文章发表栏  start */
-		.fb_box{width:670px;height:110px;overflow:hidden;margin:30px auto;}
-	 	.fb_box .publicBar{height:100%;background:url("${basePath}/resources/imgs/share/nav224.png")no-repeat;}
-	 	.fb_box .publicBar li{float:left;width:140px;height:100%;}
-	 	.fb_box .publicBar li a{width:100%;height:100%;display:block;}
-	 	.fb_box .publicBar li:hover{background:#B5CC5F;opacity:0.3}
-	 	.fb_box .publicBar li.on{background:#B5CC5F;opacity:0.3}
-	 	.fb_box .publicBar li.user{width:110px;height:100%;position:relative;}
-	 	.fb_box .publicBar li.user img{width:112px;height:100%;position:absolute;}
-	 	.fb_box .publicBar li.user:hover{background:transparent;opacity:1;}
-		/* 文章发表栏  end */
-		
 		/*文本编辑器 start*/
-		.editerBox{width:670px;margin:30px auto;}
-		.editerBox .input{width:496px;height:30px;font-size:16px;font-weight:600;text-indent:0.5em;}
-		.editerBox .editer{width:650px;height:100%;background:#fff;overflow:hidden;padding:10px;}
-		.editerBox .editer .title{width:100%;height:30px;margin:10px 0;display:block;font-size:18px;font-weight:600;}
-		.editerBox .editer .title input{width:599px;height:30px;font-size:16px;font-weight:600;text-indent:0.5em;}
-		.editerBox .editer .upload_pic{position:relative;height:320px;border:1px dashed #ccc;text-align:center;margin:20px 0;}
-		.editerBox .editer .upload_pic .txt-pic{line-height:320px;font-size:20px;color:#999;font-weight:600;}
-		.editerBox .editer .upload_pic .txt-pic #preview{position:absolute;top:0;left:0;}
-		.editerBox .editer .upload_pic .txt-pic a{text-decoration: none;}
-		.editerBox .editer p{float:left;font-size:14px;font-weight:600;margin:20px 0;}
-		.editerBox .editer p .fabiao{display:inline-block;height:30px;line-height:30px;}
-		.editerBox .editer p .fabiao .submit{height:100%;padding:0 10px;margin-left:19px;outline:none;border:none;background:#0033ff;transition:1s;border-radius:5px;cursor:pointer;font-size:14px;font-weight:600;color:#fff;}
-		.editerBox .editer p .fabiao .submit:hover{background:#0033cc;transition:1s;}
+		.editerBox{width:1160px;margin:30px auto;margin-top:80px;background:#fff;border:#ddd 1px solid;border-radius:4px;padding:10px;}
+		.editerBox .editer{width:100%;height:100%;background:#fff;overflow:hidden;}
+		.editerBox .editer .headerWrap:after{content:" ";display:block;clear:both;height:0;overflow:hidden;}
+		.editerBox .editer .leftBox{display:inline-block;width:56%;float:left;}
+		.editerBox .editer .leftBox .title{display:inline-block;width:100%;height:30px;margin:10px 0;font-size:18px;font-weight:500;}
+		.editerBox .editer .leftBox .title span{display:inline-block;width:10%;height:30px;line-height: 30px;}
+		.editerBox .editer .leftBox .title input{display:inline-block;width:88%;height:30px;float:right;font-size:14px;font-weight:500;text-indent:0.5em;color:#666;}
+		.editerBox .editer .rightBox{display:inline-block;width:40%;float:right;}
+		.editerBox .editer .rightBox .upload_pic{position:relative;height:350px;border:1px dashed #ccc;text-align:center;margin:10px 0 0 0;overflow:hidden;}
+		.editerBox .editer .rightBox .upload_pic .txt-pic{line-height:320px;font-size:20px;color:#999;font-weight:600;}
+		.editerBox .editer .rightBox .upload_pic .txt-pic #preview{position:absolute;top:0;left:0;cursor:pointer;}
+		.editerBox .editer .rightBox .upload_pic .txt-pic p{position:absolute;z-index:2;bottom:-36px;left:0;cursor:pointer;width:100%;height:36px;line-height:36px;background:#000;opacity:0;transition:bottom 0.6s,opacity 0.6s}
+		.editerBox .editer .rightBox .upload_pic .txt-pic:hover p{bottom:0;opacity:0.5;transition:bottom 0.6s,opacity 0.6s}
+		.editerBox .editer .rightBox .upload_pic .txt-pic p a{color:#fff;}
+		.editerBox .editer .rightBox .upload_pic .txt-pic p:hover a{color:#0076e3;}
+		.editerBox .editer .rightBox .upload_pic .txt-pic a{text-decoration: none;color:#666;}
+		.editerBox .editer .rightBox .upload_pic .txt-pic a:hover{color:#0076e3;}
+		/* 分类标签 start */
+		.editerBox .editer .select{padding:5px 0px;width:100%;margin:0 auto;font-size:12px;}
+		.editerBox .editer .select .select-list{border-bottom:#eee 1px dashed;}
+		.editerBox .editer .select li{list-style:none;padding:10px 0 5px 72px;}
+		.editerBox .editer .select dl{zoom:1;position:relative;line-height:24px;}
+		.editerBox .editer .select dt{width:100px;margin-bottom:5px;position:absolute;top:0;left:-100px;text-align:right;color:#666;height:24px;line-height:24px;font-size:14px;}
+		.editerBox .editer .select dd{float:left;display:inline;margin:0 0 5px 5px;}
+		.editerBox .editer .select a{display:inline-block;white-space:nowrap;height:24px;padding:0 10px;text-decoration:none;color:#039;border-radius:2px;}
+		.editerBox .editer .select .selected a{color:#fff;background-color:#3498db;}
+		.editerBox .editer .select-result dt{font-weight:bold;font-size:14px;}
+		.editerBox .editer .select dl:after{content:" ";display:block;clear:both;height:0;overflow:hidden;}
+		.editerBox .editer .select-no{color:#999;}
+		.editerBox .editer .select .select-result a:hover{background-position:right -15px;}
+		.editerBox .editer .select .select-result a{padding-right:20px;background:#3498db url("${basePath}/resources/imgs/contentDetail/close.gif") right 9px no-repeat;}
+		.editerBox .editer .select .selected a{color:#fff;background-color:#3498db;}
+		.editerBox .editer .select a:hover{color:#3498db;background-color:#f3edc2;}
+		/* 分类标签 end */
+		.editerBox .editer .articleWrap{margin-top:20px;border-top:2px dashed #ddd;}
+		.editerBox .editer .articleWrap p{width:100%;height:32px;line-height:32px;padding: 5px 0;text-align:left;}
+		.editerBox .editer .articleWrap p span{display:inline-block;font-size:18px;font-weight:500;}
+		
+		/* 发表文章 */
+		.editerBox .editer p.sendWrap{font-size:14px;font-weight:600;margin:20px auto;text-align:center;}
+		.editerBox .editer p.sendWrap .fabiao{display:inline-block;width:20%;height:36px;line-height:36px;}
+		.editerBox .editer p.sendWrap .fabiao .submit{width:100%;height:100%;padding:0 10px;outline:none;border:none;background:#3498db;transition:1s;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;color:#fff;}
+		.editerBox .editer p.sendWrap .fabiao .submit:hover{background:#0033cc;transition:1s;}
 		/*文本编辑器 end*/
 		
-		/* 音乐上传 start */
-		.musicUploadBox{width:670px;margin:30px auto;display:none;}
-		.musicUploadBox .input{width:571px;height:30px;font-size:16px;font-weight:600;text-indent:0.5em;}
-		.musicUploadBox .input.m_category{width:575px;}
-		.musicUploadBox .editer{width:650px;height:100%;background:#fff;overflow:hidden;padding:10px;}
-		.musicUploadBox .editer .upload_pic,.upload_music{position:relative;height:320px;border:1px dashed #ccc;text-align:center;margin:20px 0;}
-		.musicUploadBox .editer .upload_pic #prograssbar{position:absolute;top:-20px;left:0;height:10px;background:green;width:0%;}
-		.musicUploadBox .editer .upload_music{height:80px;}
-		.musicUploadBox .editer .upload_pic .m-pic{line-height:320px;font-size:20px;color:#999;font-weight:600;}
-		.musicUploadBox .editer .upload_music .m-src{line-height:80px;font-size:20px;color:#999;font-weight:600;}
-		.musicUploadBox .editer .upload_pic .m-pic #img{position:absolute;top:0;left:0;}
-		.musicUploadBox .editer .upload_pic .m-pic,.m-src a{text-decoration: none;}
-		.musicUploadBox .editer p{float:left;font-size:14px;font-weight:600;margin:20px 0;}
-		.musicUploadBox .editer p .fabiao{display:inline-block;height:30px;line-height:30px;}
-		.musicUploadBox .editer p .fabiao .submit{height:100%;padding:0 10px;outline:none;border:none;background:#0033ff;transition:1s;border-radius:5px;cursor:pointer;font-size:14px;font-weight:600;color:#fff;}
-		.musicUploadBox .editer p .fabiao .submit:hover{background:#0033cc;transition:1s;}
-		/* 音乐上传 end */
-
 	</style>
 	  <link rel="stylesheet" type="text/css" href="${basePath}/resources/editor/css/editormd.min.css">
 	  <script type="text/javascript" charset="utf-8" src="${basePath}/resources/editor/js/editormd.min.js"></script>
@@ -71,143 +70,109 @@
 		<%@include file="/WEB-INF/pages/fronts/common/header.jsp"%>
 		<!-- 顶部导航  end -->
 		
-		<!-- 左侧导航  start -->
-		<%@include file="/WEB-INF/pages/fronts/common/left.jsp"%>
-		<!-- 左侧导航  end -->
-		
 		<!-- 内容区域  start -->
-		<div id="mainWrap" style="margin-top:50px;">
-			<div class="uploadBox">
-				 <!-- 发表文章栏目   start -->
-				 <div class="fb_box">
-				 	<ul class="publicBar">
-					 	<li class="user">
-						 	<a href="" target="_blank">
-						 		<img src="${basePath}/resources/imgs/user/small.png" alt="头像">
-						 	</a>
-					 	</li>
-					 	<li class="on">
-						 	<a href="javascript:void(0);" target="_blank" class="fb_aritcle"></a>
-					 	</li>
-					 	<li>
-						 	<a href="javascript:void(0);" target="_blank" class="fb_pic"></a>
-					 	</li>
-					 	<li>
-						 	<a href="javascript:void(0);" target="_blank" class="fb_music"></a>
-					 	</li>
-					 	<li>
-						 	<a href="javascript:void(0);" target="_blank" class="fb_video"></a>
-					 	</li>
-				 	</ul>
-				 </div>
-				 <!-- 发表文章栏目  end -->
-				 
-				 <!--文本编辑器 start-->
-				 <div class="editerBox">
-				 	<div class="editer">
-				 		<span class="title">
-				 			标题:
-				 			<input type="text" placeholder="请输入标题不得超过50个字" maxlength="50" class="txt_title">
-				 		</span>
-				 		<span class="description title">
-				 			描述:
-				 			<input type="text" placeholder="描述不得超过200个字" maxlength="200" class="txt_description">
-				 		</span>
-				 		<div class="upload_pic">
-				 			<!-- <input type="file" id="file" onchange="uploadContentImg(this)" style="display:none;"> -->
-				 			<span class="txt-pic">
-				 				<a href="javascript:void(0);" onclick="openBrowse(this,'#preview')">请添加封面图片</a>
-				 				<img id="preview" src="" data-dir="imgs/contentImg" width="548" height="318" style="display:none;">
-				 			</span>
-				 		</div>
-						<!-- <script id="myEditor" type="text/plain" style="width:650px;height:300px;margin:10px 0;overflow-X:hidden;overflow-Y:auto;"></script> -->
-				 		<div id="editormd"><textarea style="display:none;"></textarea></div>
-				 		<p>
-							标签：
-							<input type="text" class="input" placeholder="请输入标签" maxlength="40">	
-							<span class="fabiao">
-								<input type="button" class="submit" value="发表文章" onclick="saveContent(this);">
-							</span>
-				 		</p>
-				 	</div>
-				 </div>
-				 <!--文本编辑器 end-->
-				 
-				 <!--音乐上传 -->
-				 <div class="musicUploadBox">
-				 	<div class="editer">
-				 		<div class="upload_pic">
-				 			<input type="file" id="file" onchange="uploadFile()" style="display:none;">
-				 			<span class="m-pic">
-				 				<a href="javascript:void(0);" onclick="openBrowse(this,'#img')">请添加封面图片</a>
-				 				<img id="img" src="" data-img="" width="548" data-dir="mp3/img" height="318" style="display:none;">
-				 			</span>
-				 			<!-- <span id="prograssbar"></span> -->
-				 		</div>
-				 		
-				 		<div class="upload_music">
-				 			<input type="file" id="file" accept="image/jpg,image/jpeg,image/png,image/gif,audio/mp3" onchange="uploadFile()" style="display:none;">
-				 			<span class="m-src">
-				 				<a href="javascript:void(0);" onclick="openBrowse(this,'#audio')">请添加音乐</a>
-				 				<audio id="audio" src="" data-link="" data-dir="mp3/song"></audio>
-				 			</span>
+		<div id="mainWrap">
+			 <!--文本编辑器 start-->
+			 <div class="editerBox">
+			 	<div class="editer">
+			 		<div class="headerWrap">
+			 			<div class="leftBox">
+				 			<span class="title">
+					 			<span>标题:</span>
+					 			<input type="text" placeholder="标题不得超过50个字" maxlength="50" class="txt_title" value="${article.title}">
+					 		</span>
+					 		<span class="description title">
+					 			<span>介绍:</span>
+					 			<input type="text" placeholder="介绍不得超过200个字" maxlength="200" class="txt_description" value="${article.description}">
+					 		</span>
+					 		<span class="title">
+					 			<span>标签:</span>
+							 	<ul class="select">
+									<li class="select-list">
+										<dl id="select1">
+											<dt>前端：</dt>
+											<dd class="select-all selected" onclick="addTag(this)"><a href="javascript:void(0)" title="全部">全部</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="javascript">javascript</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="jquery">jquery</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="angular">angular</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="bootstrap">bootstrap</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="vue">vue</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="react">react</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="html/css">html/css</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="node">node</a></dd>
+										</dl>
+									</li>
+									<li class="select-list">
+										<dl id="select2">
+											<dt>后台：</dt>
+											<dd class="select-all selected" onclick="addTag(this)"><a href="javascript:void(0)" title="全部">全部</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="java">java</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="spring">spring</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="springMvc">springMvc</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="mybatis">mybatis</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="struts2">struts2</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="habernate">habernate</a></dd>
+										</dl>
+									</li>
+									<li class="select-list">
+										<dl id="select3">
+											<dt>数据库：</dt>
+											<dd class="select-all selected" onclick="addTag(this)"><a href="javascript:void(0)" title="全部">全部</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="mysql">mysql</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="mongodb">mongodb</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="oracle">oracle</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="db2">db2</a></dd>
+										</dl>
+									</li>
+									<li class="select-list">
+										<dl id="select4">
+											<dt>其他：</dt>
+											<dd class="select-all selected" onclick="addTag(this)"><a href="javascript:void(0)" title="全部">全部</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="前端安全">前端安全</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="性能优化">性能优化</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="类库框架">类库框架</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="面试经验">面试经验</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="手机移动">手机移动</a></dd>
+											<dd onclick="addTag(this)"><a href="javascript:void(0)" title="工具介绍">工具介绍</a></dd>
+										</dl>
+									</li>
+									<li class="select-result">
+										<dl>
+											<dt>已选标签：</dt>
+											<dd class="select-no">暂时没有选择的标签</dd>
+										</dl>
+									</li>
+								</ul>
+					 		</span>
 				 		</div>
 				 		
-				 		<p>
-				 			音乐描述：
-				 			<input type="text" class="input m_description" placeholder="描述不得超过500个字" maxlength="500">
-				 		</p>
-				 		
-				 		<p>
-							音乐标题：
-							<input type="text" class="input m_title" readonly="readonly" placeholder="音乐标题">	
-				 		</p>
-				 		
-				 		<p>
-							演唱歌手：
-							<input type="text" class="input m_singer" readonly="readonly" placeholder="演唱歌手">	
-				 		</p>
-				 		
-				 		<p>
-							音乐大小：
-							<input type="text" class="input m_size" readonly="readonly" placeholder="音乐文件大小">	
-				 		</p>
-				 		
-				 		<p>
-							播放时长：
-							<input type="text" class="input m_time" readonly="readonly" placeholder="音乐播放时长">	
-				 		</p>
-				 		
-				 		<p>
-							音乐类型：
-							<select class="input m_category">
-								<option value="">--请选择--</option>
-								<option value="1">流行</option>
-								<option value="2">摇滚</option>
-								<option value="3">民谣</option>
-								<option value="4">名族风</option>
-								<option value="5">重金属</option>
-								<option value="6">轻音乐</option>
-								<option value="7">黑暗</option>
-								<option value="8">爵士</option>
-								<option value="9">乡村</option>
-								<option value="10">古典</option>
-								<option value="11">拉丁</option>
-								<option value="12">儿童</option>
-								<option value="13">迷幻</option>
-							</select>	
-				 		</p>
-				 		
-				 		<p style="text-align:center;float: none;">
-				 			<span class="fabiao">
-								<input type="button" class="submit" value="保存音乐" onclick="saveMusic(this);">
-							</span>
-				 		</p>
-				 	</div>
-				 </div>
-				 <!--音乐上传 end-->
-			
-			</div>
+				 		<div class="rightBox">
+				 			<div class="upload_pic">
+				 				<input type="file" id="file" onchange="uploadFile()" style="display:none;"> 
+					 			<span class="txt-pic">
+					 				<a class="uploadPic" href="javascript:void(0);" onclick="openBrowse(this,'#preview')">请添加封面图片</a>
+					 				<img id="preview" src="" data-dir="imgs/contentImg" width="100%" height="100%">
+					 			</span>
+					 		</div>
+				 		</div>
+			 		</div>
+			 		
+			 		<div class="articleWrap">
+			 			<p><span>文章正文:</span></p>
+			 			<div id="editormd">
+			 				<textarea style="display:none;">${article.article}</textarea>
+			 			</div>
+			 		</div>
+			 		
+			 		<p class="sendWrap">
+						<span class="fabiao">
+							<input type="button" class="submit" value="发表文章" onclick="saveContent(this);">
+						</span>
+			 		</p>
+			 		
+			 	</div>
+			 </div>
+			 <!--文本编辑器 end-->
 		</div>
 		<!-- 内容区域  end -->
 		
@@ -215,74 +180,209 @@
 		<%@include file="/WEB-INF/pages/fronts/common/footer.jsp"%>
 		<!-- 底部导航  end -->
 		<script type="text/javascript"> 
-			//实例化编辑器
-			//var um = UM.getEditor("myEditor");
-			
-			//获得整个html的内容
-			//function getAllHtml(myEditor){
-		    //    return UM.getEditor(myEditor).getAllHtml();
-		    //}
-			
-			//获取富文本编辑器的带有格式的文本
-			//function getPlainTxt(myEditor){
-			//	return UM.getEditor(myEditor).getPlainTxt();
-			//}
-			
-			//获取富文本编辑器的纯文本内容
-			//function getEditText(myEditor){
-			//	return UM.getEditor(myEditor).getContentTxt();
-			//}
-			//给某个富文本框赋值
-			//function setEditorText(message,myEditor){
-			//	 UM.getEditor(myEditor).setContent(message, false);//清空富文本编辑器
-			//}
 			var Editor;
 			$(function() {
-                Editor = editormd("editormd", {
-                    width   : "100%",
-                    height  : 640,
-                    syncScrolling : "single",
-                    path    : basePath + "/resources/editor/lib/",
-                    pluginPath    : basePath + "/resources/editor/plugins/",
-                    emoji   : true,
-                    codeFold: true,
-                    watch   : true,
-                    saveHTMLToTextarea : true,//需要开启配置项
-                    value   : "1234567890",
-                    theme   : "default",
-                    toolbarIcons : function() {
-                        return editormd.toolbarModes["full"]; // full, simple, mini
-                        // Using "||" set icons align right.
-                        //return ["undo", "redo", "|", "bold", "hr", "|", "preview", "watch", "|", "fullscreen", "info", "testIcon", "testIcon2", "file", "faicon", "||", "watch", "fullscreen", "preview", "testIcon"]
-                    },
-                });
-                
-                /*
-                // or
-                Editor = editormd({
-                    id      : "editormd",
-                    width   : "100%",
-                    height  : 640,
-                    path    : basePath + "/resources/editor/lib/"
-                });
-                */
+				//初始化文本编辑器
+	        	   Editor = editormd("editormd", {
+	                   width   				: "99.8%",
+	                   path    				: basePath + "/resources/editor/lib/",
+	                   pluginPath    		: basePath + "/resources/editor/plugins/",
+	                   saveHTMLToTextarea 	: true,//保存html到textarea
+	                   htmlDecode			: false,//开启html标签解析
+	                   mode                 : "gfm",          //gfm or markdown
+	                   theme                : "default",
+	                   name                 : "",
+	                   value                : "",             // value for CodeMirror, if mode not gfm/markdown
+	                   markdown             : "",
+	                   appendMarkdown       : "",             // if in init textarea value not empty, append markdown to textarea
+	                   delay                : 0,            // Delay parse markdown to html, Uint : ms
+	                   autoLoadModules      : true,           // Automatic load dependent module files
+	                   watch                : true,
+	                   placeholder          : "Enjoy Markdown! coding now...",
+	                   gotoLine             : true,
+	                   codeFold             : true,
+	                   autoHeight           : false,
+	           		   autoFocus            : true,
+	                   autoCloseTags        : true,
+	                   searchReplace        : true,
+	                   syncScrolling        : false,
+	                   readOnly             : false,
+	                   tabSize              : 4,
+	           		   indentUnit           : 4,
+	                   lineNumbers          : true,
+	           		   lineWrapping         : true,
+	           		   autoCloseBrackets    : true,
+	           		   showTrailingSpace    : true,
+	           		   matchBrackets        : true,
+	           		   indentWithTabs       : true,
+	           		   styleSelectedText    : true,
+	                   matchWordHighlight   : true,           // options: true, false, "onselected"
+	                   styleActiveLine      : true,           // Highlight the current line
+	                   dialogLockScreen     : true,
+	                   dialogShowMask       : true,
+	                   dialogDraggable      : true,
+	                   dialogMaskBgColor    : "#fff",
+	                   dialogMaskOpacity    : 0.1,
+	                   fontSize             : "14px",
+	                   disabledKeyMaps      : [],
+	                   onload               : function() {
+	                	   $("#editormd").css("min-height","260px");
+	                	   $(".editormd-preview").css("min-height","260px");
+	                	   $("#editormd").height($(".editormd-preview-container").innerHeight());
+	                	   $(".editormd-preview").height($(".editormd-preview-container").innerHeight());
+	                   },
+	                   onresize             : function() {},
+	                   onchange             : function() {},
+	                   onwatch              : null,
+	                   onunwatch            : null,
+	                   onpreviewing         : function() {
+	                	   
+	                   },
+	                   onpreviewed          : function() {
+	                	   
+	                   },
+	                   onfullscreen         : function() {},
+	                   onfullscreenExit     : function() {},
+	                   onscroll             : function() {},
+	                   onpreviewscroll      : function() {},
+	                   
+	                   imageUpload          : false,
+	                   imageFormats         : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+	                   imageUploadURL       : "",
+	                   crossDomainUpload    : false,
+	                   uploadCallbackURL    : "",
+	                   
+	                   toc                  : true,           // Table of contents
+	                   tocm                 : false,           // Using [TOCM], auto create ToC dropdown menu
+	                   tocTitle             : "",             // for ToC dropdown menu btn
+	                   tocDropdown          : false,
+	                   tocContainer         : "",
+	                   tocStartLevel        : 1,              // Said from H1 to create ToC
+	                   pageBreak            : true,           // Enable parse page break [========]
+	                   atLink               : true,           // for @link
+	                   emailLink            : true,           // for email address auto link
+	                   taskList             : true,          // Enable Github Flavored Markdown task lists
+	                   emoji                : true,          // :emoji: , Support Github emoji, Twitter Emoji (Twemoji);
+	                                                          // Support FontAwesome icon emoji :fa-xxx: > Using fontAwesome icon web fonts;
+	                                                          // Support Editor.md logo icon emoji :editormd-logo: :editormd-logo-1x: > 1~8x;
+	                   tex                  : true,          // TeX(LaTeX), based on KaTeX
+	                   flowChart            : true,          // flowChart.js only support IE9+
+	                   sequenceDiagram      : true,          // sequenceDiagram.js only support IE9+
+	                   previewCodeHighlight : true,
+	                           
+	                   toolbar              : true,           // show/hide toolbar
+	                   toolbarIcons : function() {
+	                       // Or return editormd.toolbarModes[name]; // full, simple, mini
+	                       // Using "||" set icons align right.
+	                       return [ "undo", "redo", "|", 
+	                                "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|", 
+	                                "h1", "h2", "h3", "h4", "h5", "h6", "|", 
+	                                "list-ul", "list-ol", "hr", "|",
+	                                "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime", "emoji", "html-entities", "pagebreak", "|",
+	                                "watch", "preview", "fullscreen", "clear"
+	                              ]
+	                   },
+	               });
+				
+				
+				/* 显示修改的图片  */
+				if(isNotEmpty("${article.image}")){
+					$("#preview").show().attr("src","${article.image}").css("z-index","1");
+					$(".txt-pic").append("<p><a class='editPic' href='javascript:void(0);' style='font-size:16px;'>编辑封面图片</a></p>");
+					$(".txt-pic a.editPic").attr("onclick","openBrowse(this,'#preview')");
+				}else{
+					$("#preview").hide().css("z-index","-1");
+				}
+				
+				/* 选中修改的标签  */
+				if(isNotEmpty("${article.tag}")){
+					var tags = "${article.tag}".split(",");
+					for(var i=0;i<tags.length;i++){
+						$(".select .select-list").find("dd a[title='"+tags[i]+"']").parent().trigger("click");
+					}
+				}else{
+					
+				}
+				
             });
-            
-        
 			
-			 /* 发表文章栏目  */
-			 $(".fb_aritcle").click(function(){
-				 $(this).parent().addClass("on").siblings().removeClass("on");
-				 $(".musicUploadBox").slideUp();
-				 $(".editerBox").slideDown();
-			 });
-			 /* 发表音乐栏目  */
-			 $(".fb_music").click(function(){
-				 $(this).parent().addClass("on").siblings().removeClass("on");
-				 $(".editerBox").slideUp();
-				 $(".musicUploadBox").slideDown();
-			 });
+			//上传成功后回调
+			function uploadsuccess(dom,jdata){
+				if(jdata.target=="#preview"){
+					$(jdata.target).show().attr("src",basePath+jdata.url).css("z-index","1");
+					$(".txt-pic").append("<p><a class='editPic' href='javascript:void(0)' style='font-size:16px;'>编辑封面图片</a></p>");
+					$(".txt-pic a.editPic").attr("onclick","openBrowse(this,'#preview')");
+				}
+			}
 			
+			//选择标签
+			function addTag(obj){
+				var parentDom = $(obj).parent();
+				$(obj).addClass("selected").siblings().removeClass("selected");
+				if ($(obj).hasClass("select-all")) {
+					if(parentDom.attr("id").indexOf("1")!=-1){
+						$("#selectA").remove();
+					}else if(parentDom.attr("id").indexOf("2")!=-1){
+						$("#selectB").remove();
+					}else if(parentDom.attr("id").indexOf("3")!=-1){
+						$("#selectC").remove();
+					}else if(parentDom.attr("id").indexOf("4")!=-1){
+						$("#selectD").remove();
+					}
+				}else{
+					var copyDom = "";
+					var copyDomId = "";
+					if(parentDom.attr("id").indexOf("1")!=-1){
+						copyDom = $("#selectA");
+						copyDomId = "selectA";
+					}else if(parentDom.attr("id").indexOf("2")!=-1){
+						copyDom = $("#selectB");
+						copyDomId = "selectB";
+					}else if(parentDom.attr("id").indexOf("3")!=-1){
+						copyDom = $("#selectC");
+						copyDomId = "selectC";
+					}else if(parentDom.attr("id").indexOf("4")!=-1){
+						copyDom = $("#selectD");
+						copyDomId = "selectD";
+					}
+					if (copyDom.length > 0) {
+						copyDom.find("a").html($(obj).text());
+					} else {
+						$(".select-result dl").append($(obj).clone().attr({"id": copyDomId,"onclick": "removeTag(this)"}));
+					}
+				}
+				if($(".select-result dd").length > 1) {
+					$(".select-no").hide();
+				}else{
+					$(".select-no").show();
+				}
+			}
+		
+			//删除选中的标签
+			function removeTag(obj){
+				var removeDom = "";
+				if($(obj).attr("id").indexOf("A")!=-1){
+					removeDom = $("#select1 .select-all");
+				}else if($(obj).attr("id").indexOf("B")!=-1){
+					removeDom = $("#select2 .select-all");
+				}else if($(obj).attr("id").indexOf("C")!=-1){
+					removeDom = $("#select3 .select-all");
+				}else if($(obj).attr("id").indexOf("D")!=-1){
+					removeDom = $("#select4 .select-all");
+				}
+				removeDom.addClass("selected").siblings().removeClass("selected");
+				$(obj).remove();
+			}
+			
+			//获取标签
+			function getTag(){
+				var selectTag = $(".select-result").find("dd.selected a");
+				var tags = [];
+				selectTag.each(function(){
+					tags.push($(this).text());
+				});
+				return tags.join(",");
+			}
 			 
 			/*发表文章*/
 			function saveContent(obj){
@@ -290,7 +390,8 @@
 				var description = $(".txt_description").val();
 				var img = $(".txt-pic img").attr("src");
 				var contentVal = Editor.getMarkdown();  //.getHTML();.getMarkdown();
-				var tagval = $("p .input").val();
+				var tagval = getTag();
+				
 				if(!titleVal || !description || !img || !contentVal || !tagval){
 					layer.msg("请填写完整内容...");
 					return false;
@@ -307,77 +408,17 @@
 						}
 						if(data == "success"){
 							layer.msg("文章发表成功...");
+							setTimeout(function(){
+								window.location.href = "${basePath}/index";
+							},2000);
 						}
 					}
 				}); 
 			};
 			
-			// 音乐上传成功的回调函数
-			var audioDom = document.getElementById("audio");
-			function uploadsuccess(dom,jdata){
-				if(jdata.target=="#img"){
-					$(jdata.target).css("display","block").data("img",jdata.url).attr("src",basePath+jdata.url);
-				}else if(jdata.target=="#preview"){
-					$(jdata.target).css("display","block").attr("src",basePath+jdata.url);
-				}else if(jdata.target=="#audio"){
-					$(jdata.target).attr("src",basePath+jdata.url).data("link",jdata.url);
-					$(jdata.target).attr("controls","controls").prev().hide();
-					var name = jdata.name;
-					var title = name.split("-")[1].trim().split(".")[0];
-					var singer = name.split("-")[0];
-					$(".m_size").val(jdata.size);
-					$(".m_title").val(title);
-					$(".m_singer").val(singer);
-					
-					audioDom.oncanplaythrough = function(){
-						var time = this.duration;
-						var m = Math.floor(time / 60) ;
-						var s = Math.floor(time % 60);
-						if(m<10) m = "0"+m;
-						if(s<10) s = "0"+s;
-						$(".m_time").val(m+":"+s);
-					};
-				}
-			}
 			
 			
-			/*发表音乐*/
-			function saveMusic(obj){ 
-				var img = $("#img").attr("src").substring(28);
-				var src = $("#audio").attr("src").substring(28);
-				var title = $(".m_title").val();
-				var description = $(".m_description").val();
-				var singer = $(".m_singer").val();
-				var size = $(".m_size").val();
-				var time = $(".m_time").val();
-				var category_id = $(".m_category").val();
-				
-				if(!title || !description || !img || !category_id || !src || !singer || !size || !time){
-					alert("请填写完整内容",4);
-					return false;
-				}
-				var params = {title:title,description:description,img:img,categoryId:category_id,src:src,singer:singer,size:size,time:time};
-				//alert(JSON.stringify(params));
-				//return;
-				$.ajax({
-					type:"post",
-					url:basePath+"/music/save.do",
-					data:params,
-					beforeSend:function(){alert("音乐发表中请等待...",5);},
-					success:function(data){
-						var data = data.trim();
-						if(data == "fail" || data=="error"){
-							alert("音乐发表失败...",5);
-						}
-						if(data == "success"){
-							alert("音乐发表成功...",5);
-							location.reload();
-							$(".musicUploadBox").slideUp();
-							$(".nav-tabs #music").trigger("click");
-						}
-					}
-				}); 
-			};
+			
 		</script>
 	</body>
 </html>

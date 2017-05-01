@@ -169,7 +169,7 @@
 				    <li class="list_item avatar">
 				    	<a href="javascript:;"><img class="avatar" alt="<%= session.getAttribute("userName") %>" src="${basePath}<%= session.getAttribute("headerPic") %>"></a>
 			    		<div class="triangle-top"></div>
-				    	<ul class="quick-list" >
+				    	<ul class="quick-list clearfix" >
 							<li><a href="javascript:;"><i class="iconfont icon-10"></i>我的作品</a></li>
 							<li><a href="javascript:;"><i class="iconfont icon-fonticonstar02"></i>我的收藏</a></li>
 							<li><a href="javascript:;"><i class="iconfont icon-iconmusic"></i>我的音乐</a></li>

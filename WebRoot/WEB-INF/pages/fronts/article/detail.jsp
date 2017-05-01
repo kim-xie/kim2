@@ -26,7 +26,10 @@
                <div class="cont_head">
                     <div class="conte_title overflow">
                     	<div class="titleWrap">${article.title}</div>
-                    	<div class="operationType"><a href="javascript:editArticle();" target="_blank" class="editArticle">编辑文章</a><a href="javascript:removeArticle();" class="removeArticle">删除文章</a></div>
+                    	<div class="operationType">
+                    		<a href="${basePath}/article/toEdit/${article.articleId}" class="editArticle">编辑文章</a>
+                    		<a href="javascript:removeArticle();" class="removeArticle">删除文章</a>
+                    	</div>
                     </div>
                     <div class="Classification">
                         <span class="tage">原创作品</span>
@@ -51,7 +54,7 @@
 						<span class="num">${article.hits}<strong>。</strong></span>
 					</div>
                 </div>
-                <%-- <div class="cont_details"> ${article.article} </div> --%>
+                
                 <div class="cont_details clearfix"> 
                 	<div id="editormd"><textarea> ${article.article} </textarea></div> 
                 	<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div>
@@ -196,11 +199,11 @@
         	   
 			   //初始化文本编辑器
         	   Editor = editormd("editormd", {
-                   width   : "100%",
-                   path    : basePath + "/resources/editor/lib/",
-                   pluginPath    : basePath + "/resources/editor/plugins/",
-                   saveHTMLToTextarea : true,//保存html到textarea
-                   htmlDecode: false,//开启html标签解析
+                   width   				: "100%",
+                   path    				: basePath + "/resources/editor/lib/",
+                   pluginPath    		: basePath + "/resources/editor/plugins/",
+                   saveHTMLToTextarea 	: true,//保存html到textarea
+                   htmlDecode			: false,//开启html标签解析
                    mode                 : "gfm",          //gfm or markdown
                    theme                : "default",
                    name                 : "",
@@ -218,7 +221,7 @@
                    autoCloseTags        : true,
                    searchReplace        : true,
                    syncScrolling        : false,
-                   readOnly             : false,
+                   readOnly             : true,
                    tabSize              : 4,
            		   indentUnit           : 4,
                    lineNumbers          : true,
@@ -289,28 +292,6 @@
                
            });
            
-           //编辑文章
-           function editArticle(){
-        	   var opid = $.trim($("#opid").val());
-        	   if(opid){
-        		   $.ajax({
-	   					type:"post",
-	   					data: params,
-	   					url: basePath+"/article/delete",
-	   					success:function(data){
-	   						if(data == "success"){
-	   							layer.msg("恭喜删除成功!");
-	   							setTimeout(function(){
-	   								window.location.href = "${basePath}/index";
-	   							},3000);
-	   						}else{
-	   							layer.msg("抱歉删除失败!");
-	   						}
-	   					}
-	      		   });
-        	   }
-           }
-           
            //删除文章
            function removeArticle(){
         	   var opid = $.trim($("#opid").val());
@@ -328,7 +309,7 @@
 								layer.msg("恭喜删除成功!");
 								setTimeout(function(){
 									window.location.href = "${basePath}/index";
-								},3000);
+								},1000);
 							}else{
 								layer.msg("抱歉删除失败!");
 							}
@@ -428,34 +409,37 @@
             </script>
             
             <div class="fr cont_right">
-                <div class="personal">
-                    <p>
-                        <a href="javascript:void(0)" class="user_img"><img src="${basePath}${user.headerPic}" width="100" height="100"></a>
-                    </p>
-                    <p style="margin-bottom:10px;"><a href="javascript:void(0)" class="font18">${user.name}</a></p>
-                    <a href="javascript:void(0)" class="add_tb">+</a>
-                    <div class="attention_box clearfix">
-                        <a href="javascript:void(0)" class="fens">
-                            <i>粉丝</i><br>
-                            <b>3</b>
-                        </a>
-                        <a href="javascript:void(0)" class="guanz">
-                            <i>关注</i><br>
-                            <b>15</b>
-                        </a>
-                    </div>
-                </div>
-                <div class="praise_box clearfix">
-                    <a href="javascript:void(0)" class="loves">
-                        <i>已赞</i><br>
-                        <b>${article.loves}</b>
-                        <div class="arrow-shadow"></div>
-                    </a>
-                    <a href="javascript:void(0)" class="comments">
-                        <i>评论</i><br>
-                        <b>${article.comments}</b>
-                    </a>
-                </div>
+            	<div class="works-author-aside" style="position: static;">
+            		<div class="personal">
+	                    <p>
+	                        <a href="javascript:void(0)" class="user_img"><img src="${basePath}${user.headerPic}" width="100" height="100"></a>
+	                    </p>
+	                    <p style="margin-bottom:10px;"><a href="javascript:void(0)" class="font18">${user.name}</a></p>
+	                    <a href="javascript:void(0)" class="add_tb">+</a>
+	                    <div class="attention_box clearfix">
+	                        <a href="javascript:void(0)" class="fens">
+	                            <i>粉丝</i><br>
+	                            <b>3</b>
+	                        </a>
+	                        <a href="javascript:void(0)" class="guanz">
+	                            <i>关注</i><br>
+	                            <b>15</b>
+	                        </a>
+	                    </div>
+	                </div>
+	                <div class="praise_box clearfix">
+	                    <a href="javascript:void(0)" class="loves">
+	                        <i>已赞</i><br>
+	                        <b>${article.loves}</b>
+	                        <div class="arrow-shadow"></div>
+	                    </a>
+	                    <a href="javascript:void(0)" class="comments">
+	                        <i>评论</i><br>
+	                        <b>${article.comments}</b>
+	                    </a>
+	                </div>
+            	</div>
+                
             </div>
         </div>
     </div> 
@@ -464,7 +448,18 @@
 	<!-- 底部导航  end -->
 	
     <script type="text/javascript">
- 	// 保存赞数量
+ 	
+    $(window).scroll(function(){
+		var scrollTop = $(this).scrollTop();
+		if(scrollTop >= 100){
+			$(".works-author-aside").stop(true,true).addClass("fixed1");
+		}else{
+			$(".works-author-aside").stop(true,true).removeClass("fixed1");
+		}
+	});
+    
+    
+    // 保存赞数量
  	function changeLoves(obj){
  		var $obj = $(obj);
  		var timer = null;

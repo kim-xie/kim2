@@ -32,13 +32,13 @@ function uploadFile() {
 	    var fileObj = document.getElementById("file").files[0]; // js 获取文件对象
 	    //判断文件的大小
 	    if(fileObj.size>20971520){
-	    	loading("请上传小于20MB的文件", 8);
+	    	loading("请上传小于20MB的文件", 3,true);
 	    	return;
 	    }
 	    //判断类型
 	    var ftype = fileObj.type.toLowerCase();
 	    if(ftype!="image/jpg" && ftype!="image/jpeg" && ftype!="image/png" && ftype!="image/gif" && ftype!="audio/mp3"){
-	    	loading("请上传图片或者Mp3文件(jpg/jpeg/png/gif/mp3)", 8);
+	    	loading("请上传图片或者Mp3文件(jpg/jpeg/png/gif/mp3)", 3,true);
 	    	return;
 	    }
 	    var dir = $(uploadTo).data("dir");
@@ -51,7 +51,7 @@ function uploadFile() {
 	    // 创建一个ajax对象
 	    var xhr = new XMLHttpRequest();
 	    //开始和后台的upload.jsp页面进行交换
-	    xhr.open("post", basePath+"/upload/file.do", true);
+	    xhr.open("post", basePath+"/upload/file", true);
 	    //上传成功进入的毁掉函数
 	    xhr.onreadystatechange = function(){
 			if(xhr.readyState==4 && xhr.status==200){//状态4和200代表和服务器端交互成功

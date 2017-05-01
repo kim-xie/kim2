@@ -138,6 +138,27 @@ public class ArticleController extends BaseController{
 		return modelAndView;
 	}
 	/**
+	 * 文章跳转编辑页面
+	 * @Title: template 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param params
+	 * @param @return  参数说明 
+	 * @return ModelAndView  返回类型 
+	 * @throws
+	 */
+	@RequestMapping("/toEdit/{id}")
+	public ModelAndView toEdit(@PathVariable("id")String id){
+		ModelAndView modelAndView = new ModelAndView();
+		Article article = articleService.getArticle(id);
+		Params param = new Params();
+		param.setUserId(article.getUserId());
+		User user = userService.getUser(param);
+		modelAndView.setViewName("fronts/article/common");
+		modelAndView.addObject("article",article);
+		modelAndView.addObject("user",user);
+		return modelAndView;
+	}
+	/**
 	 * 更新内容
 	 * @Title: update 
 	 * @Description: TODO(这里用一句话描述这个方法的作用) 
