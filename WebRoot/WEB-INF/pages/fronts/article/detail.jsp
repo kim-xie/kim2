@@ -70,12 +70,12 @@
                         </ul>快分享给朋友吧！
                     </div>
                     <div class="fl praise">
-                    	<a href="javascript:void(0)" data-loves="${article.loves}" data-opid="${article.articleId}" onclick="changeLoves(this);">赞</a>
-                    	${article.loves}人已经点赞
+                    	<a href="javascript:void(0);" data-loves="${article.loves}" data-opid="${article.articleId}" onclick="changeLoves(this)">赞</a>
+                    	<span class="zans">${article.loves}</span>人已经点赞
                     </div>
                     <div class="fr collect_box" style="text-align: center;">
-                        <a href="javascript:void(0)" data-collections="${article.collections}" data-opid="${article.articleId}" onclick="changeCollections(this);">点击收藏</a>
-                        ${article.collections}人已经收藏
+                        <a href="javascript:void(0);" data-collections="${article.collections}" data-opid="${article.articleId}" onclick="changeCollections(this)">点击收藏</a>
+                        <span class="collections">${article.collections}</span>人已经收藏
                     </div>
                 </div>
                 <div class="pingl_box bg_white">
@@ -187,9 +187,64 @@
                     <div class="comment_cont"></div>
                 </div>
             </div>
-            <script type="text/javascript">
+            <div class="fr cont_right">
+            	<div class="works-author-aside" style="position: static;">
+            		<div class="personal">
+	                    <p>
+	                        <a href="javascript:void(0)" class="user_img"><img src="${basePath}${user.headerPic}" width="100" height="100"></a>
+	                    </p>
+	                    <p style="margin-bottom:10px;"><a href="javascript:void(0)" class="font18">${user.name}</a></p>
+	                    <a href="javascript:void(0)" class="add_tb">+</a>
+	                    <div class="attention_box clearfix">
+	                        <a href="javascript:void(0)" class="fens">
+	                            <i>粉丝</i><br>
+	                            <b>3</b>
+	                        </a>
+	                        <a href="javascript:void(0)" class="guanz">
+	                            <i>关注</i><br>
+	                            <b>15</b>
+	                        </a>
+	                    </div>
+	                </div>
+	                <div class="praise_box clearfix">
+	                    <a href="javascript:void(0)" class="loves">
+	                        <i>已赞</i><br>
+	                        <b>${article.loves}</b>
+	                        <div class="arrow-shadow"></div>
+	                    </a>
+	                    <a href="javascript:void(0)" class="comments">
+	                        <i>评论</i><br>
+	                        <b>${article.comments}</b>
+	                    </a>
+	                </div>
+            	</div>
+                
+            </div>
+        </div>
+    </div> 
+    <!-- 底部导航  start -->
+	<%@include file="/WEB-INF/pages/fronts/common/footer.jsp"%>
+	<!-- 底部导航  end -->
+    
+    <script type="text/javascript">
            var Editor;
            $(function(){
+        	   
+        	   if(window.localStorage){
+        		   if(isNotEmpty(localStorage.getItem(loginUserName+"zan"))){
+        			   $(".praise a").text(localStorage.getItem(loginUserName+"zan"));
+        		   }else{
+        			   $(".praise a").text("赞");
+        		   }
+        		   if(isNotEmpty(localStorage.getItem(loginUserName+"collection"))){
+        			   $(".collect_box a").text(localStorage.getItem(loginUserName+"collection"));
+        		   }else{
+        			   $(".collect_box a").text("收藏");
+        		   }
+        		   ;
+        		  
+	   			}
+        	   
         	   //判断是否显示修改和删除功能
         	   if("${user.name}" == $("#topNav").attr("data-uid")){
         		   $(".operationType").show().css("left",(Math.ceil($(".conte_title .titleWrap").width())+20)+"px");
@@ -287,7 +342,7 @@
                    previewCodeHighlight : true,
                            
                    toolbar              : false,           // show/hide toolbar
-               }).css("border","none");
+               });
                
                
            });
@@ -317,8 +372,83 @@
         		   });
         		   layer.close(index);
         	   })
-        	   
            }
+           
+         //屏幕滚动设定个人信息框固定
+		    $(window).scroll(function(){
+				var scrollTop = $(this).scrollTop();
+				if(scrollTop >= 100){
+					$(".works-author-aside").stop(true,true).addClass("fixed1");
+				}else{
+					$(".works-author-aside").stop(true,true).removeClass("fixed1");
+				}
+			});
+		    
+		 	// 保存赞数量
+		 	function changeLoves(obj){
+		 		//使用javascript:changeLoves(this)获取不到this
+		 		var timer = null;
+				clearTimeout(timer);
+				timer = setTimeout(function(){
+					var loves = $(obj).attr("data-loves");
+			 		var opid = $(obj).attr("data-opid");
+					$.ajax({
+						type: "post",
+						url: basePath+"/article/"+loginUserId+"/update/"+opid+"/zan",
+						success:function(data){
+							if(data == "addZan"){
+								layer.msg("感谢您的大力点赞...",{icon:6,time:3000,shade:0.2,shadeClose:true});
+								$(".praise a").text("已赞");
+								if(window.localStorage){
+			        				localStorage.setItem(loginUserName+"zan","已赞");
+			        			}
+								window.location.reload();
+							}else if(data == "removeZan"){
+								$(".praise a").text("赞");
+								$(".praise .zans").text(loves--);
+								if(window.localStorage){
+			        				localStorage.removeItem(loginUserName+"zan");
+			        			}
+								window.location.reload();
+							}else{
+								layer.msg("抱歉!点赞失败...",{icon:5,time:3000,shade:0.2,shadeClose:true});
+							}
+						}
+					});
+				},300);
+		 	};
+		 	
+		 	// 保存收藏数量
+		 	function changeCollections(obj){
+		 		var timer = null;
+				clearTimeout(timer);
+				timer = setTimeout(function(){
+					var collections = $(obj).attr("data-collections");
+			 		var opid = $(obj).attr("data-opid");
+					$.ajax({
+						type:"post",
+						url:basePath+"/article/"+loginUserId+"/update/"+opid+"/collection",
+						success:function(data){
+							if(data == "addCollection"){
+								layer.msg("感谢您的收藏...",{icon:6,time:3000,shade:0.2,shadeClose:true});
+								$(".collect_box a").text("已收藏");
+								if(window.localStorage){
+			        				localStorage.setItem(loginUserName+"collection","已收藏");
+			        			}
+								window.location.reload();
+							}else if(data == "removeCollection"){
+								$(".collect_box a").text("收藏");
+								if(window.localStorage){
+			        				localStorage.removeItem(loginUserName+"collection");
+			        			}
+								window.location.reload();
+							}else{
+								layer.msg("抱歉!收藏失败...",{icon:5,time:3000,shade:0.2,shadeClose:true});
+							}
+						}
+					});
+				},300);
+		 	};
            
            
             // 加载评论数据
@@ -354,6 +484,7 @@
 					});
 				},300);
 			}
+            
             
             // 设置缓存
             function setCacheData(obj){
@@ -406,241 +537,137 @@
         	function replayComment(obj){
         		alert(1);
         	};
-            </script>
-            
-            <div class="fr cont_right">
-            	<div class="works-author-aside" style="position: static;">
-            		<div class="personal">
-	                    <p>
-	                        <a href="javascript:void(0)" class="user_img"><img src="${basePath}${user.headerPic}" width="100" height="100"></a>
-	                    </p>
-	                    <p style="margin-bottom:10px;"><a href="javascript:void(0)" class="font18">${user.name}</a></p>
-	                    <a href="javascript:void(0)" class="add_tb">+</a>
-	                    <div class="attention_box clearfix">
-	                        <a href="javascript:void(0)" class="fens">
-	                            <i>粉丝</i><br>
-	                            <b>3</b>
-	                        </a>
-	                        <a href="javascript:void(0)" class="guanz">
-	                            <i>关注</i><br>
-	                            <b>15</b>
-	                        </a>
-	                    </div>
-	                </div>
-	                <div class="praise_box clearfix">
-	                    <a href="javascript:void(0)" class="loves">
-	                        <i>已赞</i><br>
-	                        <b>${article.loves}</b>
-	                        <div class="arrow-shadow"></div>
-	                    </a>
-	                    <a href="javascript:void(0)" class="comments">
-	                        <i>评论</i><br>
-	                        <b>${article.comments}</b>
-	                    </a>
-	                </div>
-            	</div>
-                
-            </div>
-        </div>
-    </div> 
-    <!-- 底部导航  start -->
-	<%@include file="/WEB-INF/pages/fronts/common/footer.jsp"%>
-	<!-- 底部导航  end -->
-	
-    <script type="text/javascript">
- 	
-    $(window).scroll(function(){
-		var scrollTop = $(this).scrollTop();
-		if(scrollTop >= 100){
-			$(".works-author-aside").stop(true,true).addClass("fixed1");
-		}else{
-			$(".works-author-aside").stop(true,true).removeClass("fixed1");
-		}
-	});
-    
-    
-    // 保存赞数量
- 	function changeLoves(obj){
- 		var $obj = $(obj);
- 		var timer = null;
-		clearTimeout(timer);
-		timer = setTimeout(function(){
-			var loves = $obj.data("loves");
-	 		var id = $obj.data("opid");
-	 		loves++;
-			var params={loves:loves,id:id};
-			$.ajax({
-				type:"post",
-				url:basePath+"/article/update.do",
-				data:params,
-				success:function(data){
-					if(data == "success"){
-						loading("感谢您的点赞。。。",4);
-						$(".praise a").text("已赞").removeAttr("onclick");
-						if(window.localStorage){
-        					localStorage.setItem("zan","已赞");
-        				} 
-					}else{
-						loading("操作失败。。。",4);
-					}
-				}
-			});
-		},300);
- 	};
- 	// 保存收藏数量
- 	function changeCollections(obj){
- 		var $obj = $(obj);
- 		var timer = null;
-		clearTimeout(timer);
-		timer = setTimeout(function(){
-			var collections = $obj.data("collections");
-	 		var id = $obj.data("opid");
-	 		collections++;
-			var params={id:id,collections:collections};
-			$.ajax({
-				type:"post",
-				url:basePath+"/article/update.do",
-				data:params,
-				success:function(data){
-					if(data == "success"){
-						loading("感谢您的收藏。。。",4);
-						$(".collect_box a").text("已收藏").removeAttr("onclick");
-					}else{
-						loading("操作失败。。。",4);
-					}
-				}
-			});
-		},300);
- 	};
-    
-    // 点击显示表情
- 	$(".t_face_btn").click(function(e){
-		$(".t_face_con").toggle(500);
-		e.stopPropagation();
-	}); 
-	// 选中QQ表情添加到文本框
-	$("#q_ul").find("li").click(function(){
-		var img = $(this).find("img").clone();
-		$(".t_msg").append(img);
-	});
-	$(document).click(function(){
-		$(".t_face_con").hide(500);
-	});
-	
-	function replay(obj){
-		var txt = $(".fbpl").html();
-		if(!txt){
-			$(".fbpl").append("<div class='t_box'>"+
-					"				<div class='t_msg' contenteditable='true' onkeyup='setCacheData(this)'></div> "+
-					"				<p class='t_face'>"+
-					"					<a href='javascript:void(0);' class='t_face_btn' onclick='showface(this);'>"+
-					"						<img src='${basePath}/resources/imgs/face/cza_thumb.gif' alt='表情' width='22' height='22' />"+
-					"						<span class='facemotion'>表情</span>"+
-					"					</a>"+
-					"					<a href='javascript:void(0);' class='t_send_btn' onclick='replayComment(this);'>回 复</a>"+
-					"				</p>"+
-					"				<div class='t_face_con'>"+
-					"					<ul id='q_ul'>"+
-					"						<li><img src='${basePath}/resources/imgs/face/zz2_thumb.gif' title='[织]' width='22' height='22'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/horse2_thumb.gif' title='[神马]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/fuyun_thumb.gif' title='[浮云]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/geili_thumb.gif' title='[给力]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/wg_thumb.gif' title='[围观]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/vw_thumb.gif' title='[威武]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/panda_thumb.gif' title='[熊猫]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/rabbit_thumb.gif' title='[兔子]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/otm_thumb.gif' title='[奥特曼]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/j_thumb.gif' title='[囧]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/hufen_thumb.gif' title='[互粉]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/liwu_thumb.gif' title='[礼物]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/smilea_thumb.gif' title='[呵呵]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/tootha_thumb.gif' title='[嘻嘻]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/laugh.gif' title='[哈哈]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/tza_thumb.gif' title='[可爱]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/kl_thumb.gif' title='[可怜]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/kbsa_thumb.gif' title='[挖鼻屎]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/cj_thumb.gif' title='[吃惊]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/shamea_thumb.gif' title='[害羞]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/zy_thumb.gif' title='[挤眼]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/bz_thumb.gif' title='[闭嘴]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/bs2_thumb.gif' title='[鄙视]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/lovea_thumb.gif' title='[爱你]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/sada_thumb.gif' title='[泪]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/heia_thumb.gif' title='[偷笑]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/qq_thumb.gif' title='[亲亲]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/sb_thumb.gif' title='[生病]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/mb_thumb.gif' title='[太开心]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/ldln_thumb.gif' title='[懒得理你]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/yhh_thumb.gif' title='[右哼哼]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/zhh_thumb.gif' title='[左哼哼]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/x_thumb.gif' title='[嘘]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/cry.gif' title='[衰]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/wq_thumb.gif' title='[委屈]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/t_thumb.gif' title='[吐]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/k_thumb.gif' title='[打哈气]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/bba_thumb.gif' title='[抱抱]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/angrya_thumb.gif' title='[怒]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/yw_thumb.gif' title='[疑问]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/cza_thumb.gif' title='[馋嘴]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/88_thumb.gif' title='[拜拜]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/sk_thumb.gif' title='[思考]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/sweata_thumb.gif' title='[汗]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/sleepya_thumb.gif' title='[困]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/sleepa_thumb.gif' title='[睡觉]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/money_thumb.gif' title='[钱]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/sw_thumb.gif' title='[失望]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/cool_thumb.gif' title='[酷]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/hsa_thumb.gif' title='[花心]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/hatea_thumb.gif' title='[哼]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/gza_thumb.gif' title='[鼓掌]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/dizzya_thumb.gif' title='[晕]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/bs_thumb.gif' title='[悲伤]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/crazya_thumb.gif' title='[抓狂]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/h_thumb.gif' title='[黑线]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/yx_thumb.gif' title='[阴险]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/nm_thumb.gif' title='[怒骂]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/hearta_thumb.gif' title='[心]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/unheart.gif' title='[伤心]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/pig.gif' title='[猪头]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/ok_thumb.gif' title='[ok]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/ye_thumb.gif' title='[耶]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/good_thumb.gif' title='[good]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/no_thumb.gif' title='[不要]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/z2_thumb.gif' title='[赞]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/come_thumb.gif' title='[来]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/sad_thumb.gif' title='[弱]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/lazu_thumb.gif' title='[蜡烛]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/clock_thumb.gif' title='[钟]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/cake.gif' title='[蛋糕]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/m_thumb.gif' title='[话筒]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/weijin_thumb.gif' title='[围脖]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/lxhzhuanfa_thumb.gif' title='[转发]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/lxhluguo_thumb.gif' title='[路过这儿]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/bofubianlian_thumb.gif' title='[bofu变脸]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/gbzkun_thumb.gif' title='[gbz困]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/boboshengmenqi_thumb.gif' title='[生闷气]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/chn_buyaoya_thumb.gif' title='[不要啊]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/daxiongleibenxiong_thumb.gif' title='[dx泪奔]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/cat_yunqizhong_thumb.gif' title='[运气中]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/youqian_thumb.gif' title='[有钱]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/cf_thumb.gif' title='[冲锋]'></li>"+
-					"						<li><img src='${basePath}/resources/imgs/face/camera_thumb.gif' title='[照相机]'></li>"+
-					"					</ul>"+
-					"				</div>"+
-					"			</div>");
-			
-			$(".fbpl").find(".t_face_btn").click(function(e){
-				$(".fbpl .t_face_con").toggle(500);
+           
+        	
+		    
+		    // 点击显示表情
+		 	$(".t_face_btn").click(function(e){
+				$(".t_face_con").toggle(500);
 				e.stopPropagation();
-			});
-			$(".fbpl #q_ul").find("li").click(function(){
+			}); 
+			// 选中QQ表情添加到文本框
+			$("#q_ul").find("li").click(function(){
 				var img = $(this).find("img").clone();
-				$(".fbpl .t_msg").append(img);
+				$(".t_msg").append(img);
 			});
-		}else{
-			$(".fbpl .t_box").slideUp("slow").remove();
-		}
-	};
+			$(document).click(function(){
+				$(".t_face_con").hide(500);
+			});
+			
+			function replay(obj){
+				var txt = $(".fbpl").html();
+				if(!txt){
+					$(".fbpl").append("<div class='t_box'>"+
+							"				<div class='t_msg' contenteditable='true' onkeyup='setCacheData(this)'></div> "+
+							"				<p class='t_face'>"+
+							"					<a href='javascript:void(0);' class='t_face_btn' onclick='showface(this);'>"+
+							"						<img src='${basePath}/resources/imgs/face/cza_thumb.gif' alt='表情' width='22' height='22' />"+
+							"						<span class='facemotion'>表情</span>"+
+							"					</a>"+
+							"					<a href='javascript:void(0);' class='t_send_btn' onclick='replayComment(this);'>回 复</a>"+
+							"				</p>"+
+							"				<div class='t_face_con'>"+
+							"					<ul id='q_ul'>"+
+							"						<li><img src='${basePath}/resources/imgs/face/zz2_thumb.gif' title='[织]' width='22' height='22'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/horse2_thumb.gif' title='[神马]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/fuyun_thumb.gif' title='[浮云]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/geili_thumb.gif' title='[给力]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/wg_thumb.gif' title='[围观]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/vw_thumb.gif' title='[威武]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/panda_thumb.gif' title='[熊猫]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/rabbit_thumb.gif' title='[兔子]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/otm_thumb.gif' title='[奥特曼]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/j_thumb.gif' title='[囧]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/hufen_thumb.gif' title='[互粉]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/liwu_thumb.gif' title='[礼物]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/smilea_thumb.gif' title='[呵呵]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/tootha_thumb.gif' title='[嘻嘻]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/laugh.gif' title='[哈哈]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/tza_thumb.gif' title='[可爱]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/kl_thumb.gif' title='[可怜]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/kbsa_thumb.gif' title='[挖鼻屎]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/cj_thumb.gif' title='[吃惊]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/shamea_thumb.gif' title='[害羞]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/zy_thumb.gif' title='[挤眼]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/bz_thumb.gif' title='[闭嘴]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/bs2_thumb.gif' title='[鄙视]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/lovea_thumb.gif' title='[爱你]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/sada_thumb.gif' title='[泪]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/heia_thumb.gif' title='[偷笑]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/qq_thumb.gif' title='[亲亲]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/sb_thumb.gif' title='[生病]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/mb_thumb.gif' title='[太开心]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/ldln_thumb.gif' title='[懒得理你]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/yhh_thumb.gif' title='[右哼哼]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/zhh_thumb.gif' title='[左哼哼]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/x_thumb.gif' title='[嘘]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/cry.gif' title='[衰]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/wq_thumb.gif' title='[委屈]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/t_thumb.gif' title='[吐]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/k_thumb.gif' title='[打哈气]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/bba_thumb.gif' title='[抱抱]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/angrya_thumb.gif' title='[怒]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/yw_thumb.gif' title='[疑问]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/cza_thumb.gif' title='[馋嘴]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/88_thumb.gif' title='[拜拜]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/sk_thumb.gif' title='[思考]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/sweata_thumb.gif' title='[汗]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/sleepya_thumb.gif' title='[困]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/sleepa_thumb.gif' title='[睡觉]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/money_thumb.gif' title='[钱]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/sw_thumb.gif' title='[失望]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/cool_thumb.gif' title='[酷]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/hsa_thumb.gif' title='[花心]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/hatea_thumb.gif' title='[哼]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/gza_thumb.gif' title='[鼓掌]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/dizzya_thumb.gif' title='[晕]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/bs_thumb.gif' title='[悲伤]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/crazya_thumb.gif' title='[抓狂]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/h_thumb.gif' title='[黑线]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/yx_thumb.gif' title='[阴险]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/nm_thumb.gif' title='[怒骂]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/hearta_thumb.gif' title='[心]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/unheart.gif' title='[伤心]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/pig.gif' title='[猪头]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/ok_thumb.gif' title='[ok]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/ye_thumb.gif' title='[耶]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/good_thumb.gif' title='[good]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/no_thumb.gif' title='[不要]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/z2_thumb.gif' title='[赞]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/come_thumb.gif' title='[来]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/sad_thumb.gif' title='[弱]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/lazu_thumb.gif' title='[蜡烛]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/clock_thumb.gif' title='[钟]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/cake.gif' title='[蛋糕]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/m_thumb.gif' title='[话筒]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/weijin_thumb.gif' title='[围脖]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/lxhzhuanfa_thumb.gif' title='[转发]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/lxhluguo_thumb.gif' title='[路过这儿]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/bofubianlian_thumb.gif' title='[bofu变脸]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/gbzkun_thumb.gif' title='[gbz困]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/boboshengmenqi_thumb.gif' title='[生闷气]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/chn_buyaoya_thumb.gif' title='[不要啊]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/daxiongleibenxiong_thumb.gif' title='[dx泪奔]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/cat_yunqizhong_thumb.gif' title='[运气中]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/youqian_thumb.gif' title='[有钱]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/cf_thumb.gif' title='[冲锋]'></li>"+
+							"						<li><img src='${basePath}/resources/imgs/face/camera_thumb.gif' title='[照相机]'></li>"+
+							"					</ul>"+
+							"				</div>"+
+							"			</div>");
+					
+					$(".fbpl").find(".t_face_btn").click(function(e){
+						$(".fbpl .t_face_con").toggle(500);
+						e.stopPropagation();
+					});
+					$(".fbpl #q_ul").find("li").click(function(){
+						var img = $(this).find("img").clone();
+						$(".fbpl .t_msg").append(img);
+					});
+				}else{
+					$(".fbpl .t_box").slideUp("slow").remove();
+				}
+			};
 	
     </script>
 </body>

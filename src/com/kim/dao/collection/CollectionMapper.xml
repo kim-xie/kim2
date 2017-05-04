@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.dao.collection.ICollectionMapper" >
+	
+	<!-- 查询所有Collection -->
+	<select id="findCollections" resultType="Collections" parameterType="Params">
+		select 
+			collection_id as collectionId,
+			user_id as userId,
+			article_id as articleId,
+			is_delete as isDelete,
+			create_time as createTime,
+			update_time as updateTime
+		FROM
+			collection 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and name LIKE '%${keyword}%'
+			</if>
+		</trim>
+		ORDER BY ${order}
+		LIMIT #{pageNo} ,#{pageSize};				
+	</select>
+	
+	<!-- 根据id查询Collection -->
+	<select id="getCollection" resultType="Collections">
+		SELECT 
+		  	collection_id as collectionId,
+			user_id as userId,
+			article_id as articleId,
+			is_delete as isDelete,
+			create_time as createTime,
+			update_time as updateTime
+		FROM
+		 	collection
+	 	<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(collectionId)">
+				and collection_id = #{collectionId}
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(articleId)">
+				and article_id = #{articleId}
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(userId)">
+				and user_id = #{userId}
+			</if>
+		</trim>
+			
+	</select>
+	
+	<!-- 查询Collection的总记录数  -->
+	<select id="countCollection" resultType="int" parameterType="Params">
+		SELECT
+			count(1) 
+		FROM
+			collection 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(articleId)">
+				and article_id = #{articleId}
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 添加Collection -->
+	<insert id="saveCollection" parameterType="Collections" useGeneratedKeys="true" keyProperty="id" flushCache="true" >
+	  	INSERT INTO collection(
+			collection_id,
+			user_id,
+			article_id,
+			is_delete,
+			update_time
+	  	) VALUES (
+		  	#{collectionId},
+		  	#{userId},
+		  	#{articleId},
+		  	#{isDelete},
+		  	#{updateTime}
+	  	)
+	 </insert>
+	
+	<!-- 更新Collection -->
+	<update id="updateCollection" parameterType="Collections">
+		update collection
+		<set>
+			<if test="isDelete!=null">is_delete=#{isDelete},</if>
+			<if test="userId!=null">user_id=#{userId},</if>
+		</set>
+		where collection_id = #{collectionId}
+	</update>
+	
+	<!-- 删除Collection -->
+	<delete id="deleteCollection" parameterType="Params">
+		<!-- delete from collection where collection_id = #{collectionId} 真删 -->
+		update collection set is_delete = 1 where collection_id = #{collectionId}
+	</delete>
+	
+</mapper>

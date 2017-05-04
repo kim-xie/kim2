@@ -6,7 +6,7 @@
        <div class="shade"></div>
        <!--  -->
        <div class="cover pos">
-           <a href="${basePath}/article/detail/${article.articleId}" target="_blank" title="${article.title}">
+           <a href="${basePath}/article/detail/${article.articleId}" title="${article.title}" onclick="getLook(this);" data-opid="${article.articleId}">
                <img width="280" height="210" src="${article.image}" data-original="${article.image}" class="imgloadinglater" alt="${article.title}" rel="nofollow" style="display: inline;">
            </a>
        </div>
@@ -31,3 +31,10 @@
        <div class="line"></div>
    </li>
 </c:forEach>
+
+<script type="text/javascript">
+	function getLook(obj){
+	 	var opid = $(obj).attr("data-opid");
+		$.post(basePath+"/article/"+loginUserId+"/update/"+opid+"/hit");
+	}
+</script>

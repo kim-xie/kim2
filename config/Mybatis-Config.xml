@@ -44,5 +44,8 @@
 		<mapper resource="com/kim/dao/log/LogMapper.xml" />
 		<mapper resource="com/kim/dao/article/ArticleMapper.xml" />
 		<mapper resource="com/kim/dao/feedback/FeedBackMapper.xml" />
+		<mapper resource="com/kim/dao/zan/ZanMapper.xml" />
+		<mapper resource="com/kim/dao/collection/CollectionMapper.xml" />
+		<mapper resource="com/kim/dao/look/LookMapper.xml" />
 	</mappers> 
 </configuration> 

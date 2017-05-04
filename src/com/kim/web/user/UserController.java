@@ -171,6 +171,7 @@ public class UserController extends BaseController{
 				if(user != null && user.getName().equals(params.getName()) && user.getPassword().equals(params.getPassword()) && user.getIsActive().equals(1) && user.getIsForbid().equals(0) && user.getIsDelete().equals(0)){
 					//将用户信息放到session中
 					session.setAttribute("user",user);
+					session.setAttribute("userId",user.getUserId());
 					session.setAttribute("userName",user.getName());
 					session.setAttribute("headerPic",user.getHeaderPic());
 					//日记监控用户行为和获取请求参数

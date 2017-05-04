@@ -22,10 +22,7 @@ Date: 2015-11-29 02:02:43
 
 CREATE TABLE `[smallBeanName]` (
   `[smallBeanName]_id` varchar(32) NOT NULL,
-  `[smallBeanName]_content` varchar(100) DEFAULT NULL,
-  `app_version` varchar(100) DEFAULT NULL,
-  `[smallBeanName]_description` varchar(100) DEFAULT NULL,
-  `[smallBeanName]_status` int(1) NOT NULL,
+  `article_id` varchar(32) DEFAULT NULL,
   `user_id` varchar(32) DEFAULT NULL,
   `is_delete` int(1) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -36,7 +33,7 @@ CREATE TABLE `[smallBeanName]` (
 -- ----------------------------
 -- Records of [smallBeanName]
 -- ----------------------------
--- INSERT INTO `[smallBeanName]` VALUES ('1', '1', '柯柯', '2015-11-29 01:46:38', null, '0', '1', '1');
+--INSERT INTO `[smallBeanName]` VALUES ('1', '1', '柯柯', '2015-11-29 01:46:38', null, '0', '1', '1');
 --INSERT INTO `[smallBeanName]` VALUES ('2', '1', '柯柯2342', '2015-11-29 01:46:38', '2015-11-29 01:46:47', '0', '1', '1');
 --INSERT INTO `[smallBeanName]` VALUES ('3', '1', '柯柯23', '2015-11-29 01:46:38', '2015-11-29 01:46:47', '0', '1', '1');
 --INSERT INTO `[smallBeanName]` VALUES ('4', '1', '柯柯34', '2015-11-29 01:46:38', '2015-11-29 01:46:47', '0', '1', '1');

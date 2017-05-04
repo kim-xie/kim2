@@ -1,17 +1,21 @@
-package [beanPackage];
+package com.kim.bean;
 import java.io.Serializable;
 /**
- * [description]
- * [beanName] 
- * 创建人:[author]
- * 时间：[date]
- * qq：[qq]
- * email：[email]
+ * 文章收藏
+ * Collection 
+ * 创建人:kim
+ * 时间：2017年05月03日  10:30:21
+ * qq：1134771121
+ * email：1134771121@qq.com
  * @version 1.0.0
  */
-public class [beanName] implements Serializable {
+public class Collections implements Serializable {
+	/** 
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
+	*/ 
+	private static final long serialVersionUID = 1L;
 	// 主键
-	private String [smallBeanName]Id;
+	private String collectionId;
 	// 用户id
 	private String userId;
 	// 代码
@@ -23,15 +27,15 @@ public class [beanName] implements Serializable {
 	// 更新时间
 	private String updateTime;
 	
-	public [beanName](){
+	public Collections(){
 		super();
 	}
 
-	public String get[beanName]Id() {
-		return [smallBeanName]Id;
+	public String getCollectionId() {
+		return collectionId;
 	}
-	public void set[beanName]Id(String [smallBeanName]Id) {
-		this.[smallBeanName]Id = [smallBeanName]Id;
+	public void setCollectionId(String collectionId) {
+		this.collectionId = collectionId;
 	}
 	public String getUserId() {
 			return userId;

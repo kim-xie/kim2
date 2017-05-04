@@ -7,4 +7,10 @@
 <script type="text/javascript" src="${basePath}/resources/js/common.js"></script> 
 <script type="text/javascript" src="${basePath}/resources/layer/layer.js"></script> 
 <script type="text/javascript" src="${basePath}/resources/kimUtils/KimUtils.js"></script>
-<script type="text/javascript">var basePath="${basePath}";var adminPath="${basePath}/admin";</script>
+<script type="text/javascript">
+	var basePath = "${basePath}";
+	var adminPath = "${basePath}/admin";
+	var loginUserId = "<%= session.getAttribute("userId") %>";
+	var loginUserName = "<%= session.getAttribute("userName") %>";
+</script>
+

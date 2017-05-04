@@ -7,10 +7,7 @@
 		select 
 			[smallBeanName]_id as [smallBeanName]Id,
 			user_id as userId,
-			[smallBeanName]_content as feedBack,
-			app_version as appVersion,
-			[smallBeanName]_description as description,
-			[smallBeanName]_status as status,
+			article_id as articleId,
 			is_delete as isDelete,
 			create_time as createTime,
 			update_time as updateTime
@@ -30,10 +27,7 @@
 		SELECT 
 		  	[smallBeanName]_id as [smallBeanName]Id,
 			user_id as userId,
-			[smallBeanName]_content as feedBack,
-			app_version as appVersion,
-			[smallBeanName]_description as description,
-			[smallBeanName]_status as status,
+			article_id as articleId,
 			is_delete as isDelete,
 			create_time as createTime,
 			update_time as updateTime
@@ -61,19 +55,13 @@
 	  	INSERT INTO [smallBeanName](
 			[smallBeanName]_id,
 			user_id,
-			[smallBeanName]_content,
-			app_version,
-			[smallBeanName]_description,
-			[smallBeanName]_status,
+			article_id,
 			is_delete,
 			update_time
 	  	) VALUES (
 		  	#{[smallBeanName]Id},
 		  	#{userId},
-		  	#{feedBack},
-		  	#{appVersion},
-		  	#{description},
-		  	#{status},
+		  	#{articleId},
 		  	#{isDelete},
 		  	#{updateTime}
 	  	)

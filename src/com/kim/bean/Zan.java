@@ -1,17 +1,18 @@
-package [beanPackage];
+package com.kim.bean;
 import java.io.Serializable;
 /**
- * [description]
- * [beanName] 
- * 创建人:[author]
- * 时间：[date]
- * qq：[qq]
- * email：[email]
+ * 文章点赞
+ * Zan 
+ * 创建人:kim
+ * 时间：2017年05月03日  10:28:33
+ * qq：1134771121
+ * email：1134771121@qq.com
  * @version 1.0.0
  */
-public class [beanName] implements Serializable {
+@SuppressWarnings("serial")
+public class Zan implements Serializable {
 	// 主键
-	private String [smallBeanName]Id;
+	private String zanId;
 	// 用户id
 	private String userId;
 	// 代码
@@ -23,45 +24,57 @@ public class [beanName] implements Serializable {
 	// 更新时间
 	private String updateTime;
 	
-	public [beanName](){
+	public Zan(){
 		super();
 	}
 
-	public String get[beanName]Id() {
-		return [smallBeanName]Id;
+	public String getZanId() {
+		return zanId;
 	}
-	public void set[beanName]Id(String [smallBeanName]Id) {
-		this.[smallBeanName]Id = [smallBeanName]Id;
+
+	public void setZanId(String zanId) {
+		this.zanId = zanId;
 	}
+
 	public String getUserId() {
-			return userId;
+		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	public String getArticleId() {
-			return articleId;
+		return articleId;
 	}
+
 	public void setArticleId(String articleId) {
 		this.articleId = articleId;
 	}
+
 	public Integer getIsDelete() {
 		return isDelete;
 	}
+
 	public void setIsDelete(Integer isDelete) {
 		this.isDelete = isDelete;
 	}
+
 	public String getCreateTime() {
 		return createTime;
 	}
+
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
+
 	public String getUpdateTime() {
 		return updateTime;
 	}
+
 	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
 	}
+
 	
 }

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.dao.zan.IZanMapper" >
+	
+	<!-- 查询所有Zan -->
+	<select id="findZans" resultType="Zan" parameterType="Params">
+		select 
+			zan_id as zanId,
+			user_id as userId,
+			article_id as articleId,
+			is_delete as isDelete,
+			create_time as createTime,
+			update_time as updateTime
+		FROM
+			zan 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(keyword)">
+				and name LIKE '%${keyword}%'
+			</if>
+		</trim>
+		ORDER BY ${order}
+		LIMIT #{pageNo} ,#{pageSize};				
+	</select>
+	
+	<!-- 根据id查询Zan -->
+	<select id="getZan" resultType="Zan">
+		SELECT 
+		  	zan_id as zanId,
+			user_id as userId,
+			article_id as articleId,
+			is_delete as isDelete,
+			create_time as createTime,
+			update_time as updateTime
+		FROM
+		 	zan
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(zanId)">
+				and zan_id = #{zanId}
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(articleId)">
+				and article_id = #{articleId}
+			</if>
+			<if test="@com.kim.util.StringUtils@isNotEmpty(userId)">
+				and user_id = #{userId}
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 查询Zan的总记录数  -->
+	<select id="countZan" resultType="int" parameterType="Params">
+		SELECT
+			count(1) 
+		FROM
+			zan 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">  
+			<if test="@com.kim.util.StringUtils@isNotEmpty(articleId)">
+				and article_id = #{articleId}
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 添加Zan -->
+	<insert id="saveZan" parameterType="Zan" useGeneratedKeys="true" keyProperty="id" flushCache="true" >
+	  	INSERT INTO zan(
+			zan_id,
+			user_id,
+			article_id,
+			is_delete,
+			update_time
+	  	) VALUES (
+		  	#{zanId},
+		  	#{userId},
+		  	#{articleId},
+		  	#{isDelete},
+		  	#{updateTime}
+	  	)
+	 </insert>
+	
+	<!-- 更新Zan -->
+	<update id="updateZan" parameterType="Zan">
+		update zan
+		<set>
+			<if test="isDelete!=null">is_delete=#{isDelete},</if>
+			<if test="userId!=null">user_id=#{userId},</if>
+		</set>
+		where zan_id = #{zanId}
+	</update>
+	
+	<!-- 删除Zan -->
+	<delete id="deleteZan" parameterType="Params">
+		<!-- delete from zan where zan_id = #{zanId} 真删 -->
+		update zan set is_delete = 1 where zan_id = #{zanId}
+	</delete>
+	
+</mapper>
