@@ -167,10 +167,10 @@
 						</div>
 					</li>
 				    <li class="list_item avatar">
-				    	<a href="javascript:;"><img class="avatar" alt="<%= session.getAttribute("userName") %>" src="${basePath}<%= session.getAttribute("headerPic") %>"></a>
+				    	<a href="javascript:void(0);" title="<%= session.getAttribute("userName") %>"><img class="avatar" alt="<%= session.getAttribute("userName") %>" src="${basePath}<%= session.getAttribute("headerPic") %>"></a>
 			    		<div class="triangle-top"></div>
 				    	<ul class="quick-list clearfix" >
-							<li><a href="javascript:;"><i class="iconfont icon-10"></i>我的作品</a></li>
+							<li><a href="javascript:;"><i class="iconfont icon-10"></i>我的文章</a></li>
 							<li><a href="javascript:;"><i class="iconfont icon-fonticonstar02"></i>我的收藏</a></li>
 							<li><a href="javascript:;"><i class="iconfont icon-iconmusic"></i>我的音乐</a></li>
 							<li><a href="javascript:;"><i class="iconfont icon-user-info"></i>修改资料</a></li>
@@ -183,8 +183,6 @@
 	</div>
 	<!-- 顶部导航  end -->
 	<script type="text/javascript"> 
-	
-		
 		
 		$(function(){
 			//导航选中按钮
@@ -196,7 +194,6 @@
 				}
 			});
 		});
-		
 		
 		$(".search-hd-btn").bind("click",function(e){
 			stopBubble(e);

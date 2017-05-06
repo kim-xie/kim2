@@ -94,7 +94,7 @@ public class ArticleController extends BaseController{
 	}
 	
 	/**
-	 * 添加内容
+	 * 添加文章内容
 	 * @Title: saveArticle 
 	 * @Description: TODO(这里用一句话描述这个方法的作用) 
 	 * @param @param article
@@ -149,7 +149,7 @@ public class ArticleController extends BaseController{
 		}
 	}
 	/**
-	 * 查询详情
+	 * 查询文章详情
 	 * @Title: template 
 	 * @Description: TODO(这里用一句话描述这个方法的作用) 
 	 * @param @param params
@@ -191,8 +191,8 @@ public class ArticleController extends BaseController{
 		return modelAndView;
 	}
 	/**
-	 * 更新内容
-	 * @Title: update 
+	 * 更新文章状态
+	 * @Title: updateArticle 
 	 * @Description: TODO(这里用一句话描述这个方法的作用) 
 	 * @param @param article
 	 * @param @return  参数说明 
@@ -201,7 +201,7 @@ public class ArticleController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/{userId}/update/{id}/{type}",method=RequestMethod.POST)
-	public String update(@PathVariable("userId")String userId,@PathVariable("id")String id,@PathVariable("type")String type){
+	public String updateArticle(@PathVariable("userId")String userId,@PathVariable("id")String id,@PathVariable("type")String type){
 		Article newArticle = new Article();
 		newArticle.setArticleId(id);
 		Article article = articleService.getArticle(id);
@@ -322,10 +322,27 @@ public class ArticleController extends BaseController{
 		}
 		
 	}
-	
 	/**
 	 * 删除内容
-	 * @Title: delete 
+	 * @Title: updateArticle 
+	 * @Description: TODO(这里用一句话描述这个方法的作用) 
+	 * @param @param id
+	 * @param @return  参数说明 
+	 * @return String  返回类型 
+	 * @throws
+	 */
+	@ResponseBody
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public String updateArticle(Article article){
+		if(articleService.updateArticle(article)){
+			return "success";
+		}else{
+			return "fail";
+		}
+	}
+	/**
+	 * 删除内容
+	 * @Title: deleteArticle 
 	 * @Description: TODO(这里用一句话描述这个方法的作用) 
 	 * @param @param id
 	 * @param @return  参数说明 
@@ -334,7 +351,7 @@ public class ArticleController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
-	public String delete(Params Params){
+	public String deleteArticle(Params Params){
 		if(articleService.deleteArticle(Params)){
 			return "success";
 		}else{

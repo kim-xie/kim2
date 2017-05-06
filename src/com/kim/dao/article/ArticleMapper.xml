@@ -122,6 +122,19 @@
 	<update id="updateArticle" parameterType="Article">
 		update article 
 		<set>
+			<if test="userId!=null">user_id=#{userId},</if>
+			<if test="title!=null">title=#{title},</if>
+			<if test="subTitle!=null">subTitle=#{subTitle},</if>
+			<if test="description!=null">description=#{description},</if>
+			<if test="article!=null">article=#{article},</if>
+			<if test="staticLink!=null">static_link=#{staticLink},</if>
+			<if test="tag!=null">tag=#{tag},</if>
+			<if test="width!=null">width=#{width},</if>
+			<if test="height!=null">height=#{height},</if>
+			<if test="channelId!=null">article_channel_id=#{channelId},</if>
+			<if test="categoryId!=null">article_category_id=#{categoryId},</if>
+			<if test="type!=null">type=#{type},</if>
+			<if test="image!=null">image=#{image},</if>
 			<if test="hits!=null">hits=#{hits},</if>
 			<if test="collections!=null">collections=#{collections},</if>
 			<if test="loves!=null">loves=#{loves},</if>

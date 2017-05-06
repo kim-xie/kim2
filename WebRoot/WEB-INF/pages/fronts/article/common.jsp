@@ -272,8 +272,6 @@
 	                           
 	                   toolbar              : true,           // show/hide toolbar
 	                   toolbarIcons : function() {
-	                       // Or return editormd.toolbarModes[name]; // full, simple, mini
-	                       // Using "||" set icons align right.
 	                       return [ "undo", "redo", "|", 
 	                                "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|", 
 	                                "h1", "h2", "h3", "h4", "h5", "h6", "|", 
@@ -397,9 +395,14 @@
 					return false;
 				}
 				var params = {title:titleVal,description:description,image:img,article:contentVal,tag:tagval};
+				var url = basePath+"/article/save";
+				if("${article.articleId}"){
+					params.articleId = "${article.articleId}";
+					url = basePath+"/article/update";
+				}
 				$.ajax({
 					type: "post",
-					url: basePath+"/article/save",
+					url: url,
 					data: params,
 					beforeSend:function(){layer.msg("文章发表中请等待...");},
 					success:function(data){
