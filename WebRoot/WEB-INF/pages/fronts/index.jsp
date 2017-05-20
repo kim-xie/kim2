@@ -171,8 +171,19 @@
 		/* 分页  end */
 		
 		/* 内容区域  end */
+		
+		#clockbox{padding:0;text-align:center;}
+	    #clockbox:after{content:"";display:block;position:absolute;top:0;left:0;z-index:2;right:0;bottom:0;}
+	    #clockbox p{position:absolute;top:112px;left:68px;z-index:2}
+	    #clockbox .clock{border-radius:50%;}
+	    #clockbox .hclock{position:relative;display:inline-block;}
+	    #clockbox .hms{position:absolute;top:0;left:0;display:block;left:50px;top:50px;transform-origin:center center}
+	    .kim_clockbox{width:200px;position:fixed;bottom:10px;z-index:80;right:60px;border:1px solid #EDFFF6;border-radius:50%;height:200px;box-shadow:0 0 1em #C1B3B3;}
+	    #clocktime{position:absolute;top:50%;left:50%;z-index:2;width:100%;height:100%;margin-top:-35px;margin-left:-32px;color:#999}
+		
+		
 	</style>
-	<body style="background:#EFF3F5;">
+	<body style="background:#EFF3F5;" data-iscommpent="1">
 	
 		<input type="hidden" class="nav_model" value="首页">
 		
@@ -498,12 +509,17 @@
 		<!-- 底部导航  start -->
 		<%@include file="/WEB-INF/pages/fronts/common/footer.jsp"%>
 		<!-- 底部导航  end -->
+		<script type="text/javascript" src="${basePath}/resources/js/componment.js"></script>
 		<script type="text/javascript" src="${basePath}/resources/kimUtils/banner/banner.js"></script>
 		<script type="text/javascript" src="${basePath}/resources/js/script.js"></script>
+		<script type="text/javascript" id="c_n_script" src="${basePath}/resources/js/canvas-nest.min.js" color="47,135,193" opacity="0.5" zindex="-2" count="200"></script>
+		<canvas id="c_n21" style="position: fixed; top: 0px; left: 0px; z-index: -2; opacity: 0.5;"></canvas>
 		<script type="text/javascript"> 
 		
 			$(function(){
 				loadArticles();
+				KimCmpFactory("clock",function(h,m,s,mk){});
+				KimCommon.drag(dom("kim_clockbox"));
 			});
 			
 			
